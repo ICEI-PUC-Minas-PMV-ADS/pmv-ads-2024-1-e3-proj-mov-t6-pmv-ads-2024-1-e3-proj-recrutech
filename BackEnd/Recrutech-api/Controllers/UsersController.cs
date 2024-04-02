@@ -107,20 +107,28 @@ namespace Recrutech_api.Controllers
             return _context.Users.Any(e => e.Id == id);
         }
 
-
         [HttpPost("Login")]
-        public async Task<ActionResult<User>> LoginUser(string email, string password)
+        public async Task<ActionResult<User>> Login([FromBody] UserLoginRequest request)
         {
-            if(email == null || password == null) 
+            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
             {
                 return BadRequest("Please, fill all the fields");
             }
-            User user = await _context.Users.Where(p => p.Email == email && p.Password == password).FirstOrDefaultAsync();
+
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
             if (user == null)
             {
                 return BadRequest("Username or password are not correct");
             }
+
             return Ok(user);
         }
+
+        public class UserLoginRequest
+        {
+            public string Email { get; set; }
+            public string Senha { get; set; }
+        }
+
     }
 }
