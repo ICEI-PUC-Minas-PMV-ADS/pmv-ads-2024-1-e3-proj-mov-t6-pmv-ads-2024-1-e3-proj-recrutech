@@ -112,13 +112,13 @@ namespace Recrutech_api.Controllers
         {
             if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
             {
-                return BadRequest("Please, fill all the fields");
+                return BadRequest("Preencha todos os campos");
             }
 
             User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
             if (user == null)
             {
-                return BadRequest("Username or password are not correct");
+                return BadRequest("Nome de usuário ou senha incorretos");
             }
 
             return Ok(user);
@@ -129,6 +129,7 @@ namespace Recrutech_api.Controllers
             public string Email { get; set; }
             public string Senha { get; set; }
         }
+    }
 
     }
-}
+

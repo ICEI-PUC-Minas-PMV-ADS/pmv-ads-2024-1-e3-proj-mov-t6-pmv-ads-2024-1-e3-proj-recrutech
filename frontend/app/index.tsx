@@ -1,4 +1,9 @@
+import { useCallback } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+
+import * as SplashScreen from "expo-splash-screen";
+
+import { initializeFonts } from "@/utils/helpers";
 
 import AppTitle from "@/components/AppTitle";
 import DefaultButton from "@/components/DefaultButton";
@@ -6,11 +11,23 @@ import DefaultButton from "@/components/DefaultButton";
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function Page() {
-  const loginPath = "/login/[type]";
+  const { fontsLoaded, fontError } = initializeFonts();
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.mainContainer} onLayout={onLayoutRootView}>
       <View style={styles.headerContainer}>
         <Text style={styles.defaultText}>Bem vindo(a) ao</Text>
         <AppTitle />
@@ -22,15 +39,15 @@ export default function Page() {
           title="Procuro vagas"
           variant="secondary"
           link={{
-            pathname: loginPath,
-            params: { type: "dev" },
+            pathname: "/login/[userType]",
+            params: { userType: "dev" },
           }}
         />
         <DefaultButton
           title="Quero contratar"
           link={{
-            pathname: loginPath,
-            params: { type: "recruiter" },
+            pathname: "/login/[userType]",
+            params: { userType: "recruiter" },
           }}
         />
         <Image
@@ -46,21 +63,21 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: Colors.white,
     gap: Spacing.extraLarge,
     justifyContent: "center",
+    backgroundColor: Colors.white,
   },
   headerContainer: {
     alignItems: "center",
     gap: Spacing.medium,
   },
   bodyContainer: {
-    gap: Spacing.small,
+    gap: Spacing.smallMedium,
     maxWidth: 200,
   },
   defaultText: {
     color: Colors.black,
-    fontWeight: "bold",
+    fontFamily: "Roboto-Bold",
     fontSize: FontSize.medium,
   },
   appTitle: {
@@ -70,9 +87,6 @@ const styles = StyleSheet.create({
   },
   titleSuffix: {
     color: Colors.green,
-  },
-  buttonGreen: {
-    backgroundColor: Colors.green,
   },
   image: {
     width: 200,

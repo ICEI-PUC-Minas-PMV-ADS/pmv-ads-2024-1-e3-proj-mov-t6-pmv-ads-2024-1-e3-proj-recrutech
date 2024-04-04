@@ -3,8 +3,8 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 
 import { Colors } from "@/constants/Colors";
-import { ButtonProps } from "@/types/DefaultButton";
 import { FontSize, Spacing } from "@/constants/Sizes";
+import { ButtonProps } from "@/types/DefaultButton.interfaces";
 
 function ButtonText({ title, variant }: Partial<ButtonProps>): JSX.Element {
   return (
@@ -12,6 +12,12 @@ function ButtonText({ title, variant }: Partial<ButtonProps>): JSX.Element {
       {title}
     </Text>
   );
+}
+
+export function getButtonVariantByUser(
+  usertype: string | string[]
+): ButtonProps["variant"] {
+  return usertype === "dev" ? "secondary" : "primary";
 }
 
 export default function DefaultButton({
@@ -26,7 +32,7 @@ export default function DefaultButton({
       onPress={onPress}
     >
       {link ? (
-        <Link href={link} style={styles.link}>
+        <Link href={link} style={[styles.link]}>
           {ButtonText({ title, variant })}
         </Link>
       ) : (
@@ -38,19 +44,20 @@ export default function DefaultButton({
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: "center",
-    borderRadius: 8,
+    alignSelf: "stretch",
     color: Colors.white,
     padding: Spacing.small,
+    justifyContent: "center",
     backgroundColor: Colors.black,
+    borderRadius: Spacing.smallMedium,
   },
   link: {
     textAlign: "center",
   },
   text: {
     textAlign: "center",
-    fontWeight: "bold",
     color: Colors.white,
+    fontFamily: "Roboto-Bold",
     fontSize: FontSize.medium,
   },
   bgGreen: {
