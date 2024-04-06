@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Recrutech_api.Model;
 
 namespace Recrutech_api.Controllers
@@ -14,10 +14,12 @@ namespace Recrutech_api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly recrutechDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public UsersController(recrutechDbContext context)
+        public UsersController(recrutechDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: api/Users
@@ -124,10 +126,57 @@ namespace Recrutech_api.Controllers
             return Ok(user);
         }
 
+        [HttpPost("LoginWithAuth")]
+        public async Task<ActionResult<AuthToken>> LoginReturnToken([FromBody] UserLoginRequest request)
+        {
+            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
+            {
+                return BadRequest("Preencha todos os campos");
+            }
+
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
+            if (user == null)
+            {
+                return BadRequest("Nome de usuário ou senha incorretos");
+            }
+
+            return new AuthToken { Token = GenerateToken(user.Id, user.Email) };
+
+
+        }
+
         public class UserLoginRequest
         {
             public string Email { get; set; }
             public string Senha { get; set; }
+        }
+
+        private string GenerateToken(long Id,string Email)
+        {
+            var claims = new[]
+{
+                new Claim("id",Id.ToString()),
+                new Claim("email",Email),
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+            };
+
+            var privateKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:secretKey"]));
+
+            var credentials = new SigningCredentials(privateKey, SecurityAlgorithms.HmacSha256);
+
+            var expiration = DateTime.UtcNow.AddMinutes(10);
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: _configuration["jwt:issuer"],
+                audience: _configuration["jwt:audience"],
+                claims: claims,
+                expires: expiration,
+                signingCredentials: credentials
+                );
+
+            var t1 = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return t1;
         }
     }
 
