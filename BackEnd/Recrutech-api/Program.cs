@@ -19,7 +19,7 @@ namespace Recrutech_api
 
             builder.Services.AddEntityFrameworkNpgsql()
                      .AddDbContext<recrutechDbContext>(options =>
-                       options.UseNpgsql("Host=isabelle.db.elephantsql.com;Port=5432;Database=uqoejdrm;User ID=uqoejdrm;Password=gIhjqPb8vXjdVQ3nQNRrHh3qUAZDnuIK;"));
+                       options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
