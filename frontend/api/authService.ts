@@ -25,7 +25,7 @@ export const authService = (): AuthService => {
         }
       } catch (error) {
         isAxiosError(error) &&
-          Toast.error(`Erro ao fazer login: ${error}`, "top");
+          Toast.error(`Erro ao fazer login ${error.message}`, "top");
       }
     },
   };
