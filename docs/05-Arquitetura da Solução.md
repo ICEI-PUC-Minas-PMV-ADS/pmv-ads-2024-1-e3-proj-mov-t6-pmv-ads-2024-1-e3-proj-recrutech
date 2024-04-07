@@ -38,14 +38,14 @@ Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do ba
 
 ## Tecnologias Utilizadas
 
-Tecnologias Utilizadas
-Linguagem: JavaScript, C#
-Biblioteca: React Native,
-IDE: Visual Studio,Visual Studio Code e Expo.dev
-Ferramentas apoio Backend:  Swagger e Postgres
-Ferramenta Wireframes: Figma
-Ferramenta de Comunicação: Whatsapp e Teams
-Ferramenta de Gestão de Projeto: Trello
+- Linguagem: JavaScript, C#
+- Biblioteca: React Native,
+- IDE: Visual Studio,Visual Studio Code e Expo.dev
+- Ferramentas apoio Backend:  Swagger e Postgres
+- Ferramenta Wireframes: Figma
+- Ferramenta de Comunicação: Whatsapp e Teams
+- Ferramenta de Gestão de Projeto: Trello
+  
 ![gestaoProjeto](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/126488218/9a05b1ab-d313-4619-b6a2-498119aa026b)
 
 
