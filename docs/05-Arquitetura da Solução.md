@@ -51,8 +51,8 @@ Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do ba
 
 ## Hospedagem
 
-ElephantSQL: Utilizada para hospedagem do banco de dados PostgreSQL                                                                                                                                  
-Microsoft AzureDevOps: Utilizada para hospedagem/atualizações do BackEnd
+- ElephantSQL: Utilizada para hospedagem do banco de dados PostgreSQL                                                                                                                                  
+- Microsoft AzureDevOps: Utilizada para hospedagem/atualizações do BackEnd
 
 ## Qualidade de Software
 
