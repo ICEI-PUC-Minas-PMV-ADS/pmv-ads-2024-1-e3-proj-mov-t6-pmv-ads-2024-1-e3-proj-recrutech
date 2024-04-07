@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-import AppTitle from "./AppTitle";
+import AppTitle from "./AppTitleComponent";
 
 import { Spacing } from "@/constants/Sizes";
 import { Colors } from "@/constants/Colors";
@@ -19,7 +19,7 @@ export default function HeaderComponent() {
       </View>
 
       <Text style={styles.greetingText}>
-        <Text style={styles.textGreen}>Bem vindo,</Text> candidato!
+        <Text style={styles.textGreen}>Bem vindo,</Text> recrutador!
       </Text>
     </View>
   );

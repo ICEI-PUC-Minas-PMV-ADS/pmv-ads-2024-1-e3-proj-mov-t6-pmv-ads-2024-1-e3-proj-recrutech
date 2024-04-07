@@ -5,7 +5,7 @@ import { FontSize } from "@/constants/Sizes";
 
 import { AppTitleProps } from "@/types/AppTitle.interfaces";
 
-export default function AppTitle({
+export default function AppTitleComponent({
   size = FontSize.extraLarge,
 }: AppTitleProps) {
   return (

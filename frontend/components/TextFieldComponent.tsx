@@ -10,7 +10,7 @@ export function getFieldVariantByUser(
   return usertype === "dev" ? "secondary" : "primary";
 }
 
-export default function TextField({
+export default function TextFieldComponent({
   label,
   variant,
   secureTextEntry,
