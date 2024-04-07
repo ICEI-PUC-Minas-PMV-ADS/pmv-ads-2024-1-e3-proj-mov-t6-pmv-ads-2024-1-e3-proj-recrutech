@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Platform } from "react-native";
 
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import ToastManager, { Toast } from "toastify-react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import { authService } from "@/api/authService";
@@ -12,13 +13,16 @@ import { Spacing } from "@/constants/Sizes";
 
 import loginSchema from "@/schemas/loginSchema";
 
+import AppTitle from "@/components/AppTitle";
 import DefaultButton, {
   getButtonVariantByUser,
 } from "@/components/DefaultButton";
-import AppTitle from "@/components/AppTitle";
 import TextField, { getFieldVariantByUser } from "@/components/TextField";
 
-import { FormModel, RenderTextFieldProps } from "@/types/Login.interfaces";
+import {
+  LoginInterfaces,
+  RenderTextFieldProps,
+} from "@/types/Login.interfaces";
 
 const renderTextField = ({
   field: { onChange, value },
@@ -41,10 +45,11 @@ export default function Login() {
   const { login } = authService();
   const { userType } = useLocalSearchParams();
 
+  const router = useRouter();
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getButtonVariantByUser(userType);
 
-  const defaultValues: FormModel = {
+  const defaultValues: LoginInterfaces.Send = {
     email: "email@meuemail.com",
     password: "senha",
   };
@@ -53,14 +58,24 @@ export default function Login() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormModel>({
+  } = useForm<LoginInterfaces.Send>({
     resolver: yupResolver(loginSchema),
     defaultValues,
   });
 
-  const onSubmit: SubmitHandler<FormModel> = async (
-    data: FormModel
-  ): Promise<void> => await login(data.email, data.password);
+  const onSubmit: SubmitHandler<LoginInterfaces.Send> = async (
+    payload: LoginInterfaces.Send
+  ): Promise<void> => {
+    const response = await login(payload);
+
+    if (response) {
+      Toast.success("Login efetuado com sucesso!", "top");
+
+      setTimeout(() => {
+        router.push("/home/");
+      }, 1500);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -126,6 +141,16 @@ export default function Login() {
           <Text style={styles.text}>Voltar</Text>
         </Link>
       </View>
+      <ToastManager
+        style={{
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          width: "200",
+          position: "absolute",
+        }}
+      />
     </View>
   );
 }
