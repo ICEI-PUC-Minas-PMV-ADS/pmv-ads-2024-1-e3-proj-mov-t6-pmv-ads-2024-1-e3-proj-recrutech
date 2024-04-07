@@ -80,11 +80,12 @@ Exemplificação: A equipe utiliza metodologias ágeis, tendo escolhido o Scrum 
 Processo
 Para organização e distribuição das tarefas do projeto, a equipe está utilizando o Trello estruturado com as seguintes listas/colunas:
 
-Etapas do Projeto: recebe o cartão com cada etapa do projeto descrita dentro dele, juntamente com a data da entrega.                                                                                                                                                          - Backlog: Contem as histórias que precisarão ser desenvolvidas durante a sprint 
+Etapas do Projeto: recebe o cartão com cada etapa do projeto descrita dentro dele, juntamente com a data da entrega.                                                                                                                                                          Backlog: Contem as histórias que precisarão ser desenvolvidas durante a sprint                                                                                                                                                                        
 A fazer: Recebe o que precisa ser feito em determinada etapa do proejto, representa a sprint Backlog.                                                                                                                                                                         
 Em andamento: Representa o que está sendo feito naquele momento.                                                                                                                                                                         
 Fase de teste: Receberá todas as funcionalidades que estão em teste.                                                                                                                                                                         
 Feito/Concluido: Representa as etapas do projeto que já estão prontas para serem entregues.                                                                                                                                                                         
+![2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/106458859/663a36d5-3abb-4c59-8de8-15ca3e990336)
 
 
 ### Ferramentas
