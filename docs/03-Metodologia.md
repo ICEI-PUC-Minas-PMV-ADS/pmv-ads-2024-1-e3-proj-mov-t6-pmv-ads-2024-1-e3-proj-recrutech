@@ -77,15 +77,15 @@ Exemplificação: A equipe utiliza metodologias ágeis, tendo escolhido o Scrum 
 
 ### Processo
 
-Coloque  informações sobre detalhes da implementação do Scrum seguido pelo grupo. O grupo deverá fazer uso do recurso de gerenciamento de projeto oferecido pelo GitHub, que permite acompanhar o andamento do projeto, a execução das tarefas e o status de desenvolvimento da solução.
- 
-> **Links Úteis**:
-> - [Planejamento e Gestáo Ágil de Projetos](https://pucminas.instructure.com/courses/87878/pages/unidade-2-tema-2-utilizacao-de-ferramentas-para-controle-de-versoes-de-software)
-> - [Sobre quadros de projeto](https://docs.github.com/pt/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards)
-> - [Project management, made simple](https://github.com/features/project-management/)
-> - [Sobre quadros de projeto](https://docs.github.com/pt/github/managing-your-work-on-github/about-project-boards)
-> - [Como criar Backlogs no Github](https://www.youtube.com/watch?v=RXEy6CFu9Hk)
-> - [Tutorial Slack](https://slack.com/intl/en-br/)
+Processo
+Para organização e distribuição das tarefas do projeto, a equipe está utilizando o Trello estruturado com as seguintes listas/colunas:
+
+Etapas do Projeto: recebe o cartão com cada etapa do projeto descrita dentro dele, juntamente com a data da entrega.
+Backlog: Contem as histórias que precisarão ser desenvolvidas durante a sprint
+A fazer: Recebe o que precisa ser feito em determinada etapa do proejto, representa a sprint Backlog.
+Em andamento: Representa o que está sendo feito naquele momento.
+Fase de teste: Receberá todas as funcionalidades que estão em teste.
+Feito/Concluido: Representa as etapas do projeto que já estão prontas para serem entregues.
 
 ### Ferramentas
 
