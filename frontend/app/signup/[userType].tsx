@@ -2,13 +2,15 @@ import { Text, View, Switch, Platform, StyleSheet } from "react-native";
 
 import { Link, router, useLocalSearchParams } from "expo-router";
 
-import AppTitle from "@/components/AppTitle";
+import AppTitleComponent from "@/components/AppTitleComponent";
 
 import { Spacing } from "@/constants/Sizes";
 import { Colors } from "@/constants/Colors";
 
 import { UserType } from "@/types/User.interfaces";
-import TextField, { getFieldVariantByUser } from "@/components/TextField";
+import TextFieldComponent, {
+  getFieldVariantByUser,
+} from "@/components/TextFieldComponent";
 import DefaultButton from "@/components/DefaultButton";
 
 export default function SignUp() {
@@ -29,7 +31,7 @@ export default function SignUp() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <AppTitle />
+        <AppTitleComponent />
 
         <View style={styles.contentHeader}>
           <Text style={{ color: Colors.black }}>
@@ -44,23 +46,23 @@ export default function SignUp() {
         </View>
 
         <View style={styles.contentBody}>
-          <TextField
+          <TextFieldComponent
             label="Nome"
             placeholder="Como quer ser chamado(a)?"
             variant={fieldVariant}
           />
-          <TextField
+          <TextFieldComponent
             label="Email"
             placeholder="Digite seu melhor email"
             variant={fieldVariant}
           />
-          <TextField
+          <TextFieldComponent
             label="Senha"
             placeholder="Digite sua senha"
             variant={fieldVariant}
             secureTextEntry={true}
           />
-          <TextField
+          <TextFieldComponent
             label="Confirmar senha"
             placeholder="Confirme sua senha"
             variant={fieldVariant}
