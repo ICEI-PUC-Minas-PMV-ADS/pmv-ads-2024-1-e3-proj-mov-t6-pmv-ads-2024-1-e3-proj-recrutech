@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, Platform } from "react-native";
 
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 
+import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ToastManager, { Toast } from "toastify-react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import { authService } from "@/api/authService";
@@ -13,16 +13,19 @@ import { Spacing } from "@/constants/Sizes";
 
 import loginSchema from "@/schemas/loginSchema";
 
-import AppTitle from "@/components/AppTitle";
+import AppTitleComponent from "@/components/AppTitleComponent";
 import DefaultButton, {
   getButtonVariantByUser,
 } from "@/components/DefaultButton";
-import TextField, { getFieldVariantByUser } from "@/components/TextField";
+import TextField, {
+  getFieldVariantByUser,
+} from "@/components/TextFieldComponent";
 
 import {
   LoginInterfaces,
   RenderTextFieldProps,
 } from "@/types/Login.interfaces";
+import ToastComponent from "@/components/ToastComponent";
 
 const renderTextField = ({
   field: { onChange, value },
@@ -80,7 +83,7 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
-        <AppTitle />
+        <AppTitleComponent />
         <Controller
           name="email"
           control={control}
@@ -141,16 +144,7 @@ export default function Login() {
           <Text style={styles.text}>Voltar</Text>
         </Link>
       </View>
-      <ToastManager
-        style={{
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 2,
-          width: "200",
-          position: "absolute",
-        }}
-      />
+      <ToastComponent />
     </View>
   );
 }
