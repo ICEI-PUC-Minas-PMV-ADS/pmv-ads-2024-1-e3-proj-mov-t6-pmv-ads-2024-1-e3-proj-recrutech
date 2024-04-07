@@ -1,11 +1,17 @@
-import { AuthService } from "@/types/AuthService.interface";
 import axios, { isAxiosError } from "axios";
 
+import { LoginInterfaces } from "@/types/Login.interfaces";
+import { AuthService } from "@/types/AuthService.interface";
+
 export const authService = (): AuthService => {
-  const API_URL = "https://recrutech-webapi.azurewebsites.net/api/Users/Login";
+  const API_URL: string =
+    "https://recrutech-webapi.azurewebsites.net/api/Users/LoginWithAuth";
 
   return {
-    login: async (email: string, password: string) => {
+    login: async ({
+      email,
+      password,
+    }: LoginInterfaces.Send): Promise<LoginInterfaces.Receive | void> => {
       try {
         const response = await axios.post(`${API_URL}`, {
           email,
@@ -13,11 +19,10 @@ export const authService = (): AuthService => {
         });
 
         if (response.data) {
-          console.log(response.data);
+          return response.data;
         }
       } catch (error) {
-        isAxiosError(error) &&
-          console.error("Error fetching data: ", error.response?.data);
+        isAxiosError(error);
       }
     },
   };
