@@ -3,13 +3,13 @@
 O teste de usabilidade permite avaliar a qualidade da interface com o usuário da aplicação interativa. O Plano de Testes de Software é gerado a partir da especificação do sistema e consiste em casos de testes que deverão ser executados quando a implementação estiver parcial ou totalmente pronta.
 
 
-O plano de teste de usabilidade é parte fundamento no processo de desenvolvimento de uma aplicação. Esta etapa consiste nos procedimentos necessários para avaliar a usabilidade da plataforma, com o objetivo de garantir uma experiência satisfatória para os usuários finais. O teste de usabilidade será conduzido simulando situações reais de uso da plataforma.
+O plano de teste de usabilidade é parte fundamental no processo de desenvolvimento de uma aplicação. Esta etapa consiste nos procedimentos necessários para avaliar a usabilidade da plataforma, com o objetivo de garantir uma experiência satisfatória para os usuários finais. O teste de usabilidade serão conduzidos simulando situações reais de uso da plataforma.
 
 Objetivos do Teste:
 
-•	Avaliar a facilidade de uso da plataforma para os usuários finais, incluindo empresas e desenvolvedores.
+•	Avaliar a facilidade de uso da plataforma para os usuários finais, incluindo empresas e desenvolvedores;
 
-•	Identificar possíveis problemas de usabilidade que possam afetar a experiência do usuário.
+•	Identificar possíveis problemas de usabilidade que possam afetar a experiência do usuário;
 
 •	Coletar feedback para orientar melhorias e ajustes na interface e funcionalidades da plataforma.
 
@@ -17,9 +17,9 @@ Objetivos do Teste:
 
 Os requisitos para realização dos testes são:
 
-•	Um celular ou Tablet com o sistema Android ou IOS
+•	Um celular ou Tablet com o sistema Android ou IOS;
 
-•	Conectividade de internet para acesso ao aplicativo
+•	Conectividade de internet para acesso ao aplicativo.
 
 
 
