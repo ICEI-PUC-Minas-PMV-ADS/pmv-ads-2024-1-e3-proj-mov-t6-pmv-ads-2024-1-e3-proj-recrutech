@@ -13,13 +13,13 @@ import { Spacing } from "@/constants/Sizes";
 
 import loginSchema from "@/schemas/loginSchema";
 
-import AppTitleComponent from "@/components/AppTitleComponent";
 import DefaultButton, {
   getButtonVariantByUser,
 } from "@/components/DefaultButton";
 import TextField, {
   getFieldVariantByUser,
 } from "@/components/TextFieldComponent";
+import AppTitleComponent from "@/components/AppTitleComponent";
 
 import {
   LoginInterfaces,
