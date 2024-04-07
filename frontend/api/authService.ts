@@ -7,13 +7,13 @@ export const authService = (): AuthService => {
   return {
     login: async (email: string, password: string) => {
       try {
-        const response = await axios.post(
-          `${API_URL}?email=${encodeURIComponent(email)}&password=${password}`,
-          {}
-        );
+        const response = await axios.post(`${API_URL}`, {
+          email,
+          senha: password,
+        });
 
         if (response.data) {
-          console.log("Login successful");
+          console.log(response.data);
         }
       } catch (error) {
         isAxiosError(error) &&
