@@ -1,6 +1,12 @@
-export interface FormModel {
-  email: string;
-  password: string;
+export namespace LoginInterfaces {
+  export interface Send {
+    email: string;
+    password: string;
+  }
+
+  export interface Receive {
+    token: string;
+  }
 }
 
 export interface RenderTextFieldProps {
