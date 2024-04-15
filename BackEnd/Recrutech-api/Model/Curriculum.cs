@@ -12,12 +12,8 @@ namespace Recrutech_api.Model
         public ICollection<Course>? Course { get; set; }
         public ICollection<Experience>? Experience { get; set; }
 
-        [JsonIgnore]
         public int? UserId { get; set; }
-        [JsonIgnore]
         public User? User { get; set; }
-
-        [JsonIgnore]
         public ICollection<Vacancy>? Vacancies { get; set; }
     }
 }

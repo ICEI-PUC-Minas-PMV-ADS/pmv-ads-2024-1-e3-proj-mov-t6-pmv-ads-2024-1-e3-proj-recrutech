@@ -9,7 +9,6 @@ namespace Recrutech_api.Model
         public string? Password { get; set; }
         public string? Email { get; set; }
         public bool? IsRecruiter { get; set; }
-        [JsonIgnore]
         public long? CurriculumId { get; set; }
         public Curriculum? Curriculum { get; set; }
         public Address? Address { get; set; }

@@ -14,13 +14,9 @@ namespace Recrutech_api.Model
         public string[]? Benefits { get; set; }
         public string? Link { get; set; }
         public EContract? Contract { get; set; }
-
-        [JsonIgnore]
         public int? UserId { get; set; }
-        [JsonIgnore]
         public User? User { get; set; }
 
-        [JsonIgnore]
         public ICollection<Curriculum>? Cvs { get; set; }
     }
 

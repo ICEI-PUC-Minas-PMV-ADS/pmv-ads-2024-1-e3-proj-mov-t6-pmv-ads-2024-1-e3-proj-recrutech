@@ -4,7 +4,6 @@ namespace Recrutech_api.Model
 {
     public class Address
     {
-        [JsonIgnore]
         public int Id { get; set; }
         public string? Cep { get; set; }
         public string? Logradouro { get; set; }
@@ -15,9 +14,7 @@ namespace Recrutech_api.Model
         public string? Ibge { get; set; }
         public string? Gia { get; set; }
         public string? Siafi { get; set; }
-        [JsonIgnore]
         public int? UserId { get; set; }
-        [JsonIgnore]
         public User? User { get; set; }
 
     }
