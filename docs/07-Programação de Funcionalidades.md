@@ -1,15 +1,52 @@
 # Programação de Funcionalidades
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
+### Observação: Atualizado dia 06/04/2024.
 
-Implementação do sistema descritas por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos os artefatos criados (código fonte) além das estruturas de dados utilizadas e as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
+O aplicativo foi dividido em FrontEnd utilizando React Native e BackEnd utilizando ASP .NET Core. Atualmente o desenvolvimento está em fase inicial. Estão dispovíveis mas ainda em fase de testes as seguintes telas:
 
-Para cada requisito funcional, pode ser entregue um artefato desse tipo
 
-> **Links Úteis**:
->
-> - [Trabalhando com HTML5 Local Storage e JSON](https://www.devmedia.com.br/trabalhando-com-html5-local-storage-e-json/29045)
-> - [JSON Tutorial](https://www.w3resource.com/JSON)
-> - [JSON Data Set Sample](https://opensource.adobe.com/Spry/samples/data_region/JSONDataSetSample.html)
-> - [JSON - Introduction (W3Schools)](https://www.w3schools.com/js/js_json_intro.asp)
-> - [JSON Tutorial (TutorialsPoint)](https://www.tutorialspoint.com/json/index.htm)
+#### - Estrutura atual FrontEnd:
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/117364316/b99bb443-f29c-45e1-8fd4-208d3cba29f1)
+
+#### - Estrutura atual BackEnd:
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/117364316/cb341313-24e2-4e95-9c0c-5532f0a19f7a)
+
+#### - Funcionalidades implementadas:
+
+- Página inicial
+
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/cfc90665-bc22-43cf-9aa9-136f43cfe55e" alt="Gato fofo" width="375" height="667">
+<br><br>
+
+- Login para pessoa candidata
+
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/5bb7ae65-24f3-4835-babb-f38ded86d83b" alt="Gato fofo" width="375" height="667">
+<br><br>
+
+- Login para pessoa recrutadora
+  
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/2b538107-2a66-4b50-99b8-08792083bcda" alt="Gato fofo" width="375" height="667">
+<br><br>
+
+- Validações para email e senha:
+
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/6e03aaa1-b959-4b7f-845d-5ebb97c6333c" alt="Gato fofo" width="375" height="667">
+
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/3196c02c-5d20-4b0e-b282-50ffd26fd8fd" alt="Gato fofo" width="375" height="667">
+<br><br>
+
+- Erro ao realizar autenticação
+
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/40ba524e-a2eb-40cc-9d6d-48bb3381eec3" alt="Gato fofo" width="375" height="667">
+<br><br>
+
+- Sucesso ao realizar autenticação
+
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/0735666e-285e-4ca5-8b28-9243976ce7f2" alt="Gato fofo" width="375" height="667">
+<br><br>
+
+- Página inicial para usuário autenticado
+  
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/65717646/9f0752f7-3a3f-495c-85df-adc7f2326674" alt="Gato fofo" width="375" height="667">
+
+

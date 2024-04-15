@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Platform } from "react-native";
 
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 
+import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
@@ -15,10 +16,16 @@ import loginSchema from "@/schemas/loginSchema";
 import DefaultButton, {
   getButtonVariantByUser,
 } from "@/components/DefaultButton";
-import AppTitle from "@/components/AppTitle";
-import TextField, { getFieldVariantByUser } from "@/components/TextField";
+import TextField, {
+  getFieldVariantByUser,
+} from "@/components/TextFieldComponent";
+import AppTitleComponent from "@/components/AppTitleComponent";
 
-import { FormModel, RenderTextFieldProps } from "@/types/Login.interfaces";
+import {
+  LoginInterfaces,
+  RenderTextFieldProps,
+} from "@/types/Login.interfaces";
+import ToastComponent from "@/components/ToastComponent";
 
 const renderTextField = ({
   field: { onChange, value },
@@ -41,10 +48,11 @@ export default function Login() {
   const { login } = authService();
   const { userType } = useLocalSearchParams();
 
+  const router = useRouter();
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getButtonVariantByUser(userType);
 
-  const defaultValues: FormModel = {
+  const defaultValues: LoginInterfaces.Send = {
     email: "email@meuemail.com",
     password: "senha",
   };
@@ -53,19 +61,29 @@ export default function Login() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormModel>({
+  } = useForm<LoginInterfaces.Send>({
     resolver: yupResolver(loginSchema),
     defaultValues,
   });
 
-  const onSubmit: SubmitHandler<FormModel> = async (
-    data: FormModel
-  ): Promise<void> => await login(data.email, data.password);
+  const onSubmit: SubmitHandler<LoginInterfaces.Send> = async (
+    payload: LoginInterfaces.Send
+  ): Promise<void> => {
+    const response = await login(payload);
+
+    if (response) {
+      Toast.success("Login efetuado com sucesso!", "top");
+
+      setTimeout(() => {
+        router.push("/home/");
+      }, 1500);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
-        <AppTitle />
+        <AppTitleComponent />
         <Controller
           name="email"
           control={control}
@@ -126,6 +144,7 @@ export default function Login() {
           <Text style={styles.text}>Voltar</Text>
         </Link>
       </View>
+      <ToastComponent />
     </View>
   );
 }

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     padding: Spacing.small,
     justifyContent: "center",
     backgroundColor: Colors.black,
-    borderRadius: Spacing.smallMedium,
+    borderRadius: Spacing.small,
   },
   link: {
     textAlign: "center",

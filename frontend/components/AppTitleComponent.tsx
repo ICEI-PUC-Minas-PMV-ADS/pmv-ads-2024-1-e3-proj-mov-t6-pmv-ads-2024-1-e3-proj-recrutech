@@ -3,9 +3,18 @@ import { StyleSheet, Text } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { FontSize } from "@/constants/Sizes";
 
-export default function AppTitle() {
+import { AppTitleProps } from "@/types/AppTitle.interfaces";
+
+export default function AppTitleComponent({
+  size = FontSize.extraLarge,
+}: AppTitleProps) {
   return (
-    <Text style={styles.appTitle}>
+    <Text
+      style={{
+        ...styles.appTitle,
+        fontSize: size,
+      }}
+    >
       <Text>Recru</Text>
       <Text style={styles.titleSuffix}>Tech</Text>
     </Text>

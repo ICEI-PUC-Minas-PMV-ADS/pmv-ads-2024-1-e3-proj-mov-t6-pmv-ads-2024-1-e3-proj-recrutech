@@ -13,24 +13,25 @@ Definição de como o software é estruturado em termos dos componentes que faze
 
 O diagrama de classes ilustra graficamente como será a estrutura do software, e como cada uma das classes da sua estrutura estarão interligadas. Essas classes servem de modelo para materializar os objetos que executarão na memória.
 
-![Diagrama em branco (1)](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/126488218/e08f5490-e386-4ccc-a6da-5e7957a14269)
+![Diagrama em branco (2)](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/126488218/b4076e73-52b0-4b75-86f9-fc0fe949d555)
+
 
 
 ## Modelo ER
 
 O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.]
 
-As referências abaixo irão auxiliá-lo na geração do artefato “Modelo ER”.
+![1](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/106458859/5bdfc3b5-4cc4-4395-8fe9-cbeff4b3aa64)
 
-> - [Como fazer um diagrama entidade relacionamento | Lucidchart](https://www.lucidchart.com/pages/pt/como-fazer-um-diagrama-entidade-relacionamento)
 
 ## Esquema Relacional
 
 O Esquema Relacional corresponde à representação dos dados em tabelas juntamente com as restrições de integridade e chave primária.
 
-![WhatsApp Image 2024-03-21 at 21 16 51](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/126488218/e30ea9dd-56eb-4cba-8894-0a33a5b054f5)
+![3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/106458859/18c0f577-2e35-4e3d-97b7-988f91b21885)
 
- 
+
+
 
 ## Modelo Físico
 
@@ -38,21 +39,21 @@ Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do ba
 
 ## Tecnologias Utilizadas
 
-Tecnologias Utilizadas
-Linguagem: JavaScript, C#
-Biblioteca: React Native,
-IDE: Visual Studio,Visual Studio Code e Expo.dev
-Ferramentas apoio Backend:  Swagger e Postgres
-Ferramenta Wireframes: Figma
-Ferramenta de Comunicação: Whatsapp e Teams
-Ferramenta de Gestão de Projeto: Trello
+- Linguagem: JavaScript, C#
+- Biblioteca: React Native,
+- IDE: Visual Studio,Visual Studio Code e Expo.dev
+- Ferramentas apoio Backend:  Swagger e Postgres
+- Ferramenta Wireframes: Figma
+- Ferramenta de Comunicação: Whatsapp e Teams
+- Ferramenta de Gestão de Projeto: Trello
+  
 ![gestaoProjeto](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/126488218/9a05b1ab-d313-4619-b6a2-498119aa026b)
 
 
 ## Hospedagem
 
-ElephantSQL: Utilizada para hospedagem do banco de dados PostgreSQL                                                                                                                                  
-Microsoft AzureDevOps: Utilizada para hospedagem/atualizações do BackEnd
+- ElephantSQL: Utilizada para hospedagem do banco de dados PostgreSQL                                                                                                                                  
+- Microsoft AzureDevOps: Utilizada para hospedagem/atualizações do BackEnd
 
 ## Qualidade de Software
 
@@ -60,7 +61,8 @@ Definir qualidade é uma missão desafiadora, mas pode ser compreendida como um 
 
 No âmbito do desenvolvimento de software, qualidade pode ser interpretada como um conjunto de atributos a serem cumpridos, de modo a garantir que o produto de software atenda às demandas de seus usuários. Contudo, essa satisfação não é sempre alcançada de forma natural, necessitando de uma construção contínua. Assim, a qualidade do produto está intrinsecamente ligada ao seu processo de desenvolvimento correspondente.
 
-A norma internacional ISO/IEC 25010, uma evolução da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software. Com base nessas características e em suas respectivas subcaracterísticas, a equipe identificou, primeiramente, as subcaracterísticas que serão adotadas como referência para orientar o desenvolvimento do projeto de software, considerando alguns aspectos fundamentais de qualidade. Abaixo, são apresentadas as subcaracterísticas selecionadas, acompanhadas de justificativa e métricas de avaliação:
+A norma internacional ISO/IEC 25010, uma evolução da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software. Com base nessas características e em suas respectivas subcaracterísticas, a equipe identificou, primeiramente, as subcaracterísticas que serão adotadas como referência para orientar o desenvolvimento do projeto de software, considerando alguns aspectos fundamentais de qualidade. Abaixo, são apresentadas as subcaracterísticas selecionadas, acompanhadas de justificativa e métricas de avaliação.
+
 | Característica | Subcaracterística | Justificativa | Métrica |
 |----------------|-------------------|---------------|---------|
 | Funcionalidade | Adequação         | Para avaliar se o sistema atende bem os requisitos levantados pela equipe. | O software atende os requisitos levantados? 1- Atende 2- Atende a maioria 3- Não atende. Sendo nota 0 para o "Não atende", 3 para o "Atende a maioria" e 5 para o "Atende". |

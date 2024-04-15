@@ -1,3 +1,8 @@
+import Login from "@/app/login/[userType]";
+import { LoginInterfaces } from "./Login.interfaces";
+
 export interface AuthService {
-  login: (email: string, password: string) => Promise<void>;
+  login: (
+    data: LoginInterfaces.Send
+  ) => Promise<LoginInterfaces.Receive | void>;
 }
