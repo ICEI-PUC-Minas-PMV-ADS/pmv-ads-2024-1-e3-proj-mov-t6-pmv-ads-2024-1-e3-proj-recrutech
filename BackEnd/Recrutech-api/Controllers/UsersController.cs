@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,18 +22,17 @@ namespace Recrutech_api.Controllers
         }
 
         // GET: api/Users
-        [HttpGet]
+        [HttpGet("getAllUsers")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}")]
+        [HttpGet("getUser/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
-
             if (user == null)
             {
                 return NotFound();
@@ -42,6 +40,55 @@ namespace Recrutech_api.Controllers
 
             return user;
         }
+
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("createUser")]
+        public async Task<ActionResult<User>> PostUser(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
+
+        [HttpPost("loginWithAuth")]
+        public async Task<ActionResult<AuthToken>> LoginReturnToken([FromBody] UserLoginRequest request)
+        {
+            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
+            {
+                return BadRequest("Preencha todos os campos");
+            }
+
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
+            if (user == null)
+            {
+                return BadRequest("Nome de usuário ou senha incorretos");
+            }
+
+            return new AuthToken { Token = GenerateToken(user.Id, user.Email) };
+
+
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> Login([FromBody] UserLoginRequest request)
+        {
+            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
+            {
+                return BadRequest("Preencha todos os campos");
+            }
+
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
+            if (user == null)
+            {
+                return BadRequest("Nome de usuário ou senha incorretos");
+            }
+
+            return Ok(user);
+        }
+
+
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -77,17 +124,6 @@ namespace Recrutech_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -109,41 +145,7 @@ namespace Recrutech_api.Controllers
             return _context.Users.Any(e => e.Id == id);
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult<User>> Login([FromBody] UserLoginRequest request)
-        {
-            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
-            {
-                return BadRequest("Preencha todos os campos");
-            }
 
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
-            if (user == null)
-            {
-                return BadRequest("Nome de usuário ou senha incorretos");
-            }
-
-            return Ok(user);
-        }
-
-        [HttpPost("LoginWithAuth")]
-        public async Task<ActionResult<AuthToken>> LoginReturnToken([FromBody] UserLoginRequest request)
-        {
-            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
-            {
-                return BadRequest("Preencha todos os campos");
-            }
-
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
-            if (user == null)
-            {
-                return BadRequest("Nome de usuário ou senha incorretos");
-            }
-
-            return new AuthToken { Token = GenerateToken(user.Id, user.Email) };
-
-
-        }
 
         public class UserLoginRequest
         {
