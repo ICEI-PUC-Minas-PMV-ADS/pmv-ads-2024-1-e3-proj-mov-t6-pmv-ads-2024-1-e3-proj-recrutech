@@ -42,7 +42,8 @@
             "./assets/fonts/Roboto-Bold.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
