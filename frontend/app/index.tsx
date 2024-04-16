@@ -10,7 +10,6 @@ import DefaultButton from "@/components/DefaultButton";
 
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
-import ToastManager from "toastify-react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,7 +55,6 @@ export default function Page() {
           style={styles.image}
         />
       </View>
-      <ToastManager />
     </View>
   );
 }
