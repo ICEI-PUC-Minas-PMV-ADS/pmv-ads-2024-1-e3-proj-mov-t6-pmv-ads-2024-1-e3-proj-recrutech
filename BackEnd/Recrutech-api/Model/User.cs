@@ -14,6 +14,7 @@ namespace Recrutech_api.Model
         public Address? Address { get; set; }
         public ICollection<Vacancy>? VacanciesOwner { get; set; }
         public ICollection<UserRecommendation>? UserRecommendations { get; set; }
+        public bool IsActive { get; set; } = true;
 
     }
 }

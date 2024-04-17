@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recrutech_api.Model;
@@ -11,9 +12,10 @@ using Recrutech_api.Model;
 namespace Recrutech_api.Migrations
 {
     [DbContext(typeof(recrutechDbContext))]
-    partial class recrutechDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416232711_add-flag-IsActive")]
+    partial class addflagIsActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +62,6 @@ namespace Recrutech_api.Migrations
                     b.Property<string>("Ibge")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Localidade")
                         .HasColumnType("text");
 
@@ -103,9 +102,6 @@ namespace Recrutech_api.Migrations
                     b.Property<string>("Institution")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("MyCourse")
                         .HasColumnType("text");
 
@@ -132,9 +128,6 @@ namespace Recrutech_api.Migrations
 
                     b.Property<string>("Github")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Linkedin")
                         .HasColumnType("text");
@@ -173,9 +166,6 @@ namespace Recrutech_api.Migrations
                     b.Property<string>("Function")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTimeOffset?>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -196,9 +186,6 @@ namespace Recrutech_api.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -244,9 +231,6 @@ namespace Recrutech_api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
                     b.Property<bool?>("IsProvider")
                         .HasColumnType("boolean");
 
@@ -284,9 +268,6 @@ namespace Recrutech_api.Migrations
 
                     b.Property<string>("Enterprise")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Link")
                         .HasColumnType("text");

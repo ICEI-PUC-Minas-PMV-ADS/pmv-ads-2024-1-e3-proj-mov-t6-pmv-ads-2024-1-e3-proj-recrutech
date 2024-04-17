@@ -10,6 +10,6 @@ namespace Recrutech_api.Model
         public int? RecommendationId { get; set; }
         public bool? IsProvider { get; set; }
         public Recommendation? Recommendation { get; set; }
-       
+        public bool IsActive { get; set; } = true;
     }
 }
