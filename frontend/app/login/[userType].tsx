@@ -6,10 +6,9 @@ import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-import { authService } from "@/api/authService";
-
 import { Colors } from "@/constants/Colors";
 import { Spacing } from "@/constants/Sizes";
+import { useSession } from "@/context/AuthContext";
 
 import loginSchema from "@/schemas/loginSchema";
 
@@ -21,11 +20,7 @@ import TextField, {
 } from "@/components/TextFieldComponent";
 import AppTitleComponent from "@/components/AppTitleComponent";
 
-import {
-  LoginInterfaces,
-  RenderTextFieldProps,
-} from "@/types/Login.interfaces";
-import ToastComponent from "@/components/ToastComponent";
+import { AuthInterfaces, RenderTextFieldProps } from "@/types/Auth.interfaces";
 
 const renderTextField = ({
   field: { onChange, value },
@@ -45,38 +40,36 @@ const renderTextField = ({
 );
 
 export default function Login() {
-  const { login } = authService();
   const { userType } = useLocalSearchParams();
 
   const router = useRouter();
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getButtonVariantByUser(userType);
 
-  const defaultValues: LoginInterfaces.Send = {
+  const defaultValues: AuthInterfaces.Send = {
     email: "email@meuemail.com",
     password: "senha",
   };
+
+  const { signIn, isLoading, session } = useSession();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInterfaces.Send>({
+  } = useForm<AuthInterfaces.Send>({
     resolver: yupResolver(loginSchema),
     defaultValues,
   });
 
-  const onSubmit: SubmitHandler<LoginInterfaces.Send> = async (
-    payload: LoginInterfaces.Send
+  const onSubmit: SubmitHandler<AuthInterfaces.Send> = async (
+    payload: AuthInterfaces.Send
   ): Promise<void> => {
-    const response = await login(payload);
+    const { token }: AuthInterfaces.Receive = await signIn(payload);
 
-    if (response) {
+    if (token) {
       Toast.success("Login efetuado com sucesso!", "top");
-
-      setTimeout(() => {
-        router.push("/home/");
-      }, 1500);
+      router.push("/home/");
     }
   };
 
@@ -144,7 +137,6 @@ export default function Login() {
           <Text style={styles.text}>Voltar</Text>
         </Link>
       </View>
-      <ToastComponent />
     </View>
   );
 }

@@ -1,4 +1,4 @@
-export namespace LoginInterfaces {
+export namespace AuthInterfaces {
   export interface Send {
     email: string;
     password: string;
@@ -7,6 +7,11 @@ export namespace LoginInterfaces {
   export interface Receive {
     token: string;
   }
+}
+
+export interface AuthService {
+  signIn: (data: AuthInterfaces.Send) => Promise<AuthInterfaces.Receive | void>;
+  signOut: () => void;
 }
 
 export interface RenderTextFieldProps {
