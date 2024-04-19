@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Recrutech_api.Model;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Recrutech_api.Controllers
 {
@@ -93,7 +96,7 @@ namespace Recrutech_api.Controllers
                 return NotFound();
             }
 
-            _context.Vacancies.Remove(vacancy);
+            
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -103,24 +106,32 @@ namespace Recrutech_api.Controllers
         {
             return _context.Vacancies.Any(e => e.Id == id);
         }
-
-        [HttpPost("Vacancies")]
-        public async Task<ActionResult<Vacancy>> CreateVacancy(string name, string enterprise)
+        [HttpPost("CreateVacancies")]
+        public async Task<ActionResult<Vacancy>> CreateVacancy([FromBody] VacancyWithUserId vacancyWithUserId)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(enterprise))
+            // Verifica se o usuário é um recrutador válido
+            var user = await _context.Users.FindAsync(vacancyWithUserId.UserId);
+            if (user == null || user.IsRecruiter != true)
             {
-                return BadRequest("Please, fill all the fields");
+                return BadRequest("O usuário não é um recrutador válido.");
             }
 
-            Vacancy vacancy = await _context.Vacancies
-                .FirstOrDefaultAsync(v => v.Name == name && v.Enterprise == enterprise);
+            var newVacancy = vacancyWithUserId.Vacancy;
+            // Atribui o usuário à vaga usando apenas o UserId
+            newVacancy.UserId = vacancyWithUserId.UserId;
 
-            if (vacancy == null)
-            {
-                return BadRequest("Name or enterprise are not correct");
-            }
+            _context.Vacancies.Add(newVacancy);
+            await _context.SaveChangesAsync();
 
-            return Ok(vacancy);
+            return CreatedAtAction("GetVacancy", new { id = newVacancy.Id }, newVacancy);
         }
+
+        public class VacancyWithUserId
+        {
+            public Vacancy Vacancy { get; set; }
+            public int UserId { get; set; }
+        }
+
     }
 }
+

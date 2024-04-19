@@ -12,6 +12,8 @@ namespace Recrutech_api.Model
         public long? CurriculumId { get; set; }
         public Curriculum? Curriculum { get; set; }
         public Address? Address { get; set; }
+
+        [JsonIgnore]
         public ICollection<Vacancy>? VacanciesOwner { get; set; }
         public ICollection<UserRecommendation>? UserRecommendations { get; set; }
 
