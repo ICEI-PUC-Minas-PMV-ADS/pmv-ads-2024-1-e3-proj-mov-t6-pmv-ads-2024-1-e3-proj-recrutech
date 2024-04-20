@@ -91,14 +91,24 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 ### Requisitos Funcionais
 
-|ID    | Descrição do Requisito  | Prioridade |
-|------|-----------------------------------------|----|
-|RF-001| Permitir que o sistema autentique os usuários.| ALTA | 
-|RF-002| O sistema deve permitir o cadastro, edição, visualização e exclusão de vagas.  | ALTA |
-|RF-003| Os usuários devem poder pesquisar vagas com base em critérios como linguagem de programação, nível de experiência, remuneração e localização. | ALTA | 
-|RF-004| Os desenvolvedores devem poder enviar seus currículos para as vagas de interesse através do aplicativo.   | ALTA |
-|RF-005| Os usuários deverão receber notificações via email de acordo com suas preferências e vagas. | MÉDIA | 
-|RF-006| Os usuários recrutadores devem ter acesso ao currículo dos desenvolvedores que aplicarem para a vaga.   | ALTA |
+| ID     | Descrição do Requisito                                                                                       | Prioridade |
+|--------|--------------------------------------------------------------------------------------------------------------|------------|
+| RF-001 | Permitir que o usuário candidato se cadastre na aplicação fornecendo nome, e-mail, senha, data de nascimento, habilidades, experiência, currículo, localização, área de atuação e foto de perfil. | ALTA       |
+| RF-002 | Permitir que o usuário candidato faça login na aplicação utilizando seu e-mail e senha cadastrados.         | ALTA       |
+| RF-003 | Permitir que o usuário candidato edite seu perfil, incluindo informações como habilidades, experiência, currículo e foto de perfil. | ALTA       |
+| RF-004 | Oferecer funcionalidade para que o usuário candidato possa buscar vagas de emprego com base em critérios como linguagem de programação, nível de experiência, remuneração e localização. | MÉDIA      |
+| RF-005 | Permitir que o usuário candidato candidate-se a vagas de emprego disponíveis na plataforma.                 | ALTA       |
+| RF-006 | Permitir que o usuário candidato visualize suas candidaturas anteriores.                                      | MÉDIA      |
+| RF-007 | Implementar um sistema de notificações para informar o usuário candidato sobre novas vagas que correspondam ao seu perfil e sobre atualizações no processo seletivo das vagas às quais se candidatou. | ALTA       |
+| RF-008 | Permitir que o usuário recrutador se cadastre na plataforma fornecendo nome, e-mail, senha, empresa e área de atuação. | ALTA       |
+| RF-009 | Permitir que o usuário recrutador faça login na aplicação utilizando seu e-mail e senha cadastrados.         | ALTA       |
+| RF-010 | Permitir que o usuário recrutador edite seu perfil, incluindo informações como nome da empresa, área de atuação, etc. | ALTA       |
+| RF-011 | Permitir que o usuário recrutador cadastre vagas de emprego na plataforma, incluindo título, descrição, requisitos, responsabilidades, benefícios, data de publicação, data de expiração, salário, tipo de contrato, área de atuação, localização, empresa e status da vaga. | ALTA       |
+| RF-012 | Permitir que o usuário recrutador edite as informações de uma vaga já cadastrada.                             | ALTA       |
+| RF-013 | Permitir que o usuário recrutador visualize as vagas cadastradas por ele, incluindo detalhes e status.       | MÉDIA      |
+| RF-014 | Permitir que o usuário recrutador selecione candidatos para as vagas cadastradas e entre em contato com eles. | ALTA       |
+| RF-015 | Permitir que o usuário recrutador feche uma vaga quando a mesma for preenchida ou não estiver mais disponível. | ALTA       |
+
 
 ### Requisitos não Funcionais
 

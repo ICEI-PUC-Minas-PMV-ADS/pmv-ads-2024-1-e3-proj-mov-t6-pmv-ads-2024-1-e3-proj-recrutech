@@ -149,8 +149,8 @@ namespace Recrutech_api.Controllers
 
         public class UserLoginRequest
         {
-            public string Email { get; set; }
-            public string Senha { get; set; }
+            public string? Email { get; set; }
+            public string? Senha { get; set; }
         }
 
         private string GenerateToken(long Id,string Email)
@@ -176,9 +176,7 @@ namespace Recrutech_api.Controllers
                 signingCredentials: credentials
                 );
 
-            var t1 = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return t1;
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 

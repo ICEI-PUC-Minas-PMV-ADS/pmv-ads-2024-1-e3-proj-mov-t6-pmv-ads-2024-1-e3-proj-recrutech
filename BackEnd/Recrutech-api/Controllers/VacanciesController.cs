@@ -34,7 +34,7 @@ namespace Recrutech_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Vacancy>> GetVacancy(int id)
         {
-            var vacancy = await _context.Vacancies.FindAsync(id);
+            var vacancy =  _context.Vacancies.Where(x=> x.Id == id && x.IsActive).FirstOrDefault();
 
             if (vacancy == null)
             {
@@ -96,7 +96,7 @@ namespace Recrutech_api.Controllers
                 return NotFound();
             }
 
-            
+            vacancy.IsActive = false;
             await _context.SaveChangesAsync();
 
             return NoContent();

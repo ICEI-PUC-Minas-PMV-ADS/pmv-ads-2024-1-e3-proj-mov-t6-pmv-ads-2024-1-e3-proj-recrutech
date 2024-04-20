@@ -16,6 +16,7 @@ namespace Recrutech_api.Model
         [JsonIgnore]
         public ICollection<Vacancy>? VacanciesOwner { get; set; }
         public ICollection<UserRecommendation>? UserRecommendations { get; set; }
+        public bool IsActive { get; set; } = true;
 
     }
 }
