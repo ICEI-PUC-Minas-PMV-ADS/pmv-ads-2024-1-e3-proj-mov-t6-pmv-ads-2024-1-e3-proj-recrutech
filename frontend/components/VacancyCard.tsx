@@ -1,20 +1,15 @@
 import { Colors } from "@/constants/Colors";
-import { FontSize, Spacing } from "@/constants/Sizes";
 import { FontAwesome } from "@expo/vector-icons";
 
-import {
-  TextInput,
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+
+import { FontSize, Spacing } from "@/constants/Sizes";
 
 export default function VacancyCard() {
   return (
     <View style={styles.card}>
       <Text style={[styles.text, styles.largeText]}>
-        FrontEnd Developer{" "}
+        FrontEnd Developer
         <FontAwesome
           name="star"
           size={18}
@@ -36,13 +31,11 @@ export default function VacancyCard() {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.darkBlue,
+    width: "100%",
+    maxWidth: 300,
     padding: Spacing.medium,
     borderRadius: Spacing.small,
-    width: "85%",
-    height: "30%",
-    marginBottom: -15,
-    marginTop: -20,
+    backgroundColor: Colors.darkBlue,
   },
   text: {
     color: Colors.white,
@@ -58,17 +51,16 @@ const styles = StyleSheet.create({
     fontSize: FontSize.large,
     color: Colors.green,
   },
-
   markedText: {
-    marginTop: 20,
     gap: 20,
-    backgroundColor: Colors.green,
-    borderRadius: 15,
-    padding: 6,
     width: 710,
-    marginBottom: -10,
+    padding: 6,
+    marginTop: 20,
     marginLeft: 110,
-    textDecorationColor: Colors.black,
+    borderRadius: 15,
+    marginBottom: -10,
     color: Colors.black,
+    backgroundColor: Colors.green,
+    textDecorationColor: Colors.black,
   },
 });
