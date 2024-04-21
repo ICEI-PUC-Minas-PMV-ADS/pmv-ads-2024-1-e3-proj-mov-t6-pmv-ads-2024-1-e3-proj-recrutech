@@ -1,8 +1,12 @@
 import DefaultButton from "@/components/DefaultButton";
 import { FontSize, Spacing } from "@/constants/Sizes";
+import { useStorageState } from "@/hooks/useStorageState";
+
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
+  const [userData] = useStorageState("user");
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonWrapper}>

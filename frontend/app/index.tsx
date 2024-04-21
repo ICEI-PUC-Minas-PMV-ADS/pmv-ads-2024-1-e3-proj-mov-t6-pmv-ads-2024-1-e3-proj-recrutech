@@ -39,14 +39,14 @@ export default function Page() {
           title="Procuro vagas"
           variant="secondary"
           link={{
-            pathname: "/login/[userType]",
+            pathname: "/sign-in/[userType]",
             params: { userType: "dev" },
           }}
         />
         <DefaultButton
           title="Quero contratar"
           link={{
-            pathname: "/login/[userType]",
+            pathname: "/sign-in/[userType]",
             params: { userType: "recruiter" },
           }}
         />

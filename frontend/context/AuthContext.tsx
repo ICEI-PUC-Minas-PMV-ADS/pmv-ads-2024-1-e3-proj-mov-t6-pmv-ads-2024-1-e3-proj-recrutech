@@ -35,6 +35,8 @@ export function SessionProvider(
 ): React.JSX.Element {
   const [[isLoading, session], setSession] = useStorageState("session");
 
+  React.useEffect(() => {}, [session]);
+
   return (
     <AuthContext.Provider
       value={{
