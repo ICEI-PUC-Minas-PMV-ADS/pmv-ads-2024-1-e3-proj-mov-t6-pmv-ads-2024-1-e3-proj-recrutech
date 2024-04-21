@@ -8,6 +8,8 @@
 
 Diante da crescente demanda por profissionais de tecnologia da informação (TI) no Brasil, torna-se imperativo buscar soluções inovadoras para facilitar o encontro entre recrutadores e desenvolvedores. O objetivo deste projeto é facilitar a conexão entre empregadores e desenvolvedores por meio da criação de uma plataforma eficiente e transparente que otimize o processo de recrutamento na área de desenvolvimento de software.
 
+## Links
+https://trello.com/b/SNiL6gK1/recruitech
 
 ## Integrantes
 
