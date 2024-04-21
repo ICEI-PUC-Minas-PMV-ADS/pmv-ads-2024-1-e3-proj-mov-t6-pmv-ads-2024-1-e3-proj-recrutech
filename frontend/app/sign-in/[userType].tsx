@@ -6,6 +6,8 @@ import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
+import { getUserData } from "@/utils/user";
+
 import { Colors } from "@/constants/Colors";
 import { Spacing } from "@/constants/Sizes";
 import { useSession } from "@/context/AuthContext";
@@ -20,6 +22,7 @@ import TextField, {
 } from "@/components/TextFieldComponent";
 import AppTitleComponent from "@/components/AppTitleComponent";
 
+import { useStorageState } from "@/hooks/useStorageState";
 import { AuthInterfaces, RenderTextFieldProps } from "@/types/Auth.interfaces";
 
 const renderTextField = ({
@@ -46,12 +49,14 @@ export default function Login() {
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getButtonVariantByUser(userType);
 
+  const [_, setState] = useStorageState("user");
+
   const defaultValues: AuthInterfaces.Send = {
-    email: "email@meuemail.com",
+    email: "lucas@teste.com",
     password: "senha",
   };
 
-  const { signIn, isLoading, session } = useSession();
+  const { signIn } = useSession();
 
   const {
     control,
@@ -69,6 +74,10 @@ export default function Login() {
 
     if (token) {
       Toast.success("Login efetuado com sucesso!", "top");
+      const response = await getUserData(token);
+
+      setState(JSON.stringify(response));
+
       router.push("/home/");
     }
   };

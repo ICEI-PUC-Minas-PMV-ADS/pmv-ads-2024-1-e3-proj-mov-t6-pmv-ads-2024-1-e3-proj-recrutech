@@ -1,15 +1,18 @@
 import { StyleSheet, View } from "react-native";
 
-import { Slot } from "expo-router";
+import { Slot, router } from "expo-router";
 
 import { Spacing } from "@/constants/Sizes";
 
-import { useSession } from "@/context/AuthContext";
-
 import HeaderComponent from "@/components/HeaderComponent";
+import { useStorageState } from "@/hooks/useStorageState";
 
 export default function HomeLayout() {
-  const { session, isLoading, signIn } = useSession();
+  const [session] = useStorageState("session");
+
+  if (!session) {
+    router.replace("/sign-in/dev");
+  }
 
   return (
     <View style={styles.container}>
