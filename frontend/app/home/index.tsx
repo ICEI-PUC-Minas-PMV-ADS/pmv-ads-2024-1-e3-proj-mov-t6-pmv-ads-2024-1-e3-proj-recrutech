@@ -1,4 +1,5 @@
 import DefaultButton from "@/components/DefaultButton";
+import VacancyCard from "@/components/VacancyCard";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import { useStorageState } from "@/hooks/useStorageState";
 
@@ -20,7 +21,7 @@ export default function Home() {
           data={Array(10)}
           renderItem={({ index }) => (
             <View style={{ padding: Spacing.small }}>
-              <Text>Componente card de vaga {index}</Text>
+             <VacancyCard />
             </View>
           )}
         />
