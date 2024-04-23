@@ -2,7 +2,7 @@
 
 namespace Recrutech_api.Model
 {
-    public class UserRecommendation
+    public class UserRecommendation : DeletableItem
     {
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -10,6 +10,5 @@ namespace Recrutech_api.Model
         public int? RecommendationId { get; set; }
         public bool? IsProvider { get; set; }
         public Recommendation? Recommendation { get; set; }
-        public bool IsActive { get; set; } = true;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Recrutech_api.Model
 {
-    public class Vacancy
+    public class Vacancy : DeletableItem
     {
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -17,7 +17,6 @@ namespace Recrutech_api.Model
         public int? UserId { get; set; }
         public User? User { get; set; }
         public ICollection<Curriculum>? Cvs { get; set; }
-        public bool IsActive { get; set; } = true;
     }
 
     public enum EContract

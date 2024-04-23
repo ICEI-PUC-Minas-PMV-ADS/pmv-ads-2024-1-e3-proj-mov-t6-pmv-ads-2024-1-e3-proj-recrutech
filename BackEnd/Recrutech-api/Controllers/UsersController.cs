@@ -25,14 +25,14 @@ namespace Recrutech_api.Controllers
         [HttpGet("getAllUsers")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Where(x =>  x.IsActive).ToListAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("getUser/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FirstOrDefaultAsync(x=> x.Id == id && x.IsActive);
             if (user == null)
             {
                 return NotFound();
@@ -60,7 +60,9 @@ namespace Recrutech_api.Controllers
                 return BadRequest("Preencha todos os campos");
             }
 
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email
+                                                                && x.Password == request.Senha 
+                                                                && x.IsActive);
             if (user == null)
             {
                 return BadRequest("Nome de usuário ou senha incorretos");
@@ -96,7 +98,7 @@ namespace Recrutech_api.Controllers
         public async Task<IActionResult> PutUser(int id, User user)
         {
 
-            var userContext = await _context.Users.FindAsync(user.Id);
+            var userContext = await _context.Users.FirstOrDefaultAsync(x=> x.Id == user.Id && x.IsActive);
 
             if (id != user.Id)
             {
@@ -128,13 +130,14 @@ namespace Recrutech_api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FirstOrDefaultAsync(x=> x.Id == id && x.IsActive);;
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            user.IsActive = false;
+            _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -142,7 +145,7 @@ namespace Recrutech_api.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id && e.IsActive);
         }
 
 
