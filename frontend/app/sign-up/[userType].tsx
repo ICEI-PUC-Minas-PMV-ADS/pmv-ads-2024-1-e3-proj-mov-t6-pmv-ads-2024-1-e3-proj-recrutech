@@ -18,7 +18,7 @@ export default function SignUp() {
 
   const handleSwitch = (value: boolean) => {
     const newType: UserType = value ? "recruiter" : "dev";
-    router.replace(`/signup/${newType}`);
+    router.replace(`/sign-up/${newType}`);
   };
 
   const handleSubmit = () => {
@@ -71,7 +71,7 @@ export default function SignUp() {
         </View>
 
         <View style={styles.contentFooter}>
-          <Link href={`/login/${userType}`}>
+          <Link href={`/sign-in/${userType}`}>
             <Text style={{ color: Colors.black }}>Já tenho uma conta</Text>
           </Link>
 
