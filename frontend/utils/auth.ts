@@ -17,9 +17,7 @@ export const signIn = async ({
       senha: password,
     });
 
-    if (response.data) {
-      return response.data;
-    }
+    return response.data;
   } catch (error) {
     isAxiosError(error) &&
       Toast.error(`Erro ao fazer login ${error.message}`, "top");

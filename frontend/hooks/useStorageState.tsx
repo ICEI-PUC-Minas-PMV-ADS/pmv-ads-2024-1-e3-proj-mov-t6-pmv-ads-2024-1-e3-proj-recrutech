@@ -3,16 +3,11 @@ import React from "react";
 import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
-type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
+type UseStateHook<T> = [T | null, (value: T | null) => void];
 
-function useAsyncState<T>(
-  initialValue: [boolean, T | null] = [true, null]
-): UseStateHook<T> {
+function useAsyncState<T>(initialValue: T | null = null): UseStateHook<T> {
   return React.useReducer(
-    (
-      state: [boolean, T | null],
-      action: T | null = null
-    ): [boolean, T | null] => [false, action],
+    (_: T | null, action: T | null = null): T | null => action,
     initialValue
   ) as UseStateHook<T>;
 }
@@ -37,29 +32,33 @@ export async function setStorageItemAsync(key: string, value: string | null) {
   }
 }
 
-export function useStorageState(key: string): UseStateHook<string> {
-  const [state, setState] = useAsyncState<string>();
+export function useStorageState<T>(key: string): UseStateHook<T | null> {
+  const [state, setState] = useAsyncState<T>();
 
   React.useEffect(() => {
     if (Platform.OS === "web") {
       try {
         if (typeof localStorage !== "undefined") {
-          setState(localStorage.getItem(key));
+          const storedData = localStorage.getItem(key);
+
+          storedData !== null
+            ? setState(JSON.parse(storedData) as T)
+            : setState(null);
         }
       } catch (e) {
         console.error("Local storage is unavailable:", e);
       }
     } else {
       SecureStore.getItemAsync(key).then((value) => {
-        setState(value);
+        value !== null ? setState(JSON.parse(value) as T) : setState(value);
       });
     }
   }, [key]);
 
   const setValue = React.useCallback(
-    (value: string | null) => {
+    (value: T | null) => {
       setState(value);
-      setStorageItemAsync(key, value);
+      setStorageItemAsync(key, JSON.stringify(value));
     },
     [key]
   );

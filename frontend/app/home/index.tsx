@@ -2,12 +2,13 @@ import VacancyCard from "@/components/VacancyCard";
 import DefaultButton from "@/components/DefaultButton";
 
 import { FontSize, Spacing } from "@/constants/Sizes";
-import { useStorageState } from "@/hooks/useStorageState";
 
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useSession } from "@/context/AuthContext";
 
 export default function Home() {
-  const [userData] = useStorageState("user");
+  const { session } = useSession();
+  const isRecruiter = session?.userData.isRecruiter;
 
   return (
     <View style={styles.container}>

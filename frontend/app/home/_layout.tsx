@@ -4,11 +4,11 @@ import { Slot, router } from "expo-router";
 
 import { Spacing } from "@/constants/Sizes";
 
+import { useSession } from "@/context/AuthContext";
 import HeaderComponent from "@/components/HeaderComponent";
-import { useStorageState } from "@/hooks/useStorageState";
 
 export default function HomeLayout() {
-  const [session] = useStorageState("session");
+  const { session } = useSession();
 
   if (!session) {
     router.replace("/sign-in/dev");

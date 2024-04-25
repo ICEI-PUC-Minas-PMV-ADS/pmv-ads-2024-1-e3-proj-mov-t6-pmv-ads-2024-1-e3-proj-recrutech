@@ -2,20 +2,22 @@ import React from "react";
 
 import { signIn } from "@/utils/auth";
 import { useStorageState } from "@/hooks/useStorageState";
+
+import { Session } from "@/types/Session.interfaces";
 import ToastComponent from "@/components/ToastComponent";
 
 export interface AuthContextProps {
-  session: string | null;
-  isLoading: boolean;
-  signOut: Function;
   signIn: Function;
+  signOut: Function;
+  session: Session | null;
+  setSession: (data: Session | null) => void;
 }
 
 const AuthContext = React.createContext<AuthContextProps>({
   session: null,
-  isLoading: false,
   signIn: () => {},
   signOut: () => {},
+  setSession: () => {},
 });
 
 export function useSession(): AuthContextProps {
@@ -33,19 +35,17 @@ export function useSession(): AuthContextProps {
 export function SessionProvider(
   props: React.PropsWithChildren
 ): React.JSX.Element {
-  const [[isLoading, session], setSession] = useStorageState("session");
-
-  React.useEffect(() => {}, [session]);
+  const [session, setSession] = useStorageState<Session>("session");
 
   return (
     <AuthContext.Provider
       value={{
         signIn,
+        session,
+        setSession,
         signOut: () => {
           setSession(null);
         },
-        session,
-        isLoading,
       }}
     >
       {props.children}

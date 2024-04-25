@@ -5,7 +5,8 @@ export namespace AuthInterfaces {
   }
 
   export interface Receive {
-    token: string;
+    jwtToken: string;
+    userId: string;
   }
 }
 

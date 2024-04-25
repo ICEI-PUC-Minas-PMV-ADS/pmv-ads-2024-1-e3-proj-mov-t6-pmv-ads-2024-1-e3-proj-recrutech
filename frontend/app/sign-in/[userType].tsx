@@ -10,7 +10,6 @@ import { getUserData } from "@/utils/user";
 
 import { Colors } from "@/constants/Colors";
 import { Spacing } from "@/constants/Sizes";
-import { useSession } from "@/context/AuthContext";
 
 import loginSchema from "@/schemas/loginSchema";
 
@@ -22,7 +21,7 @@ import TextField, {
 } from "@/components/TextFieldComponent";
 import AppTitleComponent from "@/components/AppTitleComponent";
 
-import { useStorageState } from "@/hooks/useStorageState";
+import { AuthContextProps, useSession } from "@/context/AuthContext";
 import { AuthInterfaces, RenderTextFieldProps } from "@/types/Auth.interfaces";
 
 const renderTextField = ({
@@ -42,21 +41,39 @@ const renderTextField = ({
   </>
 );
 
+const handleSuccessfulAuthentication = async (
+  authResponse: AuthInterfaces.Receive,
+  setSession: AuthContextProps["setSession"]
+) => {
+  const userId = authResponse.userId;
+  const response = await getUserData(userId);
+
+  if (response && response.userName) {
+    setSession({
+      jwtToken: authResponse.jwtToken,
+      userData: {
+        id: response.id,
+        email: response.email,
+        userName: response.userName,
+        isRecruiter: response.isRecruiter,
+      },
+    });
+  }
+};
+
 export default function Login() {
   const { userType } = useLocalSearchParams();
 
   const router = useRouter();
+  const { signIn, setSession } = useSession();
+
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getButtonVariantByUser(userType);
-
-  const [_, setState] = useStorageState("user");
 
   const defaultValues: AuthInterfaces.Send = {
     email: "lucas@teste.com",
     password: "senha",
   };
-
-  const { signIn } = useSession();
 
   const {
     control,
@@ -70,15 +87,18 @@ export default function Login() {
   const onSubmit: SubmitHandler<AuthInterfaces.Send> = async (
     payload: AuthInterfaces.Send
   ): Promise<void> => {
-    const { token }: AuthInterfaces.Receive = await signIn(payload);
+    try {
+      const authResponse = await signIn(payload);
 
-    if (token) {
-      Toast.success("Login efetuado com sucesso!", "top");
-      const response = await getUserData(token);
+      if (authResponse && authResponse.jwtToken) {
+        await handleSuccessfulAuthentication(authResponse, setSession);
 
-      setState(JSON.stringify(response));
-
-      router.push("/home/");
+        Toast.success("Login efetuado com sucesso!", "top");
+        router.push("/home/");
+      }
+    } catch (error) {
+      console.error("Erro durante a autenticação:", error);
+      Toast.error("Erro durante a autenticação", "top");
     }
   };
 
@@ -133,7 +153,7 @@ export default function Login() {
             Não tem uma conta?
             <Link
               href={{
-                pathname: "/signup/[userType]",
+                pathname: "/sign-up/[userType]",
                 params: { userType: userType.toString() },
               }}
             >

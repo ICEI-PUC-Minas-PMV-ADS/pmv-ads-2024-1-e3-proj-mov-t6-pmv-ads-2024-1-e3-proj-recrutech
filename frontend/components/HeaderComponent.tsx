@@ -1,11 +1,15 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
 
 import AppTitle from "./AppTitleComponent";
 
 import { Spacing } from "@/constants/Sizes";
 import { Colors } from "@/constants/Colors";
 
+import { useSession } from "@/context/AuthContext";
+
 export default function HeaderComponent() {
+  const { session, signOut } = useSession();
+
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
@@ -19,8 +23,10 @@ export default function HeaderComponent() {
       </View>
 
       <Text style={styles.greetingText}>
-        <Text style={styles.textGreen}>Bem vindo,</Text> recrutador!
+        <Text style={styles.textGreen}>Bem vindo, </Text>
+        {session?.userData.userName || "Usuário"}
       </Text>
+      <Button title="Sair" onPress={() => signOut()} />
     </View>
   );
 }
