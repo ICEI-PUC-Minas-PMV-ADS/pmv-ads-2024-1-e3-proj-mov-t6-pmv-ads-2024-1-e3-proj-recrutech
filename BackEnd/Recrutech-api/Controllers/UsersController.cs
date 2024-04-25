@@ -1,10 +1,16 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Web.Http.OData;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using Recrutech_api.Model;
+using System.Threading.Tasks;
+using static Recrutech_api.Controllers.UsersController;
+using System.Web.Http.ModelBinding;
 
 namespace Recrutech_api.Controllers
 {
@@ -25,14 +31,16 @@ namespace Recrutech_api.Controllers
         [HttpGet("getAllUsers")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+
+            return await _context.GetAllUsers.ToListAsync();
+            
         }
 
         // GET: api/Users/5
         [HttpGet("getUser/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -44,7 +52,7 @@ namespace Recrutech_api.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("createUser")]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> CreateUser(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -53,56 +61,82 @@ namespace Recrutech_api.Controllers
         }
 
         [HttpPost("loginWithAuth")]
-        public async Task<ActionResult<AuthToken>> LoginReturnToken([FromBody] UserLoginRequest request)
+        public async Task<ActionResult<ReturnUser>> LoginReturnToken([FromBody] UserLoginRequest request)
         {
             if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
             {
                 return BadRequest("Preencha todos os campos");
             }
 
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email
+                                                                && x.Password == request.Senha 
+                                                                && x.IsActive);
             if (user == null)
             {
                 return BadRequest("Nome de usuário ou senha incorretos");
             }
-
-            return new AuthToken { Token = GenerateToken(user.Id, user.Email) };
-
-
-        }
-
-        [HttpPost("login")]
-        public async Task<ActionResult<User>> Login([FromBody] UserLoginRequest request)
-        {
-            if (string.IsNullOrEmpty(request?.Email) || string.IsNullOrEmpty(request.Senha))
+            return new ReturnUser
             {
-                return BadRequest("Preencha todos os campos");
-            }
-
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Senha);
-            if (user == null)
-            {
-                return BadRequest("Nome de usuário ou senha incorretos");
-            }
-
-            return Ok(user);
+                UserId = user.Id,
+                jwtToken = GenerateToken(user.Id, user.Email)
+            };
         }
-
 
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        [HttpPatch("UpdateUserRegistration/{id}")]
+        public async Task<IActionResult> UpdateUserRegistration(int id,[FromBody] JsonPatchDocument<User> updateUser)
         {
 
-            var userContext = await _context.Users.FindAsync(user.Id);
-
-            if (id != user.Id)
+            var userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
+            updateUser.ApplyTo(userContext, ModelState);
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
 
+            }
+            else
+            {
+
+                foreach(var values in ModelState.Values)
+                {
+                    foreach(var errors in values.Errors)
+                    {
+                        Console.WriteLine(errors.ErrorMessage);
+                    }
+                }
+            }
+            _context.Entry(userContext).State = EntityState.Modified;
+
+             try
+                  {
+                      await _context.SaveChangesAsync();
+                  }
+                  catch (DbUpdateConcurrencyException)
+                  {
+                      if (!UserExists(id))
+                      {
+                          return NotFound();
+                      }
+                      else
+                      {
+                          throw;
+                      }
+                  }
+
+            return Ok(userContext);
+        }
+
+        [HttpPatch("UpdateUserRegistrationPATCH/{id}")]
+        public async Task<IActionResult> UpdateUserRegistration(int id, Delta<User> updateUser)
+        { 
+
+            var userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
+            updateUser.Patch(userContext);
+            if (ModelState.IsValid)
+            {
+
+            }
             _context.Entry(userContext).State = EntityState.Modified;
 
             try
@@ -121,28 +155,29 @@ namespace Recrutech_api.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(userContext);
         }
-
         // DELETE: api/Users/5
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id );
             if (user == null)
             {
                 return NotFound();
             }
+            user.IsActive = false;
+            user.VacanciesOwner.ForEach(x => x.IsActive = false);
+            user.Curriculum.IsActive = false;
 
-            _context.Users.Remove(user);
+            _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok("User deleted");
         }
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id && e.IsActive);
         }
 
 
@@ -177,6 +212,14 @@ namespace Recrutech_api.Controllers
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+          
+
+        }
+
+        public class ReturnUser
+        {
+            public string? jwtToken { get; set; }
+            public long? UserId { get; set; }
         }
     }
 

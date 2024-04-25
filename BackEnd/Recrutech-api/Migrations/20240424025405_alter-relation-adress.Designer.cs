@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recrutech_api.Model;
@@ -11,9 +12,10 @@ using Recrutech_api.Model;
 namespace Recrutech_api.Migrations
 {
     [DbContext(typeof(recrutechDbContext))]
-    partial class recrutechDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424025405_alter-relation-adress")]
+    partial class alterrelationadress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,7 +148,8 @@ namespace Recrutech_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Cvs");
                 });
@@ -212,6 +215,9 @@ namespace Recrutech_api.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<long?>("AddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CurriculumId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Email")
@@ -345,8 +351,8 @@ namespace Recrutech_api.Migrations
             modelBuilder.Entity("Recrutech_api.Model.Curriculum", b =>
                 {
                     b.HasOne("Recrutech_api.Model.User", "User")
-                        .WithMany("Curriculum")
-                        .HasForeignKey("UserId");
+                        .WithOne("Curriculum")
+                        .HasForeignKey("Recrutech_api.Model.Curriculum", "UserId");
 
                     b.Navigation("User");
                 });
