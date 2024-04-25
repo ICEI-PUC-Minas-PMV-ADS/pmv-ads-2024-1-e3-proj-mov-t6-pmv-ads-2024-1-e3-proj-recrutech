@@ -6,7 +6,7 @@ namespace Recrutech_api.Model
     {
         public int Id { get; set; }
         public string? Description { get; set; }
-        public ICollection<UserRecommendation>? UserRecommendations { get; set; }
+        public List<UserRecommendation>? UserRecommendations { get; set; }
     }
 }
 

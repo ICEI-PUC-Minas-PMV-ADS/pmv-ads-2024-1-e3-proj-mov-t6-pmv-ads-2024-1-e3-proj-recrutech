@@ -16,7 +16,7 @@ namespace Recrutech_api.Model
         public EContract? Contract { get; set; }
         public int? UserId { get; set; }
         public User? User { get; set; }
-        public ICollection<Curriculum>? Cvs { get; set; }
+        public List<Curriculum>? Cvs { get; set; }
     }
 
     public enum EContract

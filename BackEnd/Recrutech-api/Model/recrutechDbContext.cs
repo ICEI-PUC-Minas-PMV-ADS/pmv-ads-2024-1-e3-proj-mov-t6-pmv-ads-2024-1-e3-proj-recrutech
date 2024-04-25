@@ -22,6 +22,18 @@ namespace Recrutech_api.Model
         public virtual DbSet<Course> Courses { get; set; } = null!;
         public virtual DbSet<Experience> Experiences { get; set; } = null!;
 
+        public IQueryable<User> GetAllUsers => Users.Where(x => x.IsActive)
+                        .Include(x => x.Address)
+                        .Include(x => x.VacanciesOwner.Where(y => y.IsActive))
+                        .Include(x => x.UserRecommendations.Where(y => y.IsActive))
+                        .Include(x => x.Curriculum);
+
+        public IQueryable<Vacancy> GetAllVacancies => Vacancies.Where(x => x.IsActive)
+                        .Include(x => x.Cvs.Where(y => y.IsActive));
+
+
+
+
 
     }
 }
