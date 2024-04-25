@@ -1,33 +1,18 @@
-import VacancyCard from "@/components/VacancyCard";
-import DefaultButton from "@/components/DefaultButton";
+import { StyleSheet, View } from "react-native";
 
-import { FontSize, Spacing } from "@/constants/Sizes";
-
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Spacing } from "@/constants/Sizes";
 import { useSession } from "@/context/AuthContext";
+
+import DeveloperHomePage from "./(developer)";
+import RecruiterHomePage from "./(recruiter)";
 
 export default function Home() {
   const { session } = useSession();
-  const isRecruiter = session?.userData.isRecruiter;
+  const { isRecruiter } = session!.userData;
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonWrapper}>
-        <DefaultButton title="Cadastrar nova vaga"></DefaultButton>
-      </View>
-      <View style={styles.jobsContainer}>
-        <FlatList
-          ListHeaderComponent={
-            <Text style={styles.jobsContainerTitle}>Suas vagas</Text>
-          }
-          data={Array(10)}
-          renderItem={({ index }) => (
-            <View style={{ padding: Spacing.small }}>
-              <VacancyCard />
-            </View>
-          )}
-        />
-      </View>
+      {isRecruiter ? <RecruiterHomePage /> : <DeveloperHomePage />}
     </View>
   );
 }
@@ -39,17 +24,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     marginTop: Spacing.large,
-  },
-  buttonWrapper: {
-    width: "60%",
-  },
-  jobsContainer: {
-    width: "100%",
-    padding: Spacing.smallMedium,
-  },
-  jobsContainerTitle: {
-    fontSize: FontSize.mediunLarge,
-    marginTop: Spacing.smallMedium,
-    fontFamily: "Roboto-Regular",
   },
 });
