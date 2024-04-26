@@ -21,6 +21,7 @@ namespace Recrutech_api.Controllers
         public VacanciesController(recrutechDbContext context)
         {
             _context = context;
+
         }
 
         // GET: api/Vacancies
