@@ -1,60 +1,90 @@
-import { Colors } from "@/constants/Colors";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Text,
+  View,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-interface RecentVacancyCardProps{
-    title: string,
-    workingModel: string,
-    enterprise: string,
-    seniority:string
-}
-export default function RecentVacancyCard(props:RecentVacancyCardProps) {
+import { Colors } from "@/constants/Colors";
+import { FontSize, Spacing } from "@/constants/Sizes";
+
+import { RecentVacancyCardProps } from "@/types/RecentVacancyCard.interfaces";
+
+export default function RecentVacancyCard(props: RecentVacancyCardProps) {
   return (
-    <View style={styles.RecentVacancyCard}>
-      <Text style={styles.office}>
-       {props.title} <Text style={styles.markedText}>{props.workingModel}</Text>
-      </Text>
-      <Text>
-        {props.enterprise} <Text style={styles.senioridade}>{props.seniority}</Text>
-      </Text>
-    </View>
+    <TouchableOpacity style={styles.recentVacancyCard} activeOpacity={0.9}>
+      <View style={styles.cardSection}>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={[styles.boldText, styles.cardTitle]}
+        >
+          {props.title}
+        </Text>
+        <Text style={styles.markedText}>{props.workingModel}</Text>
+      </View>
+
+      <View style={styles.cardSection}>
+        <Text
+          style={styles.enterpriseText}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {props.enterprise}
+        </Text>
+        <Text style={[styles.boldText, styles.seniorityText]}>
+          {props.seniority}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-    RecentVacancyCard: {
-    paddingTop: 20,
-    gap: 10,
+  recentVacancyCard: {
+    width: "100%",
+    maxWidth: 300,
+    padding: Spacing.smallMedium,
+    gap: Spacing.smallMedium,
+    fontFamily: "Roboto-Regular",
     backgroundColor: Colors.white,
-    borderRadius: 10,
-    padding: 5,
-    marginBottom: 10,
-    marginTop: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 1,
-      height: 2,
-    },
+    borderRadius: Spacing.smallMedium,
+    ...Platform.select({
+      ios: {
+        shadowRadius: 3,
+        shadowOpacity: 0.2,
+        shadowColor: Colors.black,
+        shadowOffset: { width: 0, height: 2 },
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
   },
-    markedText: {
-    marginTop: 20,
-    gap: 20,
+  cardSection: {
+    flexDirection: "row",
+    gap: Spacing.smallMedium,
+    justifyContent: "space-between",
+  },
+  cardTitle: {
+    maxWidth: 232,
+    fontSize: FontSize.medium,
+  },
+  markedText: {
+    minWidth: 50,
+    textAlign: "center",
+    padding: Spacing.extraSmall,
     backgroundColor: Colors.green,
-    borderRadius: 15,
-    padding: 6,
-    width: 710,
-    marginBottom: -10,
-    marginLeft: 110,
-    textDecorationColor: Colors.black,
-    color: Colors.black,
+    borderRadius: Spacing.smallMedium,
   },
-  office: {
-    padding: 5,
+  boldText: {
+    fontFamily: "Roboto-Bold",
   },
-
-  senioridade: {
-    marginLeft: 200,
-    padding: 1,
-    marginEnd: 10,
-    gap: 10,
+  seniorityText: {
+    padding: Spacing.extraSmall,
+  },
+  enterpriseText: {
+    fontSize: FontSize.medium,
   },
 });

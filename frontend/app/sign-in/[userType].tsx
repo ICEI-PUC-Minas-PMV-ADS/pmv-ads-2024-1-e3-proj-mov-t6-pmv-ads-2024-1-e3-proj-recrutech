@@ -71,8 +71,8 @@ export default function Login() {
   const buttonVariant = getButtonVariantByUser(userType);
 
   const defaultValues: AuthInterfaces.Send = {
-    email: "lucas@teste.com",
-    password: "senha",
+    email: "lucasteste@mail.com",
+    password: "teste123",
   };
 
   const {
@@ -97,7 +97,6 @@ export default function Login() {
         router.push("/home/");
       }
     } catch (error) {
-      console.error("Erro durante a autenticação:", error);
       Toast.error("Erro durante a autenticação", "top");
     }
   };

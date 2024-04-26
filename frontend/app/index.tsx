@@ -1,3 +1,4 @@
+
 import { useCallback } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
@@ -39,14 +40,14 @@ export default function Page() {
           title="Procuro vagas"
           variant="secondary"
           link={{
-            pathname: "/sign-in/[userType]",
+            pathname: "/login/[userType]",
             params: { userType: "dev" },
           }}
         />
         <DefaultButton
           title="Quero contratar"
           link={{
-            pathname: "/sign-in/[userType]",
+            pathname: "/login/[userType]",
             params: { userType: "recruiter" },
           }}
         />

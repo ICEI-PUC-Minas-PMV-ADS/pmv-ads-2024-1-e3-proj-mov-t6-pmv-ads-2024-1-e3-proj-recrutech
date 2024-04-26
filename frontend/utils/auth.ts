@@ -1,6 +1,6 @@
-import { Toast } from "toastify-react-native";
-
+import { router } from "expo-router";
 import axios, { isAxiosError } from "axios";
+import { Toast } from "toastify-react-native";
 
 import { AuthInterfaces } from "@/types/Auth.interfaces";
 
@@ -9,7 +9,7 @@ export const signIn = async ({
   password,
 }: AuthInterfaces.Send): Promise<AuthInterfaces.Receive | void> => {
   const API_URL: string =
-    "https://recrutech-webapi.azurewebsites.net/api/Users/LoginWithAuth";
+    "https://recrutech-webapi.azurewebsites.net/api/Users/loginWithAuth";
 
   try {
     const response = await axios.post(`${API_URL}`, {
@@ -25,5 +25,5 @@ export const signIn = async ({
 };
 
 export const signOut = (): void => {
-  Toast.info("Logout efetuado com sucesso!", "top");
+  router.push("/");
 };
