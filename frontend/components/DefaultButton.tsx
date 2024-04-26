@@ -28,8 +28,9 @@ export default function DefaultButton({
 }: ButtonProps) {
   return (
     <TouchableOpacity
-      style={[styles.button, variant === "secondary" && styles.bgGreen]}
       onPress={onPress}
+      activeOpacity={0.9}
+      style={[styles.button, variant === "secondary" && styles.bgGreen]}
     >
       {link ? (
         <Link href={link} style={[styles.link]}>
@@ -46,7 +47,8 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: "stretch",
     color: Colors.white,
-    padding: Spacing.small,
+    paddingVertical: Spacing.small,
+    paddingHorizontal: Spacing.medium,
     justifyContent: "center",
     backgroundColor: Colors.black,
     borderRadius: Spacing.small,
