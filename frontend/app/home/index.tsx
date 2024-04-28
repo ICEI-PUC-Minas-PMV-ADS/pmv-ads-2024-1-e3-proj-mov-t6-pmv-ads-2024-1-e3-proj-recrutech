@@ -1,5 +1,6 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
+import { Colors } from "@/constants/Colors";
 import { Spacing } from "@/constants/Sizes";
 import { useSession } from "@/context/AuthContext";
 
@@ -8,11 +9,17 @@ import RecruiterHomePage from "./(recruiter)";
 
 export default function Home() {
   const { session } = useSession();
-  const { isRecruiter } = session!.userData;
+  const { userName, isRecruiter } = session?.userData || {};
 
   return (
-    <View style={styles.container}>
-      {isRecruiter ? <RecruiterHomePage /> : <DeveloperHomePage />}
+    <View>
+      <Text style={styles.greetingText}>
+        <Text style={styles.textGreen}>Bem vindo, </Text>
+        {userName || "Usuário"}
+      </Text>
+      <View style={styles.container}>
+        {isRecruiter ? <RecruiterHomePage /> : <DeveloperHomePage />}
+      </View>
     </View>
   );
 }
@@ -24,5 +31,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     marginTop: Spacing.large,
+  },
+  greetingText: {
+    fontSize: Spacing.medium,
+    fontFamily: "Roboto-Bold",
+    marginTop: Spacing.large,
+    paddingLeft: Spacing.small,
+    textAlign: "left",
+  },
+  textGreen: {
+    color: Colors.green,
   },
 });

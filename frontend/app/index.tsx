@@ -1,4 +1,3 @@
-
 import { useCallback } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
@@ -34,26 +33,23 @@ export default function Page() {
         <AppTitle />
         <Text style={styles.defaultText}>Como podemos te ajudar hoje?</Text>
       </View>
-
       <View style={styles.bodyContainer}>
         <DefaultButton
           title="Procuro vagas"
           variant="secondary"
           link={{
-            pathname: "/login/[userType]",
-            params: { userType: "dev" },
+            pathname: "/sign-in/dev",
           }}
         />
         <DefaultButton
           title="Quero contratar"
           link={{
-            pathname: "/login/[userType]",
-            params: { userType: "recruiter" },
+            pathname: "/sign-in/recruiter",
           }}
         />
         <Image
-          source={require("@/assets/images/welcome.png")}
           style={styles.image}
+          source={require("@/assets/images/welcome.png")}
         />
       </View>
     </View>

@@ -1,45 +1,27 @@
 import { StyleSheet, Text, View, Platform } from "react-native";
 
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
-
 import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-
-import { getUserData } from "@/utils/user";
 
 import { Colors } from "@/constants/Colors";
 import { Spacing } from "@/constants/Sizes";
 
 import loginSchema from "@/schemas/loginSchema";
 
+import { AuthInterfaces } from "@/types/Auth.interfaces";
+
+import { getUserData } from "@/utils/user";
+import { renderTextField } from "@/utils/renderTextField";
+
+import { AuthContextProps, useSession } from "@/context/AuthContext";
+
 import DefaultButton, {
   getButtonVariantByUser,
 } from "@/components/DefaultButton";
-import TextField, {
-  getFieldVariantByUser,
-} from "@/components/TextFieldComponent";
 import AppTitleComponent from "@/components/AppTitleComponent";
-
-import { AuthContextProps, useSession } from "@/context/AuthContext";
-import { AuthInterfaces, RenderTextFieldProps } from "@/types/Auth.interfaces";
-
-const renderTextField = ({
-  field: { onChange, value },
-  label,
-  error,
-  variant,
-  placeholder,
-  secureTextEntry,
-}: RenderTextFieldProps): React.JSX.Element => (
-  <>
-    <TextField
-      {...{ label, value, variant, placeholder, secureTextEntry }}
-      onChangeText={onChange}
-    />
-    {error && <Text style={styles.error}>{error}</Text>}
-  </>
-);
+import { getFieldVariantByUser } from "@/components/TextFieldComponent";
 
 const handleSuccessfulAuthentication = async (
   authResponse: AuthInterfaces.Receive,
@@ -71,8 +53,8 @@ export default function Login() {
   const buttonVariant = getButtonVariantByUser(userType);
 
   const defaultValues: AuthInterfaces.Send = {
-    email: "lucasteste@mail.com",
-    password: "teste123",
+    email: "matheus@mail.com",
+    password: "aviaoazul",
   };
 
   const {

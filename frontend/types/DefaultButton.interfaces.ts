@@ -4,5 +4,6 @@ export interface ButtonProps {
   title: string;
   onPress?: () => void;
   link?: LinkProps<any>["href"];
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "ghost";
+  moreStyles?: Record<string, string | number>;
 }
