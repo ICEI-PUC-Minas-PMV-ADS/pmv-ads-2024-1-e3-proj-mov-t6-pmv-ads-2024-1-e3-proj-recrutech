@@ -9,11 +9,10 @@ import {
 } from "react-native";
 
 import { router } from "expo-router";
-
 import { signOut } from "@/utils/auth";
 
-import { Spacing } from "@/constants/Sizes";
 import { Colors } from "@/constants/Colors";
+import { Spacing } from "@/constants/Sizes";
 
 enum OptionTypes {
   LOGOUT = "logout",
@@ -73,6 +72,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 40,
     height: 40,
+    borderWidth: 1,
     marginRight: 10,
     borderRadius: 20,
   },
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
       },
     }),
   },
-
   dropdownItem: {
     fontFamily: "Roboto-Regular",
   },
