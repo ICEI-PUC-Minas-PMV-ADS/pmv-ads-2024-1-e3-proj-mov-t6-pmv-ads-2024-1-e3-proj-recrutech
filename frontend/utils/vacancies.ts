@@ -13,8 +13,8 @@ export interface Vacancy {
   contract?: null;
   content: string;
   location: string;
-  requirements?: null;
   enterprise: string;
+  requirements?: null;
   remuneration: string;
 }
 
