@@ -8,7 +8,6 @@ namespace Recrutech_api.Model
         public int? UserId { get; set; }
         public User? User { get; set; }
         public int? RecommendationId { get; set; }
-        public bool? IsProvider { get; set; }
         public Recommendation? Recommendation { get; set; }
     }
 }

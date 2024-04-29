@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recrutech_api.Model;
@@ -11,9 +12,10 @@ using Recrutech_api.Model;
 namespace Recrutech_api.Migrations
 {
     [DbContext(typeof(recrutechDbContext))]
-    partial class recrutechDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240426181223_AddNewFlag")]
+    partial class AddNewFlag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,9 +278,6 @@ namespace Recrutech_api.Migrations
                     b.Property<string[]>("Benefits")
                         .HasColumnType("text[]");
 
-                    b.Property<int?>("Cargo")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
@@ -300,8 +299,8 @@ namespace Recrutech_api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<float>("Remuneration")
-                        .HasColumnType("real");
+                    b.Property<string>("Remuneration")
+                        .HasColumnType("text");
 
                     b.Property<string[]>("Requirements")
                         .HasColumnType("text[]");
