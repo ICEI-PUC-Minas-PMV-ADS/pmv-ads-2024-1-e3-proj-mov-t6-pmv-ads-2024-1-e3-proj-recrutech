@@ -125,7 +125,7 @@ namespace Recrutech_api.Controllers
 
             return CreatedAtAction("GetVacancy", new { id = newVacancy.Id }, newVacancy);
         }
-
+        
         public class VacancyWithUserId
         {
             public Vacancy Vacancy { get; set; }
