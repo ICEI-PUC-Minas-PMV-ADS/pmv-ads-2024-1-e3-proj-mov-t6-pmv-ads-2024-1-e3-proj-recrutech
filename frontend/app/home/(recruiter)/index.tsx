@@ -1,17 +1,40 @@
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import { Text, View, FlatList, StyleSheet, Platform } from "react-native";
 
+import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
 
 import DefaultButton from "@/components/DefaultButton";
 import RecentVacancyCard from "@/components/RecentVacancyCard";
 
-import { Vacancy, getVacancies } from "@/utils/vacancies";
-import { useSession } from "@/context/AuthContext";
+import {
+  Office,
+  Contract,
+  VacancyInterfaces,
+} from "@/types/Vacancy.interfaces";
 import { User } from "@/types/User.interfaces";
 
-const renderListItem = (isLastItem: boolean, { name, enterprise }: Vacancy) => {
-  const marginBottom = isLastItem ? Spacing.huge : 0;
+import { useSession } from "@/context/AuthContext";
+import { getVacanciesByUserId } from "@/services/vacancyService";
+
+const renderListItem = (
+  isLastItem: boolean,
+  { name, enterprise, cargo, contract }: VacancyInterfaces.Receive.List
+) => {
+  const marginBottom = isLastItem ? 100 : 0;
+  const officeMap: Record<Office, string> = {
+    [Office.MID]: "Pleno",
+    [Office.JUNIOR]: "Júnior",
+    [Office.SENIOR]: "Sênior",
+    [Office.TRAINEE]: "Estágio",
+  };
+
+  const workingModelMap: Record<Contract, string> = {
+    [Contract.REMOTE]: "Remoto",
+    [Contract.HIBRID]: "Híbrido",
+    [Contract.INOFFICE]: "Presencial",
+  };
 
   return (
     <View
@@ -24,23 +47,29 @@ const renderListItem = (isLastItem: boolean, { name, enterprise }: Vacancy) => {
         {...{
           title: name,
           enterprise,
-          seniority: "Pleno",
-          workingModel: "CLT",
+          seniority: officeMap[cargo],
+          workingModel: workingModelMap[contract],
         }}
       ></RecentVacancyCard>
     </View>
   );
 };
 
+const redirectToCreateVacancy = () => {
+  router.replace("/home/(recruiter)/(vacancy)/create");
+};
+
 export default function RecruiterHomePage() {
-  const [vacancies, setVacancies] = useState<Vacancy[] | null>(null);
+  const [vacancies, setVacancies] = useState<
+    VacancyInterfaces.Receive.List[] | null
+  >(null);
   const { session } = useSession();
 
   useEffect(() => {
     const { id } = session?.userData as User;
 
-    getVacancies(id).then((response) => {
-      if (response) {
+    getVacanciesByUserId(id).then((response) => {
+      if (response && response.length > 0) {
         setVacancies(response);
       }
     });
@@ -49,11 +78,15 @@ export default function RecruiterHomePage() {
   return (
     <View>
       <View style={styles.buttonWrapper}>
-        <DefaultButton title="Cadastrar nova vaga"></DefaultButton>
+        <DefaultButton
+          title="Cadastrar nova vaga"
+          onPress={redirectToCreateVacancy}
+        ></DefaultButton>
       </View>
       {vacancies && (
         <View style={styles.jobsContainer}>
           <Text style={styles.jobsContainerTitle}>Suas vagas</Text>
+          <View style={styles.divider} />
 
           <FlatList
             data={vacancies}
@@ -81,7 +114,24 @@ const styles = StyleSheet.create({
   },
   jobsContainerTitle: {
     fontFamily: "Roboto-Regular",
+    marginTop: Spacing.small,
+    marginBottom: Spacing.medium,
     fontSize: FontSize.mediunLarge,
-    marginBottom: Spacing.smallMedium,
+  },
+  divider: {
+    borderBottomColor: Colors.black,
+    marginBottom: Spacing.medium,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    ...Platform.select({
+      ios: {
+        shadowRadius: 3,
+        shadowOpacity: 0.2,
+        shadowColor: Colors.black,
+        shadowOffset: { width: 0, height: 2 },
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
   },
 });

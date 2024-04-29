@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import { Spacing } from "@/constants/Sizes";
-import { Colors } from "@/constants/Colors";
 
 import { useSession } from "@/context/AuthContext";
 
@@ -24,11 +23,6 @@ export default function HeaderComponent() {
         </View>
         <AvatarWithDropdown userPhoto="https://avatars.githubusercontent.com/u/39444716?v=4" />
       </View>
-
-      <Text style={styles.greetingText}>
-        <Text style={styles.textGreen}>Bem vindo, </Text>
-        {userName || "Usuário"}
-      </Text>
     </View>
   );
 }
@@ -48,14 +42,5 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     fontFamily: "Roboto-Bold",
     fontSize: Spacing.smallMedium,
-  },
-  greetingText: {
-    fontSize: Spacing.medium,
-    fontFamily: "Roboto-Bold",
-    marginTop: Spacing.large,
-    paddingLeft: Spacing.small,
-  },
-  textGreen: {
-    color: Colors.green,
   },
 });

@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 
 import { useCallback } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+=======
+import { StyleSheet, Text, View } from "react-native";
+
+import { Colors } from "@/constants/Colors";
+import { Spacing } from "@/constants/Sizes";
+import { useSession } from "@/context/AuthContext";
+>>>>>>> 3d0bf2e33c312f56b942210f120c159f5f94ca32
 
 import * as SplashScreen from "expo-splash-screen";
 
+<<<<<<< HEAD
 import { initializeFonts } from "@/utils/helpers";
 
 import AppTitle from "@/components/AppTitleComponent";
@@ -55,6 +64,20 @@ export default function Page() {
           source={require("@/assets/images/welcome.png")}
           style={styles.image}
         />
+=======
+export default function Home() {
+  const { session } = useSession();
+  const { userName, isRecruiter } = session?.userData || {};
+
+  return (
+    <View>
+      <Text style={styles.greetingText}>
+        <Text style={styles.textGreen}>Bem vindo, </Text>
+        {userName || "Usuário"}
+      </Text>
+      <View style={styles.container}>
+        {isRecruiter ? <RecruiterHomePage /> : <DeveloperHomePage />}
+>>>>>>> 3d0bf2e33c312f56b942210f120c159f5f94ca32
       </View>
     </View>
   );
@@ -93,5 +116,15 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginTop: Spacing.extraLarge,
+  },
+  greetingText: {
+    fontSize: Spacing.medium,
+    fontFamily: "Roboto-Bold",
+    marginTop: Spacing.large,
+    paddingLeft: Spacing.small,
+    textAlign: "left",
+  },
+  textGreen: {
+    color: Colors.green,
   },
 });

@@ -68,11 +68,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardTitle: {
-    maxWidth: 232,
+    maxWidth: 202,
     fontSize: FontSize.medium,
   },
   markedText: {
-    minWidth: 50,
     textAlign: "center",
     padding: Spacing.extraSmall,
     backgroundColor: Colors.green,
