@@ -1,16 +1,14 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Web.Http.OData;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Common;
 using Recrutech_api.Model;
-using System.Threading.Tasks;
-using static Recrutech_api.Controllers.UsersController;
-using System.Web.Http.ModelBinding;
+using Recrutech_api.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Recrutech_api.Controllers
 {
@@ -20,11 +18,13 @@ namespace Recrutech_api.Controllers
     {
         private readonly recrutechDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IGenericUpdateService _GenericUpdateService;
 
-        public UsersController(recrutechDbContext context, IConfiguration configuration)
+        public UsersController(recrutechDbContext context, IConfiguration configuration, IGenericUpdateService GenericUpdateService)
         {
             _context = context;
             _configuration = configuration;
+            _GenericUpdateService = GenericUpdateService;
         }
 
         // GET: api/Users
@@ -52,6 +52,7 @@ namespace Recrutech_api.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("createUser")]
+        [SwaggerResponse(200, "Created", typeof(Teste))]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             _context.Users.Add(user);
@@ -67,10 +68,11 @@ namespace Recrutech_api.Controllers
             {
                 return BadRequest("Preencha todos os campos");
             }
-
+            
             User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email
                                                                 && x.Password == request.Senha 
                                                                 && x.IsActive);
+
             if (user == null)
             {
                 return BadRequest("Nome de usuário ou senha incorretos");
@@ -88,80 +90,16 @@ namespace Recrutech_api.Controllers
         [HttpPatch("UpdateUserRegistration/{id}")]
         public async Task<IActionResult> UpdateUserRegistration(int id,[FromBody] JsonPatchDocument<User> updateUser)
         {
-
-            var userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
-            updateUser.ApplyTo(userContext, ModelState);
-            if (ModelState.IsValid)
-            {
-
-            }
-            else
-            {
-
-                foreach(var values in ModelState.Values)
-                {
-                    foreach(var errors in values.Errors)
-                    {
-                        Console.WriteLine(errors.ErrorMessage);
-                    }
-                }
-            }
-            _context.Entry(userContext).State = EntityState.Modified;
-
-             try
-                  {
-                      await _context.SaveChangesAsync();
-                  }
-                  catch (DbUpdateConcurrencyException)
-                  {
-                      if (!UserExists(id))
-                      {
-                          return NotFound();
-                      }
-                      else
-                      {
-                          throw;
-                      }
-                  }
-
+            User userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
+            await _GenericUpdateService.UpdateObject(updateUser, userContext, id, ModelState);
             return Ok(userContext);
         }
 
-        [HttpPatch("UpdateUserRegistrationPATCH/{id}")]
-        public async Task<IActionResult> UpdateUserRegistration(int id, Delta<User> updateUser)
-        { 
-
-            var userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
-            updateUser.Patch(userContext);
-            if (ModelState.IsValid)
-            {
-
-            }
-            _context.Entry(userContext).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok(userContext);
-        }
         // DELETE: api/Users/5
         [HttpDelete("deleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id );
+            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -174,12 +112,6 @@ namespace Recrutech_api.Controllers
             await _context.SaveChangesAsync();
             return Ok("User deleted");
         }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Id == id && e.IsActive);
-        }
-
 
 
         public class UserLoginRequest

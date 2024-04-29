@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Recrutech_api.Model;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.JsonPatch;
+using Recrutech_api.Interfaces;
+using Recrutech_api.Helpers;
 
 namespace Recrutech_api.Controllers
 {
@@ -17,21 +20,23 @@ namespace Recrutech_api.Controllers
     public class VacanciesController : ControllerBase
     {
         private readonly recrutechDbContext _context;
+        private readonly IGenericUpdateService _GenericUpdateService;
 
-        public VacanciesController(recrutechDbContext context)
+        public VacanciesController(recrutechDbContext context, IGenericUpdateService GenericUpdateService)
         {
             _context = context;
+            _GenericUpdateService = GenericUpdateService;
         }
 
         // GET: api/Vacancies
-        [HttpGet]
+        [HttpGet("GetAllVacancies")]
         public async Task<ActionResult<IEnumerable<Vacancy>>> GetVacancies()
         {
-            return await _context.Vacancies.ToListAsync();
+            return await _context.GetAllVacancies.ToListAsync();
         }
 
         // GET: api/Vacancies/5
-        [HttpGet("{id}")]
+        [HttpGet("getVacancieById/{id}")]
         public async Task<ActionResult<Vacancy>> GetVacancy(int id)
         {
             var vacancy =  _context.Vacancies.Where(x=> x.Id == id && x.IsActive).FirstOrDefault();
@@ -44,35 +49,42 @@ namespace Recrutech_api.Controllers
             return vacancy;
         }
 
-        // PUT: api/Vacancies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVacancy(int id, Vacancy vacancy)
+        [HttpGet("getVacanciesFilter")]
+        public async Task<ActionResult<List<Vacancy>>> GetVacancyFilter([FromQuery] float min, float max, bool salario = false,
+                                            bool estagio = false, bool junior = false, bool pleno = false, bool senior = false, string? local = null)
         {
-            if (id != vacancy.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(vacancy).State = EntityState.Modified;
+            List<Vacancy> filteredVacancies = await _context.GetAllVacancies
+                 .If(estagio || junior || pleno || senior, x => x.Where(y => (y.Cargo == ECargo.Estagio && estagio ||
+                     y.Cargo == ECargo.Junior && junior || y.Cargo == ECargo.Pleno && pleno || y.Cargo == ECargo.Senior && senior)))
+                 .If(local != null, x => x.Where(y => y.Location.ToLower().Contains(local.ToLower())))
+                 .Where(x => x.Remuneration >= min && x.Remuneration <= max).ToListAsync(); 
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VacancyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (salario) filteredVacancies = filteredVacancies.OrderByDescending(x => x.Remuneration).ToList();
 
-            return NoContent();
+            return Ok(filteredVacancies);
+
+        }
+
+        [HttpGet("getVacanciesByUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<Vacancy>>> GetVacancyByUserId(long userId)
+        {
+            if (userId == null) {
+                return BadRequest("Please provide a valid User Id");
+            }
+            List<Vacancy> vacancyContext = await _context.GetAllVacancies.Where(x => x.UserId == userId).ToListAsync();
+            if (vacancyContext.Count == 0) { return Ok("This user has no vacancies"); }
+            return vacancyContext;
+        }
+
+
+
+        [HttpPatch("updateVacancy/{id}")]
+        public async Task<IActionResult> UpdateVacancy(int id, [FromBody] JsonPatchDocument<Vacancy> updateVacancy)
+        {
+            Vacancy vacancyContext = await _context.GetAllVacancies.FirstOrDefaultAsync(x => x.Id == id);
+            await _GenericUpdateService.UpdateObject(updateVacancy, vacancyContext, id, ModelState);
+            return Ok(vacancyContext);
         }
 
         // POST: api/Vacancies

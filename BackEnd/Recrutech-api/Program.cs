@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.Resource;
+using Recrutech_api.Implementations;
+using Recrutech_api.Interfaces;
 using Recrutech_api.Model;
 using System.Text.Json.Serialization;
+using Recrutech_api.Controllers;
 
 namespace Recrutech_api
 {
@@ -30,13 +31,21 @@ namespace Recrutech_api
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
 
+     
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddTransient<IGenericUpdateService, GenericUpdateService>();
             var app = builder.Build();
 
            
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                        if (app.Environment.IsDevelopment())
+                    {
+                        app.UseSwagger();
+                        app.UseSwaggerUI();
+                    };
 
             app.UseHttpsRedirection();
 
