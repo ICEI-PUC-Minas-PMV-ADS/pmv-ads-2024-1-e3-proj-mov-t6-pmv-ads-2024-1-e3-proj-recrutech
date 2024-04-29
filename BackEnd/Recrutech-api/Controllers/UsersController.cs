@@ -52,7 +52,6 @@ namespace Recrutech_api.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("createUser")]
-        [SwaggerResponse(200, "Created", typeof(Teste))]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             _context.Users.Add(user);

@@ -1,5 +1,4 @@
-﻿using CommandLine.Text;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
 using System.Text.Json.Serialization;
 
 namespace Recrutech_api.Model
