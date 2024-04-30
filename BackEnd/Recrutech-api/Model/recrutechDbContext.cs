@@ -30,5 +30,10 @@ namespace Recrutech_api.Model
 
         public IQueryable<Vacancy> GetAllVacancies => Vacancies.Where(x => x.IsActive)
                         .Include(x => x.Cvs.Where(y => y.IsActive));
+        public IQueryable<Curriculum> GetAllCvs => Cvs.Where(x => x.IsActive)
+                .Include(x => x.Course.Where(y => y.IsActive))
+                .Include(x => x.Experience.Where(y => y.IsActive))
+                .Include(x => x.Vacancies.Where(y => y.IsActive))
+                .Include(x => x.User);
     }
 }

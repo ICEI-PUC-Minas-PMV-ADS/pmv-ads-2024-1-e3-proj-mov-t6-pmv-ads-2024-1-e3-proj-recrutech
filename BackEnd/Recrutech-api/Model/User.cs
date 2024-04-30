@@ -12,7 +12,6 @@ namespace Recrutech_api.Model
         public bool? IsRecruiter { get; set; }
         public long? AddressId { get; set; }
         public Curriculum? Curriculum { get; set; }
-
         public Address? Address { get; set; }
         public List<Vacancy>? VacanciesOwner { get; set; }
         public List<UserRecommendation>? UserRecommendations { get; set; }

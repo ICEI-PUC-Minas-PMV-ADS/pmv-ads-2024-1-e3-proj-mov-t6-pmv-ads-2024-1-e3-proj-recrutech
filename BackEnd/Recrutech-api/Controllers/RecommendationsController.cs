@@ -63,7 +63,7 @@ namespace Recrutech_api.Controllers
         }
 
         [HttpGet("getRecommendationsByReceiver/{ReceiverId}")]
-        public async Task<ActionResult<IEnumerable<Recommendation>>> GetRecommendationsByReceiver(long ReceiverId)
+        public async Task<ActionResult<IEnumerable<Recommendation>>> GetRecommendationsByReceived(long ReceiverId)
         {
             User userReceiver = await _context.GetAllUsers.FirstOrDefaultAsync(user => user.Id == ReceiverId);
             if (userReceiver == null)
@@ -72,7 +72,7 @@ namespace Recrutech_api.Controllers
             }
 
             List<Recommendation> receiverRecommendations = await _context.Recomendations
-                .Where(recommendation => recommendation.UserRecommendations.Any(ur => ur.UserId == userReceiver.Id))
+                .Where(recommendation => recommendation.UserRecommendations.Any(ur => ur.UserId == userReceiver.Id) && recommendation.ProviderId != ReceiverId)
                 .ToListAsync();
 
             return Ok(receiverRecommendations);

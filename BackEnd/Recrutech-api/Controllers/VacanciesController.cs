@@ -39,7 +39,7 @@ namespace Recrutech_api.Controllers
         [HttpGet("getVacancieById/{id}")]
         public async Task<ActionResult<Vacancy>> GetVacancy(int id)
         {
-            var vacancy =  _context.Vacancies.Where(x=> x.Id == id && x.IsActive).FirstOrDefault();
+            var vacancy = _context.GetAllVacancies.Where(x=> x.Id == id && x.IsActive).FirstOrDefault();
 
             if (vacancy == null)
             {
@@ -87,17 +87,6 @@ namespace Recrutech_api.Controllers
             return Ok(vacancyContext);
         }
 
-        // POST: api/Vacancies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Vacancy>> PostVacancy(Vacancy vacancy)
-        {
-            _context.Vacancies.Add(vacancy);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetVacancy", new { id = vacancy.Id }, vacancy);
-        }
-
         // DELETE: api/Vacancies/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVacancy(int id)
@@ -115,10 +104,6 @@ namespace Recrutech_api.Controllers
             return NoContent();
         }
 
-        private bool VacancyExists(int id)
-        {
-            return _context.Vacancies.Any(e => e.Id == id);
-        }
         [HttpPost("CreateVacancies")]
         public async Task<ActionResult<Vacancy>> CreateVacancy([FromBody] VacancyWithUserId vacancyWithUserId)
         {
@@ -138,7 +123,23 @@ namespace Recrutech_api.Controllers
 
             return CreatedAtAction("GetVacancy", new { id = newVacancy.Id }, newVacancy);
         }
-        
+
+        [HttpPost("ApplyCvToVacancy")]
+        public async Task<ActionResult<Vacancy>> ApplyCvToVacancy([FromQuery] int vacancyId, int cvId)
+        {
+
+            Vacancy vacancy = await _context.GetAllVacancies.FirstOrDefaultAsync(x => x.Id == vacancyId);
+            Curriculum curriculum = await _context.GetAllCvs.FirstOrDefaultAsync(x => x.Id == cvId);
+            if (vacancy == null || curriculum == null) return BadRequest("Vaga ou curriculo não encontrado na base de dados");
+            vacancy.Cvs.Add(curriculum);
+
+            _context.Entry(vacancy).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok("Curriculo aplicado com sucesso");
+        }
+
+
         public class VacancyWithUserId
         {
             public Vacancy Vacancy { get; set; }

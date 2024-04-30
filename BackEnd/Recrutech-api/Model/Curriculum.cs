@@ -15,7 +15,6 @@ namespace Recrutech_api.Model
         public int? UserId { get; set; }
         public User? User { get; set; }
 
-        [JsonIgnore]
         public List<Vacancy>? Vacancies { get; set; }
     }
 }

@@ -86,11 +86,11 @@ namespace Recrutech_api.Controllers
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPatch("UpdateUserRegistration/{id}")]
-        public async Task<IActionResult> UpdateUserRegistration(int id,[FromBody] JsonPatchDocument<User> updateUser)
+        [HttpPatch("UpdateUserRegistration/{userId}")]
+        public async Task<IActionResult> UpdateUserRegistration(int userId, [FromBody] JsonPatchDocument<User> updateUser)
         {
-            User userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
-            await _GenericUpdateService.UpdateObject(updateUser, userContext, id, ModelState);
+            User userContext = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == userId);
+            await _GenericUpdateService.UpdateObject(updateUser, userContext, userId, ModelState);
             return Ok(userContext);
         }
 
@@ -111,6 +111,7 @@ namespace Recrutech_api.Controllers
             await _context.SaveChangesAsync();
             return Ok("User deleted");
         }
+
 
 
         public class UserLoginRequest
