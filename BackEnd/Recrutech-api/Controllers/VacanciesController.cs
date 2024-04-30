@@ -111,6 +111,7 @@ namespace Recrutech_api.Controllers
             vacancy.IsActive = false;
             await _context.SaveChangesAsync();
 
+
             return NoContent();
         }
 
