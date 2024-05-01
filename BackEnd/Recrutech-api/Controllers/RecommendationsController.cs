@@ -95,7 +95,7 @@ namespace Recrutech_api.Controllers
             {
                 return BadRequest("Usuário não encontrado.");
             }
-
+            if (ReceivedId == recommendation.ProviderId) return BadRequest("Um usuário não pode gerar uma recomendação para sí mesmo");
             List<UserRecommendation>recommendationsList = new List<UserRecommendation>();
             UserRecommendation providerRecommendation = new UserRecommendation
             {
@@ -116,7 +116,7 @@ namespace Recrutech_api.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(recommendationsList);
+            return Ok(recommendation);
         }
 
         // DELETE: api/Recommendations/5

@@ -69,23 +69,5 @@ namespace Recrutech_api.Controllers
             await _GenericUpdateService.UpdateObject(updateCv, cvContext, cvId, ModelState);
             return Ok(cvContext);
         }
-
-        // DELETE: api/Cv/5
-     /*   [HttpDelete("{cvId}")]
-        public async Task<IActionResult> DeleteCv(int cvId)
-        {
-            if (_context.Cvs == null)
-            {
-                return NotFound();
-            }
-
-            Curriculum curriculum = await _context.GetAllCvs.FirstOrDefaultAsync(x => x.Id == cvId);
-            if (curriculum == null) return NotFound("Curriculo não encontrado na base de dados");
-            curriculum.IsActive = false;
-
-            _context.Entry(curriculum).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return Ok("Objeto deletado com sucesso");
-        }*/
     }
 }

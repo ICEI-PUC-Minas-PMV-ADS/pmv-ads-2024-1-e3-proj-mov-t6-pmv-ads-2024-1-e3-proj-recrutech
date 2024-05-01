@@ -5,7 +5,6 @@ using Recrutech_api.Implementations;
 using Recrutech_api.Interfaces;
 using Recrutech_api.Model;
 using System.Text.Json.Serialization;
-using Recrutech_api.Controllers;
 
 namespace Recrutech_api
 {
@@ -29,6 +28,7 @@ namespace Recrutech_api
             }).AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+
             });
 
      
@@ -36,8 +36,10 @@ namespace Recrutech_api
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<IGenericUpdateService, GenericUpdateService>();
             var app = builder.Build();
-
+                
+                
            
+
                 app.UseSwagger();
                 app.UseSwaggerUI();
 

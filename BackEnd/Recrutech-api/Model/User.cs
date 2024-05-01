@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-using System.Text.Json.Serialization;
-
+﻿
 namespace Recrutech_api.Model
 {
     public class User : DeletableItem

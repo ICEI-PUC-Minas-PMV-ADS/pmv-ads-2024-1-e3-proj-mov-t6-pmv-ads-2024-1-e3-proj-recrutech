@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using NuGet.Common;
 using Recrutech_api.Model;
 using Recrutech_api.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
+
 
 namespace Recrutech_api.Controllers
 {
@@ -40,7 +39,7 @@ namespace Recrutech_api.Controllers
         [HttpGet("getUser/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id);
+            User user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -54,6 +53,8 @@ namespace Recrutech_api.Controllers
         [HttpPost("createUser")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
+            bool userAlreadyExist = _context.GetAllUsers.Where(x => x.Email == user.Email) != null ? true : false;
+            if (!userAlreadyExist) return BadRequest("Já existe um usuário ativo associado a esse e-mail");
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -98,14 +99,15 @@ namespace Recrutech_api.Controllers
         [HttpDelete("deleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
+            User user = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return NotFound();
             }
             user.IsActive = false;
-            user.VacanciesOwner.ForEach(x => x.IsActive = false);
-            user.Curriculum.IsActive = false;
+
+            if (user.VacanciesOwner.Count != 0) user.VacanciesOwner.ForEach(x => x.IsActive = false);
+            if (user.Curriculum != null) user.Curriculum.IsActive = false;
 
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
