@@ -69,7 +69,7 @@ export default function RecruiterHomePage() {
     const { id } = session?.userData as User;
 
     getVacanciesByUserId(id).then((response) => {
-      if (response && response.length > 0) {
+      if (response && Array.isArray(response)) {
         setVacancies(response);
       }
     });
