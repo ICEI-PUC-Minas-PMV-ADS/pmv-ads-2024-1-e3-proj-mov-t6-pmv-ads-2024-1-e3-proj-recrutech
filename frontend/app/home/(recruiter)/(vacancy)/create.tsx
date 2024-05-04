@@ -254,7 +254,7 @@ const VacancyForm = (): React.JSX.Element => {
           variant="secondary"
           moreStyles={{ color: Colors.black, backgroundColor: Colors.white }}
           onPress={() => {
-            router.replace("/home/(recruiter)/");
+            router.replace("/home/");
           }}
         />
         <DefaultButton
