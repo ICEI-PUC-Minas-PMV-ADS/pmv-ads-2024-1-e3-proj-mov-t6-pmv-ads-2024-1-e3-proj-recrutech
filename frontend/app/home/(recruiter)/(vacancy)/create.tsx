@@ -16,21 +16,26 @@ import {
   Contract,
   VacancyInterfaces,
 } from "@/types/Vacancy.interfaces";
+import { useSession } from "@/context/AuthContext";
 import { createVacancy } from "@/services/vacancyService";
+import { router } from "expo-router";
 
 const usePickerState = (initialItems: { label: string; value: any }[]) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState([]);
   const [items, setItems] = useState(initialItems);
 
   return { open, setOpen, value, setValue, items, setItems };
 };
 
 const VacancyForm = (): React.JSX.Element => {
+  const { session } = useSession();
+  const userId = session!.userData.id;
+
   const contractTypesState = usePickerState([
-    { label: "PJ", value: "pj" },
-    { label: "CLT", value: "clt" },
-    { label: "Estágio", value: "estagio" },
+    { label: "Remoto", value: Contract.REMOTE },
+    { label: "Híbrido", value: Contract.HIBRID },
+    { label: "Presencial", value: Contract.INOFFICE },
   ]);
 
   const requirementStates = usePickerState([
@@ -47,6 +52,14 @@ const VacancyForm = (): React.JSX.Element => {
     { label: "Sênior", value: Office.SENIOR },
   ]);
 
+  const benefitsStates = usePickerState([
+    { label: "Vale Alimentação", value: "Vale alimentação" },
+    { label: "Vale Refeição", value: "Vale Refeição" },
+    { label: "Vale transporte", value: "Vale transporte" },
+    { label: "Convênio médico", value: "Convênio médico" },
+    { label: "Convênio odontológico", value: "Convênio odontológico" },
+  ]);
+
   const defaultValues: VacancyInterfaces.Send.Create = {
     name: "Desenvolvedor Fullstack",
     enterprise: "Google",
@@ -54,8 +67,8 @@ const VacancyForm = (): React.JSX.Element => {
     location: "Belo Horizonte - MG",
     link: "https://google.com",
     content: "Buscamos um desenvolvedor fullstack...",
-    benefits: "VA/VR, Gympass, Plano de saúde",
-    requirements: "Experiência com desenvolvimento de...",
+    benefits: benefitsStates.value,
+    requirements: requirementStates.value,
     remuneration: "R$ 4000,00",
     contract: Contract.REMOTE,
     userId: "1",
@@ -71,19 +84,14 @@ const VacancyForm = (): React.JSX.Element => {
   });
 
   const onSubmit = async (data: VacancyInterfaces.Send.Create) => {
-    const { userId, ...other } = data;
-
-    const payload = {
-      Vacancy: {
-        ...other,
-      },
-      UserId: 8,
+    data = {
+      ...data,
+      userId,
+      benefits: benefitsStates.value,
+      requirements: requirementStates.value,
     };
 
-    console.log(payload);
-
-    const response = await createVacancy(payload as any);
-    console.log(response);
+    const response = await createVacancy(data);
   };
 
   return (
@@ -122,7 +130,7 @@ const VacancyForm = (): React.JSX.Element => {
         <DropDownPicker
           mode="BADGE"
           theme="LIGHT"
-          multiple={true}
+          multiple={false}
           style={styles.picker}
           items={seniorityStates.items}
           open={seniorityStates.open}
@@ -166,7 +174,7 @@ const VacancyForm = (): React.JSX.Element => {
         <DropDownPicker
           mode="BADGE"
           theme="LIGHT"
-          multiple={true}
+          multiple={false}
           style={styles.picker}
           items={contractTypesState.items}
           open={contractTypesState.open}
@@ -190,32 +198,24 @@ const VacancyForm = (): React.JSX.Element => {
           })
         }
       />
-      <Controller
-        name="benefits"
-        control={control}
-        render={(props) =>
-          renderTextField({
-            ...props,
-            label: "Benefícios:",
-            variant: "primary",
-            placeholder: "Ex: VA/VR, Gympass, Plano de saúde...",
-            error: errors.benefits?.message,
-          })
-        }
-      />
-      {/* <Controller
-        name="requirements"
-        control={control}
-        render={(props) =>
-          renderTextField({
-            ...props,
-            label: "Requisitos:",
-            variant: "primary",
-            placeholder: "Ex: Experiência com desenvolvimento de...",
-            error: errors.requirements?.message,
-          })
-        }
-      /> */}
+      <View>
+        <Text style={styles.labelPicker}>Benefícios</Text>
+        <DropDownPicker
+          mode="BADGE"
+          theme="LIGHT"
+          multiple={true}
+          searchable={true}
+          addCustomItem={true}
+          style={styles.picker}
+          open={benefitsStates.open}
+          items={benefitsStates.items}
+          value={benefitsStates.value}
+          setOpen={benefitsStates.setOpen}
+          setValue={benefitsStates.setValue}
+          setItems={benefitsStates.setItems}
+          badgeDotColors={[Colors.green]}
+        />
+      </View>
       <Controller
         name="remuneration"
         control={control}
@@ -229,6 +229,7 @@ const VacancyForm = (): React.JSX.Element => {
           })
         }
       />
+
       <View>
         <Text style={styles.labelPicker}>Requisitos</Text>
         <DropDownPicker
@@ -252,6 +253,9 @@ const VacancyForm = (): React.JSX.Element => {
           title="Voltar"
           variant="secondary"
           moreStyles={{ color: Colors.black, backgroundColor: Colors.white }}
+          onPress={() => {
+            router.replace("/home/(recruiter)/");
+          }}
         />
         <DefaultButton
           title="Finalizar"

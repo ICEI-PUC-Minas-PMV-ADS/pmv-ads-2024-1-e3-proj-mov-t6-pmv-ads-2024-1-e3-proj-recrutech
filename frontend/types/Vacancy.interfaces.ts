@@ -23,8 +23,8 @@ export namespace VacancyInterfaces {
       contract: Contract;
       enterprise: string;
       remuneration: string;
-      benefits: string;
-      requirements: string;
+      benefits: string[];
+      requirements: string[];
     }
   }
 
@@ -38,13 +38,25 @@ export namespace VacancyInterfaces {
       contract: Contract;
       location: string;
       content: string;
-      remuneration: string;
+      remuneration: number;
       enterprise: string;
       benefits: string[];
       requirements: string[];
     }
 
-    export interface Create extends Common {}
+    export interface Create extends Common {
+      link: string;
+      name: string;
+      cargo: number;
+      content: string;
+      location: string;
+      contract: number;
+      enterprise: string;
+      benefits: string[];
+      cvs: string[] | null;
+      remuneration: number;
+      requirements: string[];
+    }
     export interface List extends Common {}
   }
 }

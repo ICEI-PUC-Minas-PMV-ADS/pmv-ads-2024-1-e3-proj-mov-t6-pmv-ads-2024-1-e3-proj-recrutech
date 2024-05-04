@@ -16,8 +16,8 @@ const createVacancySchema = yup.object<VacancyInterfaces.Send.Create>().shape({
   location: yup.string().required("Localização obrigatória"),
   remuneration: yup.string().required("Remuneração obrigatória"),
   content: yup.string().required("A vaga deve conter uma descrição"),
-  benefits: yup.string().required("Benefícios obrigatórios"),
-  requirements: yup.string().required("Requisitos obrigatórios"),
+  benefits: yup.array().required("Benefícios obrigatórios"),
+  requirements: yup.array().required("Requisitos obrigatórios"),
 });
 
 export default createVacancySchema;

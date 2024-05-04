@@ -55,7 +55,7 @@ export const getVacanciesByUserId = async (
 
 export const createVacancy = async (
   vacancy: VacancyInterfaces.Send.Create
-): Promise<void> => {
+): Promise<VacancyInterfaces.Receive.Create | void> => {
   const API_URL =
     "https://recrutech-webapi.azurewebsites.net/api/Vacancies/CreateVacancies";
 
@@ -63,6 +63,7 @@ export const createVacancy = async (
     const response = await axios.post(API_URL, vacancy);
 
     Toast.success("Vaga criada com sucesso!", "top");
+
     return response.data;
   } catch (error) {
     handleErrors(error);
