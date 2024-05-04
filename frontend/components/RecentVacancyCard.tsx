@@ -44,9 +44,9 @@ export default function RecentVacancyCard(props: RecentVacancyCardProps) {
 const styles = StyleSheet.create({
   recentVacancyCard: {
     width: "100%",
-    maxWidth: 300,
-    padding: Spacing.smallMedium,
+    minWidth: 300,
     gap: Spacing.smallMedium,
+    padding: Spacing.smallMedium,
     fontFamily: "Roboto-Regular",
     backgroundColor: Colors.white,
     borderRadius: Spacing.smallMedium,
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   },
   markedText: {
     textAlign: "center",
+    minWidth: 50,
     padding: Spacing.extraSmall,
     backgroundColor: Colors.green,
     borderRadius: Spacing.smallMedium,

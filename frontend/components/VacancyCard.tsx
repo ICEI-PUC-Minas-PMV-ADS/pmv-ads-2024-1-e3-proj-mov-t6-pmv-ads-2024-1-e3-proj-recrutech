@@ -8,23 +8,24 @@ import { FontSize, Spacing } from "@/constants/Sizes";
 export default function VacancyCard() {
   return (
     <View style={styles.card}>
-      <Text style={[styles.text, styles.largeText]}>
-        FrontEnd Developer
-        <FontAwesome
-          name="star"
-          size={18}
-          color="gold"
-          style={{ marginLeft: 25 }}
-        />
-      </Text>
+      <View style={styles.cardHeader}>
+        <Text style={[styles.text, styles.largeText]}>FrontEnd Developer</Text>
+        <FontAwesome size={18} name="star" color="gold" />
+      </View>
 
-      <Text style={[styles.text, styles.mediumText]}>Banco Mercantil</Text>
-      <Text style={[styles.text, styles.smallText]}>Estágio</Text>
-      <Text style={[styles.text, styles.smallText]}>Belo Horizonte - MG</Text>
-      <Text style={[styles.text, styles.smallText]}>
-        R$ 1300,00 <Text style={styles.markedText}>HÍBRIDO</Text>
-      </Text>
-      <Text style={[styles.text, styles.smallText]}>Mensal</Text>
+      <View style={styles.cardBody}>
+        <View>
+          <Text style={[styles.text, styles.mediumText]}>Banco Mercantil</Text>
+          <Text style={[styles.text, styles.smallText]}>Estágio</Text>
+          <Text style={[styles.text, styles.smallText]}>
+            Belo Horizonte - MG
+          </Text>
+          <Text style={[styles.text, styles.smallText]}>R$ 1300,00</Text>
+          <Text style={[styles.text, styles.smallText]}>Mensal</Text>
+        </View>
+
+        <Text style={styles.markedText}>HÍBRIDO</Text>
+      </View>
     </View>
   );
 }
@@ -36,6 +37,11 @@ const styles = StyleSheet.create({
     padding: Spacing.medium,
     borderRadius: Spacing.small,
     backgroundColor: Colors.darkBlue,
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   text: {
     color: Colors.white,
@@ -51,15 +57,15 @@ const styles = StyleSheet.create({
     fontSize: FontSize.large,
     color: Colors.green,
   },
+  cardBody: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+  },
   markedText: {
-    gap: 20,
-    width: 710,
-    padding: 6,
-    marginTop: 20,
-    marginLeft: 110,
-    borderRadius: 15,
-    marginBottom: -10,
     color: Colors.black,
+    padding: Spacing.extraSmall,
+    borderRadius: Spacing.medium,
     backgroundColor: Colors.green,
     textDecorationColor: Colors.black,
   },

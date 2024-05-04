@@ -7,9 +7,21 @@ import { FontSize, Spacing } from "@/constants/Sizes";
 
 import { ButtonProps } from "@/types/DefaultButton.interfaces";
 
-function ButtonText({ title, variant }: Partial<ButtonProps>): JSX.Element {
+function ButtonText({
+  title,
+  variant,
+  fontSize,
+}: Partial<ButtonProps>): JSX.Element {
   return (
-    <Text style={[styles.text, variant === "secondary" && styles.textBlack]}>
+    <Text
+      style={[
+        styles.text,
+        variant === "secondary" && styles.textBlack,
+        {
+          fontSize: fontSize || FontSize.medium,
+        },
+      ]}
+    >
       {title}
     </Text>
   );
@@ -26,6 +38,7 @@ export default function DefaultButton({
   title,
   variant = "primary",
   onPress,
+  fontSize,
   moreStyles,
 }: ButtonProps) {
   return (
@@ -40,10 +53,10 @@ export default function DefaultButton({
     >
       {link ? (
         <Link href={link} style={[styles.link]}>
-          {ButtonText({ title, variant })}
+          {ButtonText({ title, variant, fontSize })}
         </Link>
       ) : (
-        ButtonText({ title, variant })
+        ButtonText({ title, variant, fontSize })
       )}
     </TouchableOpacity>
   );

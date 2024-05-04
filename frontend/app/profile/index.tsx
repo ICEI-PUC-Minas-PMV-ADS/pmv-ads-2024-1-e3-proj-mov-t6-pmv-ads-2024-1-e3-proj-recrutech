@@ -1,68 +1,52 @@
-import { useCallback } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-import * as SplashScreen from "expo-splash-screen";
-
-import { initializeFonts } from "@/utils/helpers";
-
-import AppTitle from "@/components/AppTitleComponent";
 import DefaultButton from "@/components/DefaultButton";
 
 import { Colors } from "@/constants/Colors";
+import { useSession } from "@/context/AuthContext";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import TextFieldComponent from "@/components/TextFieldComponent";
 
-SplashScreen.preventAutoHideAsync();
-
 export default function Page() {
-  const { fontsLoaded, fontError } = initializeFonts();
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
-
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
+  const { session } = useSession();
+  const { userName } = session!.userData;
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.labelTitle}>
         Recru<Text style={{ color: Colors.green }}>Tech</Text>
       </Text>
       <View style={styles.card}>
         <View style={styles.contentBody}>
-          <Text style={styles.helloUser}>Olá, Samuel!</Text>
+          <Text style={styles.helloUser}>Olá, {userName}!</Text>
           <Text style={styles.edit}>Edite suas informações abaixo:</Text>
           <TextFieldComponent label="Redefinir Senha:" variant="secondary" />
           <TextFieldComponent label="E-mail:" variant="secondary" />
           <TextFieldComponent label="Endereço:" variant="secondary" />
-
-          {/* Adicionei dois pontos para indicar o rótulo */}
 
           <View style={styles.buttonGroup}>
             <DefaultButton
               title="Editar Perfil"
               variant="secondary"
               moreStyles={{
-                width: 200,
-                height: 50,
+                width: "100%",
+                maxWidth: 200,
                 alignSelf: "center",
               }}
+              fontSize={FontSize.small}
             />
             <DefaultButton
               title="Apagar minha conta"
               variant="secondary"
               moreStyles={{
-                width: 200,
-                height: 50,
-                alignSelf: "center",
+                width: "100%",
+                maxWidth: 200,
                 borderWidth: 1,
-                borderColor: Colors.green,
+                alignSelf: "center",
                 backgroundColor: "white",
+                borderColor: Colors.green,
               }}
+              fontSize={FontSize.small}
             />
           </View>
           <View style={styles.buttonContainer}>
@@ -70,13 +54,16 @@ export default function Page() {
               title="Trocar de conta"
               variant="secondary"
               moreStyles={{
-                width: 200,
-                height: 50,
                 alignSelf: "center",
                 backgroundColor: "white",
               }}
+              fontSize={FontSize.small}
             />
-            <DefaultButton title="Salvar" variant="secondary" />
+            <DefaultButton
+              title="Salvar"
+              variant="secondary"
+              fontSize={FontSize.small}
+            />
           </View>
         </View>
       </View>
@@ -85,13 +72,18 @@ export default function Page() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   labelTitle: {
-    fontSize: FontSize.extraLarge,
-    marginBottom: Spacing.extraSmall,
+    padding: Spacing.medium,
+    fontFamily: "Roboto-Bold",
     marginTop: Spacing.medium,
     marginLeft: Spacing.medium,
-    padding: 5,
-    fontFamily: "Roboto-Bold",
+    fontSize: FontSize.extraLarge,
+    marginBottom: Spacing.extraSmall,
   },
   helloUser: {
     fontSize: FontSize.mediunLarge,
@@ -102,40 +94,33 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
   },
   card: {
-    marginTop: 10,
-    paddingTop: 20,
-    paddingBottom: 20,
+    maxWidth: 300,
+    padding: Spacing.medium,
     marginLeft: Spacing.small,
     marginRight: Spacing.small,
-    backgroundColor: Colors.white,
-    borderRadius: 10,
-    padding: 5,
     marginBottom: Spacing.medium,
+    borderRadius: Spacing.medium,
+    backgroundColor: Colors.white,
     shadowColor: "#000",
     shadowOffset: {
       width: 1,
       height: 2,
     },
-    shadowOpacity: 0.5,
-    shadowRadius: 3.84,
-    elevation: 9,
     width: "95%",
-    alignSelf: "center", // centralizar horizontalmente
+    elevation: 9,
+    alignSelf: "center",
+    shadowRadius: 3.84,
+    shadowOpacity: 0.5,
   },
   contentBody: {
-    width: "95%",
     gap: Spacing.medium,
-    marginLeft: 7,
   },
   buttonContainer: {
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20, // Ajuste o espaçamento conforme necessário
   },
   buttonGroup: {
-    gap: 15, // Espaçamento entre os botões
-    marginBottom: 40,
-    textAlign: "center",
-    width: "100%",
+    gap: Spacing.medium,
   },
 });
