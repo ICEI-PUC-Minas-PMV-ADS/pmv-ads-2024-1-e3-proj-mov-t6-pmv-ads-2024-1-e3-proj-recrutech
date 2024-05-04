@@ -25,8 +25,9 @@ namespace Recrutech_api.Model
         public IQueryable<User> GetAllUsers => Users.Where(x => x.IsActive)
                         .Include(x => x.Address)
                         .Include(x => x.VacanciesOwner.Where(y => y.IsActive))
-                        .Include(x => x.UserRecommendations.Where(y => y.IsActive)).ThenInclude( x => x.Recommendation)
-                        .Include(x => x.Curriculum);
+                        .Include(x => x.UserRecommendations.Where(y => y.IsActive)).ThenInclude(x => x.Recommendation)
+                        .Include(x => x.Curriculum).ThenInclude(c => c.Course)
+                        .Include(x => x.Curriculum).ThenInclude(c => c.Experience);
 
         public IQueryable<Vacancy> GetAllVacancies => Vacancies.Where(x => x.IsActive)
                         .Include(x => x.Cvs.Where(y => y.IsActive));

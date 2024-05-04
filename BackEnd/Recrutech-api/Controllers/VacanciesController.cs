@@ -83,6 +83,7 @@ namespace Recrutech_api.Controllers
         public async Task<IActionResult> UpdateVacancy(int id, [FromBody] JsonPatchDocument<Vacancy> updateVacancy)
         {
             Vacancy vacancyContext = await _context.GetAllVacancies.FirstOrDefaultAsync(x => x.Id == id);
+            if (vacancyContext == null) return BadRequest("Vaga não encontrada na base de dados");
             await _GenericUpdateService.UpdateObject(updateVacancy, vacancyContext, id, ModelState);
             return Ok(vacancyContext);
         }
@@ -105,23 +106,18 @@ namespace Recrutech_api.Controllers
         }
 
         [HttpPost("CreateVacancies")]
-        public async Task<ActionResult<Vacancy>> CreateVacancy([FromBody] VacancyWithUserId vacancyWithUserId)
+        public async Task<ActionResult<Vacancy>> CreateVacancy([FromBody] Vacancy vacancy)
         {
-            // Verifica se o usuário é um recrutador válido
-            var user = await _context.Users.FindAsync(vacancyWithUserId.UserId);
+            var user = await _context.Users.FindAsync(vacancy.UserId);
             if (user == null || user.IsRecruiter != true)
             {
                 return BadRequest("O usuário não é um recrutador válido.");
             }
 
-            var newVacancy = vacancyWithUserId.Vacancy;
-            // Atribui o usuário à vaga usando apenas o UserId
-            newVacancy.UserId = vacancyWithUserId.UserId;
-
-            _context.Vacancies.Add(newVacancy);
+            _context.Vacancies.Add(vacancy);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVacancy", new { id = newVacancy.Id }, newVacancy);
+            return CreatedAtAction("GetVacancy", new { id = vacancy.Id }, vacancy);
         }
 
         [HttpPost("ApplyCvToVacancy")]
@@ -137,13 +133,6 @@ namespace Recrutech_api.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Curriculo aplicado com sucesso");
-        }
-
-
-        public class VacancyWithUserId
-        {
-            public Vacancy Vacancy { get; set; }
-            public int UserId { get; set; }
         }
 
     }

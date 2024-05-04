@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Recrutech_api.Interfaces;
 using Recrutech_api.Model;
 
 namespace Recrutech_api.Controllers
@@ -15,36 +17,13 @@ namespace Recrutech_api.Controllers
     public class RecommendationsController : ControllerBase
     {
         private readonly recrutechDbContext _context;
+        private readonly IGenericUpdateService _GenericUpdateService;
 
-        public RecommendationsController(recrutechDbContext context)
+        public RecommendationsController(recrutechDbContext context, IGenericUpdateService GenericUpdateService)
         {
             _context = context;
+            _GenericUpdateService = GenericUpdateService;
         }
-
-        //// GET: api/Recommendations
-        //[HttpGet("getAllRecommendations")]
-        //public async Task<ActionResult<IEnumerable<Recommendation>>> GetRecomendations()
-        //{
-        //    List<Recommendation> recommendations = await _context.Recomendations.ToListAsync();
-        //    if (recommendations.IsNullOrEmpty())
-        //    { 
-        //    return Ok("Nenhuma recomendação encontrada.");
-        //    }
-        //    return Ok(recommendations);
-        //    //return await _context.Recomendations.Where(x => x.IsActive == true).ToListAsync();
-        //}
-
-        // GET: api/Recommendations/5
-        //[HttpGet("getRecommendationsByUser/{UserId}")]
-        //public async Task<ActionResult<Recommendation>> GetRecommendation(int UserId, [FromQuery] bool? IsProvider = null)
-        //{
-        //    if (_context.Recomendations == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    List<Recommendation> recommendations = await _context.Recomendations.Where(x => x.UserRecommendations.Any(x => x.UserId == UserId)).ToListAsync();
-        //    return Ok(recommendations);
-        //}
 
         [HttpGet("getRecommendationsByProvider/{ProviderId}")]
         public async Task<ActionResult<IEnumerable<Recommendation>>> GetRecommendationsByProvider(long ProviderId)
@@ -78,35 +57,31 @@ namespace Recrutech_api.Controllers
             return Ok(receiverRecommendations);
         }
 
-        // PUT: api/Recommendations/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRecommendation(int id, Recommendation recommendation)
+        [HttpPatch("UpdateRecommendation/{recommendationId}")]
+        public async Task<IActionResult> UpdateUserRecommendation(int recommendationId,[FromBody] JsonPatchDocument<Recommendation> updateRecommendation,[FromQuery] int providerId)
         {
-            if (id != recommendation.Id)
+            if (updateRecommendation == null || providerId == 0 || updateRecommendation == null)
             {
-                return BadRequest();
+                return BadRequest("Recomendação não encontrada.");
             }
 
-            _context.Entry(recommendation).State = EntityState.Modified;
-
-            try
+            if (updateRecommendation == null || providerId == 0)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RecommendationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest("Dados de atualização inválidos.");
             }
 
-            return NoContent();
+            if (updateRecommendation.Operations.Any(operation => operation.path != "/description" || operation.op != "replace"))
+            {
+                return BadRequest("Operação de atualização inválida.");
+            }
+
+            if (await _context.Recomendations.FirstOrDefaultAsync(x => x.Id == recommendationId && x.ProviderId == providerId) == null) return BadRequest("Usuário não é o provedor da recomendação selecionada."); 
+            
+            Recommendation recommendationContext = await _context.Recomendations.FirstOrDefaultAsync(x => x.Id == recommendationId);
+            await _GenericUpdateService.UpdateObject(updateRecommendation, recommendationContext, recommendationId, ModelState);
+            return Ok(recommendationContext);
         }
 
         // POST: api/Recommendations
@@ -120,7 +95,7 @@ namespace Recrutech_api.Controllers
             {
                 return BadRequest("Usuário não encontrado.");
             }
-
+            if (ReceivedId == recommendation.ProviderId) return BadRequest("Um usuário não pode gerar uma recomendação para sí mesmo");
             List<UserRecommendation>recommendationsList = new List<UserRecommendation>();
             UserRecommendation providerRecommendation = new UserRecommendation
             {
@@ -141,9 +116,9 @@ namespace Recrutech_api.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(recommendationsList);
+            return Ok(recommendation);
         }
-        
+
         // DELETE: api/Recommendations/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecommendation(int id)

@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using NuGet.Common;
 using Recrutech_api.Model;
 using Recrutech_api.Interfaces;
-using Swashbuckle.AspNetCore.Annotations;
+using System.Security.Cryptography;
+
 
 namespace Recrutech_api.Controllers
 {
@@ -40,7 +40,7 @@ namespace Recrutech_api.Controllers
         [HttpGet("getUser/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id);
+            User user = await _context.GetAllUsers.FirstOrDefaultAsync(x=> x.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -52,12 +52,16 @@ namespace Recrutech_api.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("createUser")]
-        public async Task<ActionResult<User>> CreateUser(User user)
+        public async Task<ActionResult<User>> CreateUser(CreateUserP user)
         {
-            _context.Users.Add(user);
+            bool userAlreadyExist = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Email == user.User.Email) != null ? true : false;
+            if (userAlreadyExist) return BadRequest("Já existe um usuário ativo associado a esse e-mail");
+
+            user.User.Password = HashPassword(user.Password);
+            _context.Users.Add(user.User);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetUser", new { id = user.User.Id }, user.User);
         }
 
         [HttpPost("loginWithAuth")]
@@ -68,14 +72,16 @@ namespace Recrutech_api.Controllers
                 return BadRequest("Preencha todos os campos");
             }
             
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email
-                                                                && x.Password == request.Senha 
-                                                                && x.IsActive);
-
+            User user = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Email == request.Email);
             if (user == null)
             {
                 return BadRequest("Nome de usuário ou senha incorretos");
             }
+
+            bool passwordOk = VerifyHashedPassword(user.Password, request.Senha);
+
+            if (!passwordOk) return BadRequest("Senha incorreta");
+
             return new ReturnUser
             {
                 UserId = user.Id,
@@ -98,14 +104,15 @@ namespace Recrutech_api.Controllers
         [HttpDelete("deleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
+            User user = await _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return NotFound();
             }
             user.IsActive = false;
-            user.VacanciesOwner.ForEach(x => x.IsActive = false);
-            user.Curriculum.IsActive = false;
+
+            if (user.VacanciesOwner.Count != 0) user.VacanciesOwner.ForEach(x => x.IsActive = false);
+            if (user.Curriculum != null) user.Curriculum.IsActive = false;
 
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -153,6 +160,50 @@ namespace Recrutech_api.Controllers
             public string? jwtToken { get; set; }
             public long? UserId { get; set; }
         }
+
+        public class CreateUserP
+        {
+            public User User { get; set; }
+            public string Password { get; set; }
+        }
+
+
+        public static string HashPassword(string password)
+            {
+                byte[] salt;
+                new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+
+                byte[] hashBytes = new byte[36];
+                Array.Copy(salt, 0, hashBytes, 0, 16);
+                Array.Copy(hash, 0, hashBytes, 16, 20);
+
+                return Convert.ToBase64String(hashBytes);
+            }
+
+        public static bool VerifyHashedPassword(string hashedPassword, string password)
+            {
+                byte[] hashBytes = Convert.FromBase64String(hashedPassword);
+
+                byte[] salt = new byte[16];
+                Array.Copy(hashBytes, 0, salt, 0, 16);
+
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+
+                for (int i = 0; i < 20; i++)
+                {
+                    if (hashBytes[i + 16] != hash[i])
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        
     }
 
     }

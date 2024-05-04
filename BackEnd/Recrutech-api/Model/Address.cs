@@ -11,9 +11,6 @@ namespace Recrutech_api.Model
         public string? Bairro { get; set; }
         public string? Localidade { get; set; }
         public string? UF { get; set; }
-        public string? Ibge { get; set; }
-        public string? Gia { get; set; }
-        public string? Siafi { get; set; }
         public int? UserId { get; set; }
         public User? User { get; set; }
 
