@@ -68,7 +68,7 @@ Exemplificação: A equipe utiliza metodologias ágeis, tendo escolhido o Scrum 
 - Scrum Master: Sandro Maciel;
 - Product Owner: Matheus Almeida;
 - Equipe de Desenvolvimento: Vitor Costa e Lucas Faria;
-- Equipe de Design: Lorrayne Lopes e Luan Alves.
+- Equipe de Design: Lorrayne Lopes.
 
 > **Links Úteis**:
 > - [11 Passos Essenciais para Implantar Scrum no seu Projeto](https://mindmaster.com.br/scrum-11-passos/)
