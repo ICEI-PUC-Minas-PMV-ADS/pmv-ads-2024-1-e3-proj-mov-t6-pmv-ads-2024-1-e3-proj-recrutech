@@ -36,11 +36,16 @@ namespace Recrutech_api
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<IGenericUpdateService, GenericUpdateService>();
             var app = builder.Build();
-                
-                
-           
 
-                app.UseSwagger();
+            app.UseCors(policy =>
+            {
+                policy.WithOrigins("http://localhost:8081")
+                      .AllowAnyMethod()
+                      .AllowAnyHeader();
+            });
+
+
+            app.UseSwagger();
                 app.UseSwaggerUI();
 
                         if (app.Environment.IsDevelopment())

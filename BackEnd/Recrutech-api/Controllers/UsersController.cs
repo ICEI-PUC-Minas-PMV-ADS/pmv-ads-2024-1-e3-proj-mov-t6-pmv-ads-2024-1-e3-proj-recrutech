@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Recrutech_api.Model;
 using Recrutech_api.Interfaces;
 using System.Security.Cryptography;
-
+using Microsoft.AspNetCore.Cors;
 
 namespace Recrutech_api.Controllers
 {
