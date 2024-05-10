@@ -36,10 +36,12 @@ namespace Recrutech_api
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<IGenericUpdateService, GenericUpdateService>();
             var app = builder.Build();
-
+            string[] url = new string[2];
+            url[0] = "http://localhost:8081";
+            url[1] = "https://recrutech-webapi.azurewebsites.net";
             app.UseCors(policy =>
             {
-                policy.WithOrigins("http://localhost:8081")
+                policy.WithOrigins(url)
                       .AllowAnyMethod()
                       .AllowAnyHeader();
             });
