@@ -8,11 +8,12 @@ const handleErrors = (error: unknown) => {
     Toast.error(`Erro ao obter vagas: ${error.message}`, "top");
 };
 
-export const getVacancies = async (): Promise<
-  VacancyInterfaces.Receive.Create[] | void
-> => {
-  const API_URL =
-    "https://recrutech-webapi.azurewebsites.net/api/Vacancies/GetAllVacancies";
+export const getVacancies = async (
+  name?: string
+): Promise<VacancyInterfaces.Receive.Create[] | void> => {
+  const API_URL = `https://recrutech-webapi.azurewebsites.net/api/Vacancies/GetAllVacancies${
+    name ? "?name=" + name : ""
+  }`;
 
   try {
     const response = await axios.get(API_URL);

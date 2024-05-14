@@ -1,14 +1,14 @@
 export enum Contract {
-  INOFFICE = 1,
-  REMOTE = 2,
-  HIBRID = 3,
+  Presencial = 1,
+  Remoto = 2,
+  Híbrido = 3,
 }
 
 export enum Office {
-  TRAINEE = 1,
-  JUNIOR = 2,
-  MID = 3,
-  SENIOR = 4,
+  Trainee = 1,
+  Júnior = 2,
+  Pleno = 3,
+  Sênior = 4,
 }
 
 export namespace VacancyInterfaces {

@@ -1,38 +1,73 @@
 import RecentVacancyCard from "@/components/RecentVacancyCard";
+import SearchBar from "@/components/SearchBar";
 import VacancyCard from "@/components/VacancyCard";
 import { FontSize, Spacing } from "@/constants/Sizes";
+import {
+  Contract,
+  Office,
+  VacancyInterfaces,
+} from "@/types/Vacancy.interfaces";
+import { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function DeveloperHomePage() {
+  const [vacancy, setVacancy] = useState<
+    VacancyInterfaces.Receive.List[] | null
+  >(null);
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.recentViwedTitle}>Vistas recentemente</Text>
-        <FlatList
-          data={Array(3)}
-          horizontal={true}
-          style={{ flexGrow: 0 }}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
-          renderItem={({ index, item }) => <VacancyCard />}
-        />
-      </View>
-      <View>
-        <Text style={styles.recentViwedTitle}>Vagas recentes</Text>
-        <FlatList
-          data={Array(3)}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.vacancyItemContainer}
-          renderItem={({ index, item }) => (
-            <RecentVacancyCard
-              title="Title"
-              seniority="Pleno"
-              workingModel="CLT"
-              enterprise="Google"
+      <SearchBar setVacancies={setVacancy}></SearchBar>
+      {!vacancy ? (
+        <>
+          <View>
+            <Text style={styles.recentViwedTitle}>Vistas recentemente</Text>
+            <FlatList
+              data={Array(3)}
+              horizontal={true}
+              style={{ flexGrow: 0 }}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.listContainer}
+              renderItem={({ index, item }) => <VacancyCard />}
             />
-          )}
-        />
-      </View>
+          </View>
+          <View>
+            <Text style={styles.recentViwedTitle}>Vagas recentes</Text>
+            <FlatList
+              data={Array(3)}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.vacancyItemContainer}
+              renderItem={({ index, item }) => (
+                <RecentVacancyCard
+                  title="Title"
+                  seniority="Pleno"
+                  workingModel="CLT"
+                  enterprise="Google"
+                />
+              )}
+            />
+          </View>
+        </>
+      ) : (
+        <>
+          <View>
+            <Text style={styles.recentViwedTitle}>Vistas recentemente</Text>
+            <FlatList
+              data={vacancy}
+              style={{ flexGrow: 0 }}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.listContainer}
+              renderItem={({ index, item }) => (
+                <RecentVacancyCard
+                  title={item.name}
+                  seniority={Office[item.contract]}
+                  workingModel={Contract[item.cargo]}
+                  enterprise={item.enterprise}
+                />
+              )}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 }
