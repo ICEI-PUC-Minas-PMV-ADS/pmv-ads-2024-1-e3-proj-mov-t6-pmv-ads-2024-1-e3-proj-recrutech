@@ -20,7 +20,9 @@ import { useSession } from "@/context/AuthContext";
 import { createVacancy } from "@/services/vacancyService";
 import { router } from "expo-router";
 
-const usePickerState = (initialItems: { label: string; value: any }[]) => {
+export const usePickerState = (
+  initialItems: { label: string; value: any }[]
+) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
   const [items, setItems] = useState(initialItems);
