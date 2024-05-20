@@ -7,22 +7,25 @@ import {
   Office,
   VacancyInterfaces,
 } from "@/types/Vacancy.interfaces";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function DeveloperHomePage() {
   const [vacancy, setVacancy] = useState<
     VacancyInterfaces.Receive.List[] | null
   >(null);
+  useEffect(() => {
+    console.log(vacancy);
+  }, [vacancy]);
   return (
     <View style={styles.container}>
       <SearchBar setVacancies={setVacancy}></SearchBar>
-      {!vacancy ? (
+      {vacancy ? (
         <>
           <View>
             <Text style={styles.recentViwedTitle}>Vistas recentemente</Text>
             <FlatList
-              data={Array(3)}
+              data={vacancy}
               horizontal={true}
               style={{ flexGrow: 0 }}
               showsVerticalScrollIndicator={false}
@@ -33,7 +36,7 @@ export default function DeveloperHomePage() {
           <View>
             <Text style={styles.recentViwedTitle}>Vagas recentes</Text>
             <FlatList
-              data={Array(3)}
+              data={vacancy}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={styles.vacancyItemContainer}
               renderItem={({ index, item }) => (
