@@ -1,35 +1,35 @@
-import React from "react";
-import {
-  TextInput,
-  View,
-  StyleSheet,
-  Text,
-  ScrollView,
-  FlatList,
-  Image,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
-import ToastManager from "toastify-react-native";
-import TextFieldComponent, {
-  getFieldVariantByUser,
-} from "@/components/TextFieldComponent";
-import DefaultButton, {
-  getButtonVariantByUser,
-} from "@/components/DefaultButton";
-import { MultipleSelectList } from "react-native-dropdown-select-list";
-import { SelectList } from "react-native-dropdown-select-list";
-import { Picker } from "@react-native-picker/picker";
+import TextFieldComponent from "@/components/TextFieldComponent";
 import DropDownPicker from "react-native-dropdown-picker";
 import { usePickerState } from "../home/(recruiter)/(vacancy)/create";
+import DefaultButton from "@/components/DefaultButton";
 
 function EditProfileForm() {
+  const [about, setAbout] = useState("");
+  const [github, setGithub] = useState("");
+  const [courses, setCourses] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [experiences, setExperiences] = useState("");
   const requirementStates = usePickerState([
     { label: "Java", value: "java" },
     { label: "Node", value: "node" },
     { label: "React", value: "react" },
     { label: "Python", value: "python" },
   ]);
+
+  function onSubmit() {
+    console.log({
+      about,
+      courses,
+      experiences,
+      github,
+      linkedin,
+      technologies: requirementStates.value,
+    });
+  }
 
   return (
     <View>
@@ -42,16 +42,39 @@ function EditProfileForm() {
       <View>
         <View style={styles.container}>
           <View style={styles.gapField}>
-            <TextFieldComponent label="Sobre:" variant="secondary" multiline />
-            <TextFieldComponent label="Cursos:" variant="secondary" multiline />
             <TextFieldComponent
-              label="Experiências:"
+              label="Sobre:"
               variant="secondary"
               multiline
+              value={about}
+              onChangeText={setAbout}
             />
-            <TextFieldComponent label="GitHub" variant="secondary" />
-
-            <TextFieldComponent label="LinkedIn:" variant="secondary" />
+            <TextFieldComponent
+              label="Cursos:"
+              variant="secondary"
+              multiline
+              value={courses}
+              onChangeText={setCourses}
+            />
+            <TextFieldComponent
+              label="ExperiÃªncias:"
+              variant="secondary"
+              multiline
+              value={experiences}
+              onChangeText={setExperiences}
+            />
+            <TextFieldComponent
+              label="GitHub"
+              variant="secondary"
+              value={github}
+              onChangeText={setGithub}
+            />
+            <TextFieldComponent
+              label="LinkedIn:"
+              variant="secondary"
+              value={linkedin}
+              onChangeText={setLinkedin}
+            />
 
             <View>
               <Text style={styles.labelPicker}>Tecnologias:</Text>
@@ -80,7 +103,11 @@ function EditProfileForm() {
                 }}
                 fontSize={FontSize.small}
               />
-              <DefaultButton title="Salvar" variant="secondary" />
+              <DefaultButton
+                title="Salvar"
+                variant="secondary"
+                onPress={onSubmit}
+              />
             </View>
           </View>
         </View>
@@ -104,20 +131,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
   },
-
   labelTitle: {
     fontSize: FontSize.extraLarge,
     marginBottom: Spacing.extraSmall,
     padding: 5,
     fontFamily: "Roboto-Bold",
   },
-
   gapField: {
     gap: Spacing.medium,
   },
-
   list: {
     width: "95%",
     maxWidth: 300,
@@ -132,10 +155,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: Spacing.smallMedium,
   },
-
-  newVacancie: {
-    marginLeft: 10,
-  },
   picker: {
     height: 25,
     borderRadius: 10,
@@ -143,12 +162,12 @@ const styles = StyleSheet.create({
   labelPicker: {
     fontFamily: "Roboto-Light",
   },
-
   buttonContainer: {
     flexDirection: "row",
     gap: 20,
+    marginTop: 30,
+    marginBottom: 30,
     alignSelf: "center",
     fontFamily: "Roboto-Bold",
-    marginTop: 30,
   },
 });
