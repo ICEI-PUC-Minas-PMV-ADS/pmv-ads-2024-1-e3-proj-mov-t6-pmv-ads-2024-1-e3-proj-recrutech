@@ -1,21 +1,16 @@
 import {
-  Text,
   View,
-  Platform,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Button,
   NativeSyntheticEvent,
   TextInputChangeEventData,
-  TextInputKeyPressEventData,
+  Dimensions,
 } from "react-native";
-
-import { Colors } from "@/constants/Colors";
-import { FontSize, Spacing } from "@/constants/Sizes";
 import { useState } from "react";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { getVacancies } from "@/services/vacancyService";
-import { VacancyInterfaces } from "@/types/Vacancy.interfaces";
+import FilterModalComponent from "./FilterModalComponent";
 
 export default function SearchBar({
   setVacancies,
@@ -23,11 +18,14 @@ export default function SearchBar({
   setVacancies: Function;
 }) {
   const [value, setValue] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleSearch = (
     inputValue: NativeSyntheticEvent<TextInputChangeEventData>
   ) => {
     setValue(inputValue.nativeEvent.text);
   };
+
   const searchValue = () => {
     getVacancies(value).then((response) => {
       const filteredVacancies =
@@ -41,10 +39,64 @@ export default function SearchBar({
       } else setVacancies(null);
     });
   };
+
   return (
-    <View>
-      <TextInput placeholder="" onChange={handleSearch} />
-      <Button title="lupinha" onPress={searchValue}></Button>
-    </View>
+    <>
+      <View style={styles.container}>
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Pesquisar"
+            onChange={handleSearch}
+            value={value}
+          />
+          <TouchableOpacity onPress={searchValue} style={styles.searchIcon}>
+            <Icon name="search" size={20} color="#2DC672" />
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={styles.filterIcon}
+        >
+          <Icon name="sliders" size={20} color="#2DC672" />
+        </TouchableOpacity>
+      </View>
+      <View>
+        <FilterModalComponent
+          setVacancies={setVacancies}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      </View>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    padding: 10,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#2DC672",
+    borderRadius: 5,
+    flex: 1,
+    width: "100%",
+    maxWidth: 300,
+  },
+  input: {
+    flex: 1,
+    padding: 10,
+  },
+  searchIcon: {
+    padding: 10,
+  },
+  filterIcon: {
+    padding: 10,
+  },
+});
