@@ -10,7 +10,6 @@ Diante da crescente demanda por profissionais de tecnologia da informação (TI)
 
 ## Integrantes
 
-* LUAN DE ALCANTARA ALVES
 * LORRAYNE CRISTINE LOPES PEREIRA
 * LUCAS FARIA VERRI
 * MATHEUS ALMEIDA DA ROCHA 

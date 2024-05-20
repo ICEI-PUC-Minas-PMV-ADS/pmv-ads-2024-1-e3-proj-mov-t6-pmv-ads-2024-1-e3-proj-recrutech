@@ -34,6 +34,9 @@ export default function Page() {
                 alignSelf: "center",
               }}
               fontSize={FontSize.small}
+              link={{
+                pathname: "/profile/edit",
+              }}
             />
             <DefaultButton
               title="Apagar minha conta"
