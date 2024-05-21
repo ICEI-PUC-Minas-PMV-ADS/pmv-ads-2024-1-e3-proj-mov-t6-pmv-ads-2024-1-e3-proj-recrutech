@@ -1,7 +1,9 @@
+import FilterModalComponent from "@/components/FilterModalComponent";
 import RecentVacancyCard from "@/components/RecentVacancyCard";
 import SearchBar from "@/components/SearchBar";
 import VacancyCard from "@/components/VacancyCard";
 import { FontSize, Spacing } from "@/constants/Sizes";
+import { User } from "@/types/User.interfaces";
 import {
   Contract,
   Office,
@@ -14,13 +16,29 @@ export default function DeveloperHomePage() {
   const [vacancy, setVacancy] = useState<
     VacancyInterfaces.Receive.List[] | null
   >(null);
+  const [users, setUsers] = useState<User.Receive.Create[] | null>(null);
+
   useEffect(() => {
     console.log(vacancy);
   }, [vacancy]);
+
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
+
+  const clearResults = () => {
+    setVacancy(null);
+    setUsers(null);
+  };
+
   return (
     <View style={styles.container}>
-      <SearchBar setVacancies={setVacancy}></SearchBar>
-      {vacancy ? (
+      <SearchBar
+        setVacancies={setVacancy}
+        setUsers={setUsers}
+        clearResults={clearResults}
+      ></SearchBar>
+      {!vacancy ? (
         <>
           <View>
             <Text style={styles.recentViwedTitle}>Vistas recentemente</Text>
@@ -41,10 +59,10 @@ export default function DeveloperHomePage() {
               contentContainerStyle={styles.vacancyItemContainer}
               renderItem={({ index, item }) => (
                 <RecentVacancyCard
-                  title="Title"
-                  seniority="Pleno"
-                  workingModel="CLT"
-                  enterprise="Google"
+                  title={item.name}
+                  seniority={Office[item.contract]}
+                  workingModel={Contract[item.cargo]}
+                  enterprise={item.enterprise}
                 />
               )}
             />

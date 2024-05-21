@@ -1,8 +1,4 @@
-import { getVacancies } from "@/services/filterService";
-import Slider from "@react-native-community/slider";
-import Checkbox from "expo-checkbox";
 import React, { useState } from "react";
-import { Controller } from "react-hook-form";
 import {
   Alert,
   Modal,
@@ -12,6 +8,9 @@ import {
   View,
   TextInput,
 } from "react-native";
+import Slider from "@react-native-community/slider";
+import Checkbox from "expo-checkbox";
+import { getVacancies } from "@/services/filterService";
 
 const FilterModalComponent = ({
   setVacancies,
@@ -20,7 +19,7 @@ const FilterModalComponent = ({
 }: {
   setVacancies: Function;
   modalVisible: boolean;
-  setModalVisible: Function;
+  setModalVisible: (visible: boolean) => void;
 }) => {
   const [isJunior, setJunior] = useState(true);
   const [isPleno, setPleno] = useState(true);
@@ -54,81 +53,75 @@ const FilterModalComponent = ({
   };
 
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Filtros</Text>
-            <Pressable onPress={resetarFiltros} style={styles.resetButton}>
-              <Text style={styles.resetButtonText}>Redefinir</Text>
-            </Pressable>
-            <View style={styles.filterGroup}>
-              <Text style={styles.filterLabel}>Tipo:</Text>
-              <View style={styles.checkboxContainer}>
-                <Checkbox value={isEstagio} onValueChange={setEstagio} />
-                <Text style={styles.checkboxLabel}>Estágio</Text>
-              </View>
-              <View style={styles.checkboxContainer}>
-                <Checkbox value={isJunior} onValueChange={setJunior} />
-                <Text style={styles.checkboxLabel}>Júnior</Text>
-              </View>
-              <View style={styles.checkboxContainer}>
-                <Checkbox value={isPleno} onValueChange={setPleno} />
-                <Text style={styles.checkboxLabel}>Pleno</Text>
-              </View>
-              <View style={styles.checkboxContainer}>
-                <Checkbox value={isSenior} onValueChange={setSenior} />
-                <Text style={styles.checkboxLabel}>Sênior</Text>
-              </View>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  placeholder="Localização"
-                  value={location}
-                  style={styles.input}
-                  onChange={(event) => {
-                    setLocation(event.nativeEvent.text);
-                  }}
-                />
-              </View>
-              <Slider
-                value={salario}
-                onValueChange={(value) => {
-                  setSalario(Number(value.toFixed(0)));
-                }}
-                style={{ width: 200, height: 40 }}
-                minimumValue={1}
-                maximumValue={20000}
-                minimumTrackTintColor="#2DC672"
-                maximumTrackTintColor="#000000"
-              />
-              <Text style={styles.salaryText}>R${salario},00</Text>
-              <View style={styles.buttonContainer}>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Fechar</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.button, styles.buttonSave]}
-                  onPress={filtrarVagas}
-                >
-                  <Text style={styles.textStyle}>Salvar</Text>
-                </Pressable>
-              </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        Alert.alert("Modal has been closed.");
+        setModalVisible(false);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Filtros</Text>
+          <Pressable onPress={resetarFiltros}>
+            <Text>Redefinir</Text>
+          </Pressable>
+          <View>
+            <Text>Tipo:</Text>
+            <View>
+              <Checkbox value={isEstagio} onValueChange={setEstagio} />
+              <Text>Estágio</Text>
             </View>
+            <View>
+              <Checkbox value={isJunior} onValueChange={setJunior} />
+              <Text>Júnior</Text>
+            </View>
+            <View>
+              <Checkbox value={isPleno} onValueChange={setPleno} />
+              <Text>Pleno</Text>
+            </View>
+            <View>
+              <Checkbox value={isSenior} onValueChange={setSenior} />
+              <Text>Sênior</Text>
+            </View>
+            <TextInput
+              placeholder="Localização"
+              value={location}
+              style={styles.input}
+              onChange={(event) => {
+                setLocation(event.nativeEvent.text);
+              }}
+            ></TextInput>
+            <Slider
+              value={salario}
+              onValueChange={(value) => {
+                setSalario(Number(value.toFixed(0)));
+              }}
+              style={{ width: 200, height: 40 }}
+              minimumValue={1}
+              maximumValue={20000}
+              minimumTrackTintColor="#2DC672"
+              maximumTrackTintColor="#000000"
+            />
+            <Text>R${salario},00</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.textStyle}>Fechar</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={filtrarVagas}
+            >
+              <Text style={styles.textStyle}>Salvar</Text>
+            </Pressable>
           </View>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -142,8 +135,8 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
+    borderRadius: 20,
+    padding: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -155,15 +148,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 5,
+    borderRadius: 20,
     padding: 10,
     elevation: 2,
   },
-  buttonClose: {
-    backgroundColor: "#FF5C5C",
+  buttonOpen: {
+    backgroundColor: "#F194FF",
   },
-  buttonSave: {
-    backgroundColor: "#2DC672",
+  buttonClose: {
+    backgroundColor: "#2196F3",
   },
   textStyle: {
     color: "white",
@@ -173,49 +166,14 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#2DC672",
+    borderColor: "#ccc",
     borderRadius: 5,
-    padding: 10,
+    padding: 8,
     width: "100%",
-  },
-  filterGroup: {
-    width: "100%",
-  },
-  filterLabel: {
-    fontWeight: "bold",
     marginBottom: 10,
-  },
-  checkboxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  checkboxLabel: {
-    marginLeft: 10,
-  },
-  salaryText: {
-    marginVertical: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  resetButton: {
-    alignSelf: "flex-end",
-    marginBottom: 10,
-  },
-  resetButtonText: {
-    color: "#FF5C5C",
   },
 });
 
