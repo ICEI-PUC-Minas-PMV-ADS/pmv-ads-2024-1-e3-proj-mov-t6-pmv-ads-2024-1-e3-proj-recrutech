@@ -1,11 +1,11 @@
 export enum Contract {
   Presencial = 1,
   Remoto = 2,
-  Híbrido = 3,
+  Híbrido = 4,
 }
 
 export enum Office {
-  Trainee = 1,
+  Estágio = 1,
   Júnior = 2,
   Pleno = 3,
   Sênior = 4,
