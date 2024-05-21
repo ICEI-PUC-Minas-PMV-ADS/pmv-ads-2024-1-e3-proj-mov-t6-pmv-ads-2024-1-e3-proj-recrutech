@@ -24,16 +24,16 @@ const renderListItem = (
 ) => {
   const marginBottom = isLastItem ? 100 : 0;
   const officeMap: Record<Office, string> = {
-    [Office.MID]: "Pleno",
-    [Office.JUNIOR]: "Júnior",
-    [Office.SENIOR]: "Sênior",
-    [Office.TRAINEE]: "Estágio",
+    [Office.Pleno]: "Pleno",
+    [Office.Júnior]: "Júnior",
+    [Office.Sênior]: "Sênior",
+    [Office.Trainee]: "Estágio",
   };
 
   const workingModelMap: Record<Contract, string> = {
-    [Contract.REMOTE]: "Remoto",
-    [Contract.HIBRID]: "Híbrido",
-    [Contract.INOFFICE]: "Presencial",
+    [Contract.Remoto]: "Remoto",
+    [Contract.Híbrido]: "Híbrido",
+    [Contract.Presencial]: "Presencial",
   };
 
   return (
