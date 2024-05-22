@@ -18,14 +18,6 @@ export default function DeveloperHomePage() {
   >(null);
   const [users, setUsers] = useState<User.Receive.Create[] | null>(null);
 
-  useEffect(() => {
-    console.log(vacancy);
-  }, [vacancy]);
-
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
-
   const clearResults = () => {
     setVacancy(null);
     setUsers(null);
