@@ -6,21 +6,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { router } from "expo-router";
+
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
-import { router } from "expo-router";
+
 import { RecentVacancyCardProps } from "@/types/RecentVacancyCard.interfaces";
 
 export default function RecentVacancyCard(props: RecentVacancyCardProps) {
-  const goToRecruiterVacancies = () => {
-    router.push("/recruiterVacancies/");
-  };
   return (
-    <TouchableOpacity
-      style={styles.recentVacancyCard}
-      activeOpacity={0.9}
-      onPress={goToRecruiterVacancies}
-    >
+    <View style={styles.recentVacancyCard}>
       <View style={styles.cardSection}>
         <Text
           numberOfLines={1}
@@ -44,7 +39,7 @@ export default function RecentVacancyCard(props: RecentVacancyCardProps) {
           {props.seniority}
         </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 

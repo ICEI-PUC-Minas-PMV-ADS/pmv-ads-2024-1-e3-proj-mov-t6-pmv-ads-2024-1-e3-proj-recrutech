@@ -5,8 +5,6 @@ import { User } from "@/types/User.interfaces";
 
 const handleErrors = (error: unknown) => {
   if (isAxiosError(error)) {
-    console.log(error.message);
-
     Toast.error(`Erro ao obter usuários: ${error.message}`, "top");
   }
 };

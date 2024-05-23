@@ -21,9 +21,7 @@ export default function SignUp() {
     router.replace(`/sign-up/${newType}`);
   };
 
-  const handleSubmit = () => {
-    console.log("Submit");
-  };
+  const handleSubmit = () => {};
 
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getFieldVariantByUser(userType);

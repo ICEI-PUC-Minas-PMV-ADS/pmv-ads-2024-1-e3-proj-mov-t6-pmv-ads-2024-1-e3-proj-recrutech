@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 import { useSession } from "@/context/AuthContext";
 
@@ -69,11 +69,15 @@ const redirectToHome = () => {
 const ProfileComponent = (): JSX.Element => {
   const [userData, setUserdata] = useState<User.Receive.Create | void>();
   const { session } = useSession();
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  if (!id) {
+    router.replace("/home/");
+  }
 
   useEffect(() => {
-    getUserById(session?.userData.id).then((response) => {
+    getUserById(+id).then((response) => {
       setUserdata(response);
-      console.log(response && response.address);
     });
   }, []);
 

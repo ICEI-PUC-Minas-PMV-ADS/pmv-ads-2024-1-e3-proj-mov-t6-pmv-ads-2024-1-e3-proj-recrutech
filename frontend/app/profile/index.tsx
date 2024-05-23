@@ -9,7 +9,7 @@ import TextFieldComponent from "@/components/TextFieldComponent";
 
 export default function Page() {
   const { session } = useSession();
-  const { userName } = session!.userData;
+  const { userName, isRecruiter } = session!.userData;
 
   return (
     <View style={styles.container}>
@@ -25,19 +25,22 @@ export default function Page() {
           <TextFieldComponent label="Endereço:" variant="secondary" />
 
           <View style={styles.buttonGroup}>
-            <DefaultButton
-              title="Editar Perfil"
-              variant="secondary"
-              moreStyles={{
-                width: "100%",
-                maxWidth: 200,
-                alignSelf: "center",
-              }}
-              fontSize={FontSize.small}
-              link={{
-                pathname: "/profile/edit",
-              }}
-            />
+            {!isRecruiter && (
+              <DefaultButton
+                title="Editar Perfil"
+                variant="secondary"
+                moreStyles={{
+                  width: "100%",
+                  maxWidth: 200,
+                  alignSelf: "center",
+                }}
+                fontSize={FontSize.small}
+                link={{
+                  pathname: "/profile/edit",
+                }}
+              />
+            )}
+
             <DefaultButton
               title="Apagar minha conta"
               variant="secondary"

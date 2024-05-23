@@ -32,15 +32,19 @@ function EditProfileForm() {
 
   useEffect(() => {
     if (session?.userData.id) {
-      getUserById(session.userData.id).then((response) => {
-        if (!response) return;
+      getUserById(session.userData.id)
+        .then((response) => {
+          if (!response) return;
 
-        setCurriculumId(response.curriculum.id);
+          setCurriculumId(response.curriculum.id);
 
-        setAbout(response.curriculum.about);
-        setGithub(response.curriculum.github);
-        setLinkedin(response.curriculum.linkedin);
-      });
+          setAbout(response.curriculum.about);
+          setGithub(response.curriculum.github);
+          setLinkedin(response.curriculum.linkedin);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, []);
 

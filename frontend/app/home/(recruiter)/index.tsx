@@ -1,6 +1,13 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View, FlatList, StyleSheet, Platform } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
@@ -18,16 +25,22 @@ import { User } from "@/types/User.interfaces";
 import { useSession } from "@/context/AuthContext";
 import { getVacanciesByUserId } from "@/services/vacancyService";
 
+const redirectToRecruiterVacancies = (id?: string) => {
+  if (!id) return;
+
+  router.push(`/recruiterVacancies/${id}`);
+};
+
 const renderListItem = (
   isLastItem: boolean,
-  { name, enterprise, cargo, contract }: VacancyInterfaces.Receive.List
+  { name, enterprise, cargo, contract, id }: VacancyInterfaces.Receive.List
 ) => {
   const marginBottom = isLastItem ? 100 : 0;
   const officeMap: Record<Office, string> = {
     [Office.Pleno]: "Pleno",
     [Office.Júnior]: "Júnior",
     [Office.Sênior]: "Sênior",
-    [Office.Trainee]: "Estágio",
+    [Office.Estágio]: "Estágio",
   };
 
   const workingModelMap: Record<Contract, string> = {
@@ -43,14 +56,19 @@ const renderListItem = (
         padding: Spacing.small,
       }}
     >
-      <RecentVacancyCard
-        {...{
-          title: name,
-          enterprise,
-          seniority: officeMap[cargo],
-          workingModel: workingModelMap[contract],
-        }}
-      ></RecentVacancyCard>
+      <TouchableOpacity
+        onPress={() => redirectToRecruiterVacancies(id)}
+        activeOpacity={0.9}
+      >
+        <RecentVacancyCard
+          {...{
+            title: name,
+            enterprise,
+            seniority: officeMap[cargo],
+            workingModel: workingModelMap[contract],
+          }}
+        ></RecentVacancyCard>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -66,7 +84,7 @@ export default function RecruiterHomePage() {
   const { session } = useSession();
 
   useEffect(() => {
-    const { id } = session?.userData as User;
+    const { id } = session?.userData as User.Receive.Create;
 
     getVacanciesByUserId(id).then((response) => {
       if (response && Array.isArray(response)) {
