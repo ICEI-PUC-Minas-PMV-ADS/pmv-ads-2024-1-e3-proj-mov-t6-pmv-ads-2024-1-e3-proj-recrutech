@@ -23,6 +23,15 @@ export interface Curriculum {
   userId: number;
 }
 
+export interface Address {
+  bairro: string;
+  cep: string;
+  complemento: string;
+  localidade: string;
+  logradouro: string;
+  uf: string;
+}
+
 export namespace User {
   export namespace Receive {
     export interface Create {
@@ -30,7 +39,7 @@ export namespace User {
       email: string;
       userName: string;
       password: string;
-      address?: string;
+      address?: Address;
       curriculumId: string;
       isRecruiter: boolean;
       curriculum: Curriculum;

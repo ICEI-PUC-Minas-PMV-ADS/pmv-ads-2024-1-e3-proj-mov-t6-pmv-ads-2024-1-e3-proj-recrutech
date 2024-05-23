@@ -48,7 +48,7 @@ const VacancyForm = (): React.JSX.Element => {
   ]);
 
   const seniorityStates = usePickerState([
-    { label: "Estagiário", value: Office.Trainee },
+    { label: "Estagiário", value: Office.Estágio },
     { label: "Júnior", value: Office.Júnior },
     { label: "Pleno", value: Office.Pleno },
     { label: "Sênior", value: Office.Sênior },

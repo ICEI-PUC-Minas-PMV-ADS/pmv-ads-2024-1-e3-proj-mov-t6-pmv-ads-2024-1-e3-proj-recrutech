@@ -109,14 +109,6 @@ function EditProfileForm() {
               value={about}
               onChangeText={setAbout}
             />
-            {/* <TextFieldComponent
-              label="Cursos:"
-              variant="secondary"
-              multiline
-              value={courses}
-              onChangeText={setCourses}
-            /> */}
-
             <View style={styles.dropdownPicker}>
               <Text style={styles.labelPicker}>Cursos:</Text>
               <DropDownPicker
@@ -135,15 +127,6 @@ function EditProfileForm() {
                 badgeDotColors={[Colors.green]}
               />
             </View>
-
-            {/* <TextFieldComponent
-              label="Experiências:"
-              variant="secondary"
-              multiline
-              value={experiences}
-              onChangeText={setExperiences}
-            /> */}
-
             <View style={styles.dropdownPicker}>
               <Text style={styles.labelPicker}>Experiências:</Text>
               <DropDownPicker

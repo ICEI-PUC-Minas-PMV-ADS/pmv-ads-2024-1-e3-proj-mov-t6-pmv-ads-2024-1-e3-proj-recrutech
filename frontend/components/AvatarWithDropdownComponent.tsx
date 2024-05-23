@@ -26,7 +26,7 @@ interface ProfileOption {
 
 const optionsHandlers: Record<OptionTypes, Function> = {
   [OptionTypes.LOGOUT]: () => signOut(),
-  [OptionTypes.PROFILE]: () => router.push("/profile/"),
+  [OptionTypes.PROFILE]: () => router.push("/home/(developer)/userProfile"),
 };
 
 const dropDownOptions: ProfileOption[] = [
