@@ -7,7 +7,7 @@ import {
   TextInputChangeEventData,
   Dimensions,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { getVacancies } from "@/services/vacancyService";
 import FilterModalComponent from "./FilterModalComponent";
@@ -17,15 +17,23 @@ import { Picker } from "@react-native-picker/picker";
 export default function SearchBar({
   setVacancies,
   setUsers,
-  clearResults,
+  setSearchType,
 }: {
   setVacancies: Function;
   setUsers: Function;
-  clearResults: Function;
+  setSearchType: Function;
 }) {
   const [value, setValue] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [searchType, setSearchType] = useState("vacancies");
+  const [searchType, setLocalSearchType] = useState("vacancies");
+
+  useEffect(() => {
+    if (searchType === "vacancies") {
+      setVacancies(null);
+    } else if (searchType === "users") {
+      setUsers(null);
+    }
+  }, [searchType]);
 
   const handleSearch = (
     inputValue: NativeSyntheticEvent<TextInputChangeEventData>
@@ -61,10 +69,9 @@ export default function SearchBar({
     }
   };
 
-  const handleSwitchChange = (itemValue: string) => {
+  const handleSearchTypeChange = (itemValue: string) => {
+    setLocalSearchType(itemValue);
     setSearchType(itemValue);
-    clearResults(); // Chama a função de limpeza ao alterar o switcher
-    setValue(""); // Limpa o valor do campo de busca
   };
 
   return (
@@ -74,7 +81,7 @@ export default function SearchBar({
           <Picker
             selectedValue={searchType}
             style={styles.picker}
-            onValueChange={handleSwitchChange} // Usa a nova função de limpeza
+            onValueChange={handleSearchTypeChange}
           >
             <Picker.Item label="Vagas" value="vacancies" />
             <Picker.Item label="Usuários" value="users" />
@@ -91,12 +98,14 @@ export default function SearchBar({
             <Icon name="search" size={20} color="#2DC672" />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => setModalVisible(true)}
-          style={styles.filterIcon}
-        >
-          <Icon name="sliders" size={20} color="#2DC672" />
-        </TouchableOpacity>
+        {searchType === "vacancies" && (
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={styles.filterIcon}
+          >
+            <Icon name="sliders" size={20} color="#2DC672" />
+          </TouchableOpacity>
+        )}
         <FilterModalComponent
           setVacancies={setVacancies}
           modalVisible={modalVisible}
