@@ -33,7 +33,7 @@ export default function DeveloperHomePage() {
   }, [vacancy]);
 
   useEffect(() => {
-    console.log(users); // Para depuração
+    console.log(users);
   }, [users]);
 
   return (
@@ -44,24 +44,14 @@ export default function DeveloperHomePage() {
         setSearchType={setSearchType}
       />
       {searchType === "vacancies" ? (
-        <>
-          {/* <View>
-            <Text style={styles.recentViewedTitle}>Vistas recentemente</Text>
+        <View style={styles.listWrapper}>
+          <Text style={styles.recentViewedTitle}>Vagas recentes</Text>
+          {vacancy && vacancy.length > 0 ? (
             <FlatList
               data={vacancy}
-              horizontal={true}
-              style={{ flexGrow: 0 }}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.listContainer}
-              renderItem={({ index, item }) => <VacancyCard />}
-            />
-          </View> */}
-          <View>
-            <Text style={styles.recentViewedTitle}>Vagas recentes</Text>
-            <FlatList
-              data={vacancy}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.vacancyItemContainer}
+              keyExtractor={(item) => item.id.toString()}
               renderItem={({ index, item }) => (
                 <RecentVacancyCard
                   title={item.name}
@@ -70,21 +60,36 @@ export default function DeveloperHomePage() {
                   enterprise={item.enterprise}
                 />
               )}
+              ItemSeparatorComponent={() => (
+                <View style={styles.itemSeparator} />
+              )}
             />
-          </View>
-        </>
+          ) : (
+            <Text style={styles.noResultsText}>
+              Não foram encontradas vagas.
+            </Text>
+          )}
+        </View>
       ) : (
-        <>
-          <View>
-            <Text style={styles.recentViewedTitle}>Usuários</Text>
+        <View style={styles.listWrapper}>
+          <Text style={styles.recentViewedTitle}>Usuários</Text>
+          {users && users.length > 0 ? (
             <FlatList
               data={users}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.userItemContainer}
+              keyExtractor={(item) => item.id.toString()}
               renderItem={({ index, item }) => <Text>{item.userName}</Text>}
+              ItemSeparatorComponent={() => (
+                <View style={styles.itemSeparator} />
+              )}
             />
-          </View>
-        </>
+          ) : (
+            <Text style={styles.noResultsText}>
+              Não foram encontrados usuários.
+            </Text>
+          )}
+        </View>
       )}
     </View>
   );
@@ -92,28 +97,34 @@ export default function DeveloperHomePage() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: Spacing.medium,
-    width: "100%",
-    flexDirection: "column",
+    flex: 1,
+    padding: Spacing.medium,
+    backgroundColor: "#fff",
+    marginBottom: 50,
   },
-  listContainer: {
-    paddingRight: 150,
-    gap: Spacing.medium,
-    alignItems: "flex-start",
+  listWrapper: {
+    flex: 1,
+    marginTop: Spacing.medium,
   },
   recentViewedTitle: {
     fontSize: FontSize.large,
     fontFamily: "Roboto-Regular",
     marginBottom: Spacing.medium,
+    textAlign: "center",
   },
   vacancyItemContainer: {
-    gap: Spacing.medium,
-    alignItems: "center",
     paddingBottom: Spacing.medium,
   },
   userItemContainer: {
-    gap: Spacing.medium,
-    alignItems: "center",
     paddingBottom: Spacing.medium,
+  },
+  noResultsText: {
+    fontSize: FontSize.medium,
+    fontFamily: "Roboto-Regular",
+    textAlign: "center",
+    color: "gray",
+  },
+  itemSeparator: {
+    height: Spacing.medium,
   },
 });
