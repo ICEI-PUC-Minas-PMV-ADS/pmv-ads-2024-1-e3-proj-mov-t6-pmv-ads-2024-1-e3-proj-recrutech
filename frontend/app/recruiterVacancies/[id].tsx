@@ -74,7 +74,6 @@ const PageContent = (): JSX.Element => {
   useEffect(() => {
     getVacancyById(id).then((response) => {
       setVacancyData(response);
-      console.log(response);
     });
 
     const numCandidates = Math.floor(Math.random() * 10) + 1;

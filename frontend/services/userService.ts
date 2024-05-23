@@ -9,6 +9,18 @@ const handleErrors = (error: unknown) => {
   }
 };
 
+export const createUser = async (userData: User.Send.Create) => {
+  const API_URL = `https://recrutech-webapi.azurewebsites.net/api/Users/createUser`;
+
+  try {
+    const response = await axios.post(API_URL, userData);
+
+    return response.data;
+  } catch (error) {
+    handleErrors(error);
+  }
+};
+
 export const getUsers = async (
   name?: string
 ): Promise<User.Receive.Create[] | void> => {

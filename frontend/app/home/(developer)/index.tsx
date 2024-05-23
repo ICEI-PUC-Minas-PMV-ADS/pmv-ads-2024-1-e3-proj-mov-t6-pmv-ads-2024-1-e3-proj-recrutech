@@ -1,24 +1,25 @@
-import FilterModalComponent from "@/components/FilterModalComponent";
-import RecentVacancyCard from "@/components/RecentVacancyCard";
 import SearchBar from "@/components/SearchBar";
-import VacancyCard from "@/components/VacancyCard";
 import { FontSize, Spacing } from "@/constants/Sizes";
+import RecentVacancyCard from "@/components/RecentVacancyCard";
+
 import {
-  Contract,
   Office,
+  Contract,
   VacancyInterfaces,
 } from "@/types/Vacancy.interfaces";
-import { User } from "@/types/User.interfaces";
+
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import UserCard from "@/components/UserCard";
+import { User } from "@/types/User.interfaces";
 import { getVacancies } from "@/services/vacancyService";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export default function DeveloperHomePage() {
   const [vacancy, setVacancy] = useState<
     VacancyInterfaces.Receive.List[] | null
   >(null);
-  const [users, setUsers] = useState<User.Receive.Create[] | null>(null);
   const [searchType, setSearchType] = useState("vacancies");
+  const [users, setUsers] = useState<User.Receive.Create[] | null>(null);
 
   useEffect(() => {
     if (searchType === "vacancies") {
@@ -76,7 +77,15 @@ export default function DeveloperHomePage() {
               showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.userItemContainer}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ index, item }) => <Text>{item.userName}</Text>}
+              renderItem={({ index, item }) => (
+                <UserCard
+                  id={item.id}
+                  email={item.email}
+                  name={item.userName}
+                  location={item.address?.localidade}
+                  technologies={item.curriculum?.tecnologies}
+                />
+              )}
               ItemSeparatorComponent={() => (
                 <View style={styles.itemSeparator} />
               )}

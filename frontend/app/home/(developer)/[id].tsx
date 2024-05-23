@@ -102,7 +102,7 @@ const ProfileComponent = (): JSX.Element => {
           </View>
         </View>
         <Text style={styles.aboutContentText}>
-          {userData?.curriculum.about}
+          {userData?.curriculum?.about || "O usuário não possui descrição"}
         </Text>
       </View>
       <View style={styles.container}>
