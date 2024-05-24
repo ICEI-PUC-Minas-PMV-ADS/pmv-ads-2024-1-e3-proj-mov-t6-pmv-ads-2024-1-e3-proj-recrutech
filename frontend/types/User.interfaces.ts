@@ -23,13 +23,22 @@ export interface Curriculum {
   userId: number;
 }
 
-export interface Address {
-  bairro: string;
+export interface ViaCepAddress {
+  uf: string;
   cep: string;
-  complemento: string;
+  bairro: string;
   localidade: string;
   logradouro: string;
+  complemento: string;
+}
+
+export interface UserAddress {
   uf: string;
+  cep: string;
+  bairro: string;
+  logradouro: string;
+  complemento: string;
+  localidade: string;
 }
 
 export namespace User {
@@ -39,7 +48,7 @@ export namespace User {
       email: string;
       userName: string;
       password: string;
-      address?: Address;
+      address?: UserAddress;
       curriculumId: string;
       isRecruiter: boolean;
       curriculum: Curriculum;
@@ -49,6 +58,16 @@ export namespace User {
   }
 
   export namespace Send {
+    export interface Create {
+      user: {
+        email: string;
+        userName: string;
+        isRecruiter: boolean;
+        address: UserAddress;
+      };
+      password: string;
+    }
+
     export interface Update {
       path: string;
       op: string;

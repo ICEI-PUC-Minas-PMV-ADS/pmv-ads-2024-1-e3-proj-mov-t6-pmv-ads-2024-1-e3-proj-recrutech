@@ -53,6 +53,10 @@ const generateRandomCandidates = (numCandidates: number) => {
   return candidates;
 };
 
+const goBack = () => {
+  router.replace("/home/");
+};
+
 const PageContent = (): JSX.Element => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [vacancyData, setVacancyData] =
@@ -84,6 +88,7 @@ const PageContent = (): JSX.Element => {
           name="arrow-back-circle-outline"
           size={24}
           style={styles.Backicon}
+          onPress={goBack}
         />
         <Text style={styles.defaultText}>{candidates.length} Candidaturas</Text>
         <View style={styles.headerStyle}>
