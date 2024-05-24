@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,7 +8,6 @@ import {
   TextInputChangeEventData,
   Dimensions,
 } from "react-native";
-import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { getVacancies } from "@/services/vacancyService";
 import FilterModalComponent from "./FilterModalComponent";
@@ -26,14 +26,6 @@ export default function SearchBar({
   const [value, setValue] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [searchType, setLocalSearchType] = useState("vacancies");
-
-  useEffect(() => {
-    if (searchType === "vacancies") {
-      setVacancies(null);
-    } else if (searchType === "users") {
-      setUsers(null);
-    }
-  }, [searchType]);
 
   const handleSearch = (
     inputValue: NativeSyntheticEvent<TextInputChangeEventData>
@@ -77,16 +69,6 @@ export default function SearchBar({
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.switcherContainer}>
-          <Picker
-            selectedValue={searchType}
-            style={styles.picker}
-            onValueChange={handleSearchTypeChange}
-          >
-            <Picker.Item label="Vagas" value="vacancies" />
-            <Picker.Item label="Usuários" value="users" />
-          </Picker>
-        </View>
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.input}
@@ -106,12 +88,22 @@ export default function SearchBar({
             <Icon name="sliders" size={20} color="#2DC672" />
           </TouchableOpacity>
         )}
-        <FilterModalComponent
-          setVacancies={setVacancies}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
       </View>
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={searchType}
+          style={styles.picker}
+          onValueChange={handleSearchTypeChange}
+        >
+          <Picker.Item label="Vagas" value="vacancies" />
+          <Picker.Item label="Usuários" value="users" />
+        </Picker>
+      </View>
+      <FilterModalComponent
+        setVacancies={setVacancies}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </>
   );
 }
@@ -122,15 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     padding: 10,
-  },
-  switcherContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingRight: 10,
-  },
-  picker: {
-    height: 50,
-    width: 150,
   },
   searchContainer: {
     flexDirection: "row",
@@ -151,5 +134,16 @@ const styles = StyleSheet.create({
   },
   filterIcon: {
     padding: 10,
+  },
+  pickerContainer: {
+    marginTop: 10,
+    alignSelf: "center",
+  },
+  picker: {
+    height: 50,
+    width: 150,
+    borderWidth: 1,
+    borderColor: "#2DC672",
+    borderRadius: 5,
   },
 });

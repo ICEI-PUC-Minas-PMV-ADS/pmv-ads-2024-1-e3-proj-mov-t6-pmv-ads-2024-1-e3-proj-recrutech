@@ -42,7 +42,7 @@ export default function DeveloperHomePage() {
       />
       {searchType === "vacancies" ? (
         <View style={styles.listWrapper}>
-          <Text style={styles.recentViewedTitle}>Vagas recentes</Text>
+          {/* <Text style={styles.recentViewedTitle}>Vagas recentes</Text> */}
           {vacancy && vacancy.length > 0 ? (
             <FlatList
               data={vacancy}
@@ -69,7 +69,7 @@ export default function DeveloperHomePage() {
         </View>
       ) : (
         <View style={styles.listWrapper}>
-          <Text style={styles.recentViewedTitle}>Usuários</Text>
+          {/* <Text style={styles.recentViewedTitle}>Usuários</Text> */}
           {users && users.length > 0 ? (
             <FlatList
               data={users}
