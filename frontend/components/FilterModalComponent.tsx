@@ -66,58 +66,68 @@ const FilterModalComponent = ({
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Filtros</Text>
           <Pressable onPress={resetarFiltros}>
-            <Text>Redefinir</Text>
+            <Text style={[styles.textStyle, styles.textRedefinir]}>
+              Redefinir
+            </Text>
           </Pressable>
           <View>
-            <Text>Tipo:</Text>
-            <View>
-              <Checkbox value={isEstagio} onValueChange={setEstagio} />
-              <Text>Estágio</Text>
+            <Text style={styles.tipo}>Tipo:</Text>
+            <View style={styles.checkboxContainer}>
+              <View style={styles.checkboxPair}>
+                <Checkbox value={isEstagio} onValueChange={setEstagio} />
+                <Text> Estágio</Text>
+              </View>
+              <View style={styles.checkboxPair}>
+                <Checkbox value={isJunior} onValueChange={setJunior} />
+                <Text> Júnior</Text>
+              </View>
             </View>
-            <View>
-              <Checkbox value={isJunior} onValueChange={setJunior} />
-              <Text>Júnior</Text>
+            <View style={styles.checkboxContainer}>
+              <View style={styles.checkboxPair}>
+                <Checkbox value={isPleno} onValueChange={setPleno} />
+                <Text> Pleno</Text>
+              </View>
+              <View style={styles.checkboxPair}>
+                <Checkbox value={isSenior} onValueChange={setSenior} />
+                <Text> Sênior</Text>
+              </View>
             </View>
-            <View>
-              <Checkbox value={isPleno} onValueChange={setPleno} />
-              <Text>Pleno</Text>
-            </View>
-            <View>
-              <Checkbox value={isSenior} onValueChange={setSenior} />
-              <Text>Sênior</Text>
-            </View>
+            <Text style={styles.tipo}>Localização</Text>
             <TextInput
-              placeholder="Localização"
+              placeholder="Digite o nome da cidade"
               value={location}
-              style={styles.input}
+              style={styles.location}
               onChange={(event) => {
                 setLocation(event.nativeEvent.text);
               }}
             ></TextInput>
+            <Text style={styles.tipo}>Expectativa Salarial:</Text>
             <Slider
               value={salario}
               onValueChange={(value) => {
                 setSalario(Number(value.toFixed(0)));
               }}
-              style={{ width: 200, height: 40 }}
+              style={{ width: 200, height: 40, alignSelf: "center" }}
               minimumValue={1}
               maximumValue={20000}
               minimumTrackTintColor="#2DC672"
               maximumTrackTintColor="#000000"
             />
-            <Text>R${salario},00</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.textStyle}>Fechar</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={filtrarVagas}
-            >
-              <Text style={styles.textStyle}>Salvar</Text>
-            </Pressable>
+            <Text style={styles.salary}>R${salario},00</Text>
+            <View style={styles.buttonContainer}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={[styles.textStyle, styles.textClose]}>Fechar</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonSave]}
+                onPress={filtrarVagas}
+              >
+                <Text style={styles.textStyle}>Salvar</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </View>
@@ -151,21 +161,43 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    width: 100,
+    alignItems: "center",
+    marginHorizontal: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "white",
+    borderColor: "#2DC672",
+    borderWidth: 1,
+  },
+  buttonSave: {
+    backgroundColor: "#2DC672",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
   },
+  textClose: {
+    color: "#2DC672",
+  },
+  textRedefinir: {
+    color: "#f00",
+    marginBottom: 10,
+  },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 18,
   },
   input: {
     borderWidth: 1,
@@ -173,6 +205,37 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 8,
     width: "100%",
+    marginBottom: 10,
+  },
+  location: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    padding: 8,
+    minWidth: 200,
+    width: "100%",
+    marginBottom: 10,
+    alignSelf: "center",
+  },
+  tipo: {
+    marginBottom: 10,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "70%",
+    marginBottom: 10,
+    alignSelf: "center",
+  },
+  checkboxPair: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  salary: {
+    alignSelf: "center",
     marginBottom: 10,
   },
 });

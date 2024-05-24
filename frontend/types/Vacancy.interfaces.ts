@@ -44,19 +44,7 @@ export namespace VacancyInterfaces {
       requirements: string[];
     }
 
-    export interface Create extends Common {
-      link: string;
-      name: string;
-      cargo: number;
-      content: string;
-      location: string;
-      contract: number;
-      enterprise: string;
-      benefits: string[];
-      cvs: string[] | null;
-      remuneration: number;
-      requirements: string[];
-    }
+    export interface Create extends Common {}
     export interface List extends Common {}
   }
 }

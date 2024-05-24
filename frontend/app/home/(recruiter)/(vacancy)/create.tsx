@@ -35,9 +35,9 @@ const VacancyForm = (): React.JSX.Element => {
   const userId = session!.userData.id;
 
   const contractTypesState = usePickerState([
-    { label: "Remoto", value: Contract.REMOTE },
-    { label: "Híbrido", value: Contract.HIBRID },
-    { label: "Presencial", value: Contract.INOFFICE },
+    { label: "Remoto", value: Contract.Remoto },
+    { label: "Híbrido", value: Contract.Híbrido },
+    { label: "Presencial", value: Contract.Remoto },
   ]);
 
   const requirementStates = usePickerState([
@@ -48,10 +48,10 @@ const VacancyForm = (): React.JSX.Element => {
   ]);
 
   const seniorityStates = usePickerState([
-    { label: "Estagiário", value: Office.TRAINEE },
-    { label: "Júnior", value: Office.JUNIOR },
-    { label: "Pleno", value: Office.MID },
-    { label: "Sênior", value: Office.SENIOR },
+    { label: "Estagiário", value: Office.Estágio },
+    { label: "Júnior", value: Office.Júnior },
+    { label: "Pleno", value: Office.Pleno },
+    { label: "Sênior", value: Office.Sênior },
   ]);
 
   const benefitsStates = usePickerState([
@@ -65,14 +65,14 @@ const VacancyForm = (): React.JSX.Element => {
   const defaultValues: VacancyInterfaces.Send.Create = {
     name: "Desenvolvedor Fullstack",
     enterprise: "Google",
-    cargo: Office.JUNIOR,
+    cargo: Office.Júnior,
     location: "Belo Horizonte - MG",
     link: "https://google.com",
     content: "Buscamos um desenvolvedor fullstack...",
     benefits: benefitsStates.value,
     requirements: requirementStates.value,
     remuneration: "R$ 4000,00",
-    contract: Contract.REMOTE,
+    contract: Contract.Remoto,
     userId: "1",
   };
 
