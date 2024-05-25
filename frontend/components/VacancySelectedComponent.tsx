@@ -1,65 +1,99 @@
 import { Colors } from "@/constants/Colors";
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableOpacity, ActivityIndicator } from "react-native";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import { VacancyInterfaces } from "@/types/Vacancy.interfaces";
-import { router, useNavigation } from "expo-router";
+import { router, useNavigation, useRouter } from "expo-router";
+import { applyCvToVacancy } from "@/services/vacancyService";
+import { useEffect, useState } from "react";
+import { string } from "yup";
 
 
 interface VacancyCardProps {
   vacancySelected: VacancyInterfaces.Receive.Create;
 }
 const VacancyCard: React.FC<VacancyCardProps> = ({ vacancySelected }) => {
+  const [userId, setUserId] = useState<string | null>(null);
+  const router = useRouter();
 
-  const navigation = useNavigation();
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const userData = localStorage.getItem('session');
+        if (userData !== null) {
+ 
+          const userObject = JSON.parse(userData);
+          setUserId(userObject.userData.id);
+        }
+      } catch (error) {
+        console.error('Failed to fetch the user data from storage', error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
 
   const handleBackPress = () => {
     router.push("/home/");
   };
 
+  const applyCv = async (vacancyId: string, userId: string) => {
+    await applyCvToVacancy(vacancyId, userId);
+    router.push("/home/");
+  };
+
+  if (userId === null) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <View>
-        <View style={styles.body}> 
-              <Text style={styles.largeText}>{vacancySelected.name} </Text>
-              <View style={styles.cardsContainer}>
-                    {vacancySelected.requirements.map(x=>(
-                        <View key={x} style={styles.cardRequirement}>{x.toString()}</View>
-                    ))}
-              </View>
-        </View>
-        <View style={styles.additionalInfo}>
-              <View style={styles.infoColumn}>
-                  <Text style={styles.boldText}>{vacancySelected.enterprise}</Text>
-                  <Text>{vacancySelected.location}</Text>
-              </View>
-              <View style={styles.infoColumn}>
-                  <Text style={styles.boldText}>Salário</Text>
-                  <Text>{vacancySelected.remuneration}</Text>
-              </View>
-        </View>
+      <View style={styles.body}>
+        <Text style={styles.largeText}>{vacancySelected.name}</Text>
         <View style={styles.cardsContainer}>
-            {vacancySelected.requirements.map(x=>(
-                <View key={x} style={styles.cardRequirementGreen}>{x.toString()}</View>
-            ))}
+          {vacancySelected.requirements.map(x => (
+            <View key={x} style={styles.cardRequirement}>{x.toString()}</View>
+          ))}
         </View>
-        <View style={styles.contentContainer}>
-             <Text>{vacancySelected.content}</Text>
+      </View>
+      <View style={styles.additionalInfo}>
+        <View style={styles.infoColumn}>
+          <Text style={styles.boldText}>{vacancySelected.enterprise}</Text>
+          <Text>{vacancySelected.location}</Text>
         </View>
-        <View style={styles.contentContainer}>
-                {vacancySelected.benefits.map((benefit, index) => (
-                    <Text key={index} style={styles.benefitText}>• {benefit}</Text>
-                ))}
+        <View style={styles.infoColumn}>
+          <Text style={styles.boldText}>Salário</Text>
+          <Text>{vacancySelected.remuneration}</Text>
         </View>
-        <View style={styles.buttonsContainer}>
+      </View>
+      <View style={styles.cardsContainer}>
+        {vacancySelected.requirements.map(x => (
+          <View key={x} style={styles.cardRequirementGreen}>{x.toString()}</View>
+        ))}
+      </View>
+      <View style={styles.contentContainer}>
+        <Text>{vacancySelected.content}</Text>
+      </View>
+      <View style={styles.contentContainer}>
+        {vacancySelected.benefits.map((benefit, index) => (
+          <Text key={index} style={styles.benefitText}>• {benefit}</Text>
+        ))}
+      </View>
+      <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.button} onPress={handleBackPress}>
-                <Text style={styles.buttonText}>Voltar</Text>
-              </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, styles.greenButton]}>
-                    <Text style={styles.buttonText}>Candidatar-se</Text>
-                </TouchableOpacity>
-            </View>
+          <Text style={styles.buttonText}>Voltar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => applyCv(vacancySelected.id, userId)} style={[styles.button, styles.greenButton]}>
+          <Text style={styles.buttonText}>Candidatar-se</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+};
+
 
 const styles = StyleSheet.create({
   Header: {
@@ -71,6 +105,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     marginBottom:40
    
+  }, 
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
   },
   cardsContainer:{
     flexDirection:"row",

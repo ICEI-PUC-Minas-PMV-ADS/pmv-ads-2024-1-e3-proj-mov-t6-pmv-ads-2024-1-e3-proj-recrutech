@@ -70,3 +70,21 @@ export const createVacancy = async (
     handleErrors(error);
   }
 };
+
+export const applyCvToVacancy = async (
+  vacancyId: string,
+  cvId:string
+): Promise<VacancyInterfaces.Receive.Create | void> => {
+  const API_URL =
+    `https://recrutech-webapi.azurewebsites.net/api/Vacancies/ApplyCvToVacancy?vacancyId=${vacancyId}&userId=${cvId}`;
+
+  try {
+    const response = await axios.post(API_URL);
+
+    Toast.success(response.data);
+
+    return response.data;
+  } catch (error) {
+    handleErrors(error);
+  }
+};
