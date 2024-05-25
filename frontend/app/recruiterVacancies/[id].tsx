@@ -94,7 +94,12 @@ const PageContent = (): JSX.Element => {
         <View style={styles.headerStyle}>
           <Text style={styles.seniorityText}> {vacancyData?.name} </Text>
           <TouchableOpacity>
-            <Ionicons name="create-outline" size={24} style={styles.icon} />
+            <Ionicons
+              name="create-outline"
+              size={24}
+              style={styles.icon}
+              activeOpacity={0.9}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.vanciesProperties}>

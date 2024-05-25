@@ -25,7 +25,10 @@ export default function UserCard({
   technologies = ["React Native"],
 }: UserCardProps): JSX.Element {
   return (
-    <TouchableOpacity onPress={() => redirectToUserProfile(id)}>
+    <TouchableOpacity
+      onPress={() => redirectToUserProfile(id)}
+      activeOpacity={0.9}
+    >
       <View style={styles.container}>
         <View style={styles.containerInfos}>
           <Text style={styles.usernameText}>{name}</Text>

@@ -143,12 +143,17 @@ const VacancyCard: React.FC<VacancyCardProps> = ({ vacancySelected }) => {
         </View>
       </View>
       <View style={styles.containerFooter}>
-        <TouchableOpacity style={styles.button} onPress={handleBackPress}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleBackPress}
+          activeOpacity={0.9}
+        >
           <Text style={styles.buttonText}>Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => applyCv(vacancySelected.id, userId)}
           style={[styles.button, styles.greenButton]}
+          activeOpacity={0.9}
         >
           <Text style={styles.buttonText}>Candidatar-se</Text>
         </TouchableOpacity>

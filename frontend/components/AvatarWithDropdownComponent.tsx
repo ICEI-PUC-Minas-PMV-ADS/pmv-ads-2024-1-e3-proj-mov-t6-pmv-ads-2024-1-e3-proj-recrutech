@@ -43,7 +43,7 @@ const AvatarWithDropdown = ({ userPhoto }: any) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setOpen(!open)}>
+      <TouchableOpacity onPress={() => setOpen(!open)} activeOpacity={0.9}>
         <Image source={{ uri: userPhoto }} style={styles.avatar} />
       </TouchableOpacity>
       {open && (
@@ -52,6 +52,7 @@ const AvatarWithDropdown = ({ userPhoto }: any) => {
             <TouchableOpacity
               key={option.value}
               onPress={() => handleOptionselected(option)}
+              activeOpacity={0.9}
             >
               <Text style={styles.dropdownItem}>{option.label}</Text>
             </TouchableOpacity>

@@ -169,20 +169,24 @@ const ProfileComponent = (): JSX.Element => {
         />
       </View>
       <View style={styles.iconsContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.9}>
           <Image
             source={require("@/assets/images/github.png")}
             style={styles.icon}
           ></Image>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.9}>
           <Image
             source={require("@/assets/images/linkedin.png")}
             style={styles.icon}
           ></Image>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.backButton} onPress={redirectToHome}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={redirectToHome}
+        activeOpacity={0.9}
+      >
         <Text style={styles.backButtonText}>Voltar</Text>
       </TouchableOpacity>
     </View>

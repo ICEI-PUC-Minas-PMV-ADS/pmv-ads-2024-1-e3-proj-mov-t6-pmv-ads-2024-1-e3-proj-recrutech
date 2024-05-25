@@ -15,34 +15,37 @@ import { RecentVacancyCardProps } from "@/types/RecentVacancyCard.interfaces";
 
 export default function RecentVacancyCard(props: RecentVacancyCardProps) {
   return (
-    <TouchableOpacity onPress={() => props.onPress(props.id)}>
-    <View style={styles.recentVacancyCard}>
-      <View style={styles.cardSection}>
-        <Text
-          numberOfLines={1}
-          ellipsizeMode="tail"
-          style={[styles.boldText, styles.cardTitle]}
-        >
-          {props.title}
-        </Text>
-        <Text style={styles.markedText}>{props.workingModel}</Text>
-      </View>
+    <TouchableOpacity
+      onPress={() => props.onPress(props.id)}
+      activeOpacity={0.9}
+    >
+      <View style={styles.recentVacancyCard}>
+        <View style={styles.cardSection}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={[styles.boldText, styles.cardTitle]}
+          >
+            {props.title}
+          </Text>
+          <Text style={styles.markedText}>{props.workingModel}</Text>
+        </View>
 
-      <View style={styles.cardSection}>
-        <Text
-          style={styles.enterpriseText}
-          numberOfLines={1}
-          ellipsizeMode="tail"
-        >
-          {props.enterprise}
-        </Text>
-        <Text style={[styles.boldText, styles.seniorityText]}>
-          {props.seniority}
-        </Text>
+        <View style={styles.cardSection}>
+          <Text
+            style={styles.enterpriseText}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {props.enterprise}
+          </Text>
+          <Text style={[styles.boldText, styles.seniorityText]}>
+            {props.seniority}
+          </Text>
+        </View>
       </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({

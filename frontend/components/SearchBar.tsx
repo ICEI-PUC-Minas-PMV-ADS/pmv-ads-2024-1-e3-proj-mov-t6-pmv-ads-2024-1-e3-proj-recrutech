@@ -76,7 +76,11 @@ export default function SearchBar({
             onChange={handleSearch}
             value={value}
           />
-          <TouchableOpacity onPress={searchValue} style={styles.searchIcon}>
+          <TouchableOpacity
+            onPress={searchValue}
+            style={styles.searchIcon}
+            activeOpacity={0.9}
+          >
             <Icon name="search" size={20} color="#2DC672" />
           </TouchableOpacity>
         </View>
@@ -84,6 +88,7 @@ export default function SearchBar({
           <TouchableOpacity
             onPress={() => setModalVisible(true)}
             style={styles.filterIcon}
+            activeOpacity={0.9}
           >
             <Icon name="sliders" size={20} color="#2DC672" />
           </TouchableOpacity>

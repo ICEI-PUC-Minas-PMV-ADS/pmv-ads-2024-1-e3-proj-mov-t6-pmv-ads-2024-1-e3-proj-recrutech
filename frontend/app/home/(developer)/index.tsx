@@ -50,7 +50,7 @@ export default function DeveloperHomePage() {
         <View style={styles.listWrapper}>
           {/* <Text style={styles.recentViewedTitle}>Vagas recentes</Text> */}
           {vacancy && vacancy.length > 0 ? (
-            <FlatList 
+            <FlatList
               data={vacancy}
               showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.vacancyItemContainer}
@@ -77,7 +77,6 @@ export default function DeveloperHomePage() {
         </View>
       ) : (
         <View style={styles.listWrapper}>
-          {/* <Text style={styles.recentViewedTitle}>Usuários</Text> */}
           {users && users.length > 0 ? (
             <FlatList
               data={users}
