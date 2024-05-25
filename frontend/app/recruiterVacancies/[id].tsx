@@ -135,6 +135,9 @@ const PageContent = (): JSX.Element => {
             activeOpacity={0.9}
           >
             <RecentVacancyCard
+              id={item.id}
+              key={item.id}
+              onPress={() => {}}
               title={item.name}
               seniority={item.seniority}
               workingModel={item.workingModel}

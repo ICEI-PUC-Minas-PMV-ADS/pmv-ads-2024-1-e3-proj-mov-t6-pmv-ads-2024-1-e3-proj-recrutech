@@ -16,7 +16,6 @@ namespace Recrutech_api.Model
         public Address? Address { get; set; }
         public List<Vacancy>? VacanciesOwner { get; set; }
         public List<UserRecommendation>? UserRecommendations { get; set; }
-
     }
 }
 

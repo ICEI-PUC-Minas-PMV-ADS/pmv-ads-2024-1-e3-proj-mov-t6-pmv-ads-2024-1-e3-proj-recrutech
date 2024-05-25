@@ -62,8 +62,10 @@ const renderListItem = (
       >
         <RecentVacancyCard
           {...{
-            title: name,
+            id,
             enterprise,
+            title: name,
+            onPress: () => {},
             seniority: officeMap[cargo],
             workingModel: workingModelMap[contract],
           }}

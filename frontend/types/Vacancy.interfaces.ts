@@ -1,7 +1,7 @@
 export enum Contract {
   Presencial = 1,
   Remoto = 2,
-  Híbrido = 4,
+  Híbrido = 3,
 }
 
 export enum Office {
