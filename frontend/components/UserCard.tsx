@@ -29,7 +29,9 @@ export default function UserCard({
       <View style={styles.container}>
         <View style={styles.containerInfos}>
           <Text style={styles.usernameText}>{name}</Text>
-          <Text style={styles.technology}>{technologies[0]}</Text>
+          {technologies && technologies.length > 0 && (
+            <Text style={styles.technology}>{technologies[0]}</Text>
+          )}
         </View>
         <View style={styles.containerInfos}>
           <Text>{email}</Text>
