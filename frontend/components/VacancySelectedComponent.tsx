@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     padding: Spacing.medium,
     backgroundColor: Colors.gray,
     gap: Spacing.medium,
+    flex: 1,
   },
   habilitiesContainer: {
     flexDirection: "row",
