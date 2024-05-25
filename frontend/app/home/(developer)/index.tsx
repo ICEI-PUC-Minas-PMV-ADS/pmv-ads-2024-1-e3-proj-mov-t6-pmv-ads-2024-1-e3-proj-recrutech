@@ -13,6 +13,7 @@ import UserCard from "@/components/UserCard";
 import { User } from "@/types/User.interfaces";
 import { getVacancies } from "@/services/vacancyService";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
 
 export default function DeveloperHomePage() {
   const [vacancy, setVacancy] = useState<
@@ -34,6 +35,10 @@ export default function DeveloperHomePage() {
     setUsers(null);
   };
 
+  function handlePress(item: string): void {
+    router.replace(`/selectedVacancy/${item}`);
+  }
+
   return (
     <View style={styles.container}>
       <SearchBar
@@ -45,17 +50,19 @@ export default function DeveloperHomePage() {
         <View style={styles.listWrapper}>
           {/* <Text style={styles.recentViewedTitle}>Vagas recentes</Text> */}
           {vacancy && vacancy.length > 0 ? (
-            <FlatList
+            <FlatList 
               data={vacancy}
               showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.vacancyItemContainer}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ index, item }) => (
                 <RecentVacancyCard
+                  id={item.id}
                   title={item.name}
                   seniority={Office[item.contract]}
                   workingModel={Contract[item.cargo]}
                   enterprise={item.enterprise}
+                  onPress={() => handlePress(item.id)}
                 />
               )}
               ItemSeparatorComponent={() => (

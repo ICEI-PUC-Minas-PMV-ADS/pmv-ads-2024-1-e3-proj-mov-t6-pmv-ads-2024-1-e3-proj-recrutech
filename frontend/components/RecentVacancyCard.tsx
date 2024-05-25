@@ -15,6 +15,7 @@ import { RecentVacancyCardProps } from "@/types/RecentVacancyCard.interfaces";
 
 export default function RecentVacancyCard(props: RecentVacancyCardProps) {
   return (
+    <TouchableOpacity onPress={() => props.onPress(props.id)}>
     <View style={styles.recentVacancyCard}>
       <View style={styles.cardSection}>
         <Text
@@ -40,7 +41,8 @@ export default function RecentVacancyCard(props: RecentVacancyCardProps) {
         </Text>
       </View>
     </View>
-  );
+  </TouchableOpacity>
+);
 }
 
 const styles = StyleSheet.create({
