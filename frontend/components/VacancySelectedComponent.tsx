@@ -55,8 +55,6 @@ const VacancyCard: React.FC<VacancyCardProps> = ({ vacancySelected }) => {
     if (session) {
       setUserId(session.userData.id);
     }
-
-    console.log(vacancySelected);
   }, []);
 
   const handleBackPress = () => {

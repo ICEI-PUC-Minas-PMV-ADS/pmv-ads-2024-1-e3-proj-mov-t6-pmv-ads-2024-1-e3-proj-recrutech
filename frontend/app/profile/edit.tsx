@@ -35,8 +35,6 @@ function EditProfileForm() {
       getUserById(session.userData.id)
         .then((response) => {
           if (!response) return;
-          if (!response.curriculum)
-            return router.push("/home/(developer)/createCv");
 
           setCurriculumId(response.curriculum.id);
           setAbout(response.curriculum.about);

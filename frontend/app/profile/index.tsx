@@ -6,10 +6,59 @@ import { Colors } from "@/constants/Colors";
 import { useSession } from "@/context/AuthContext";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import TextFieldComponent from "@/components/TextFieldComponent";
+import { useEffect, useState } from "react";
+import { getUserById } from "@/services/userService";
+
+function getRedirectButton(isRecruiter: boolean, hasCurriculum: boolean) {
+  if (isRecruiter) {
+    return <></>;
+  }
+
+  if (!hasCurriculum) {
+    return (
+      <DefaultButton
+        title="Criar currículo"
+        variant="secondary"
+        moreStyles={{
+          width: "100%",
+          maxWidth: 200,
+          alignSelf: "center",
+        }}
+        fontSize={FontSize.small}
+        link={{
+          pathname: "/home/(developer)/createCv",
+        }}
+      />
+    );
+  }
+
+  return (
+    <DefaultButton
+      title="Editar currículo"
+      variant="secondary"
+      moreStyles={{
+        width: "100%",
+        maxWidth: 200,
+        alignSelf: "center",
+      }}
+      fontSize={FontSize.small}
+      link={{
+        pathname: "/profile/edit",
+      }}
+    />
+  );
+}
 
 export default function Page() {
   const { session } = useSession();
-  const { userName, isRecruiter } = session!.userData;
+  const { userName, isRecruiter, id } = session!.userData;
+  const [hasCurriculum, setHasCurriculum] = useState<boolean>(true);
+
+  useEffect(() => {
+    getUserById(id).then((response) => {
+      if (!response || !response.curriculum) return setHasCurriculum(false);
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -25,21 +74,7 @@ export default function Page() {
           <TextFieldComponent label="Endereço:" variant="secondary" />
 
           <View style={styles.buttonGroup}>
-            {!isRecruiter && (
-              <DefaultButton
-                title="Editar Perfil"
-                variant="secondary"
-                moreStyles={{
-                  width: "100%",
-                  maxWidth: 200,
-                  alignSelf: "center",
-                }}
-                fontSize={FontSize.small}
-                link={{
-                  pathname: "/profile/edit",
-                }}
-              />
-            )}
+            {getRedirectButton(isRecruiter, hasCurriculum)}
 
             <DefaultButton
               title="Apagar minha conta"

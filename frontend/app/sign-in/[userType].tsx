@@ -53,7 +53,7 @@ export default function Login() {
   const buttonVariant = getButtonVariantByUser(userType);
 
   const defaultValues: AuthInterfaces.Send = {
-    email: "chico3@mail.com",
+    email: "chico@mail.com",
     password: "123456",
   };
 
