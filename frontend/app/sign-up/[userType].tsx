@@ -27,7 +27,6 @@ import { useState } from "react";
 import DefaultButton from "@/components/DefaultButton";
 import { getAdressByCep } from "@/services/adressService";
 import { createUser } from "@/services/userService";
-import { Toast } from "toastify-react-native";
 
 const getAddressField = (label?: string, data?: string) => {
   return data ? (
@@ -83,7 +82,7 @@ function SignUpForm() {
     createUser(data).then((response) => {
       if (response) {
         router.replace("/sign-in/dev");
-        Toast.success("Usuário cadastrado com sucesso", "top");
+        console.log("Usuário cadastrado com sucesso");
       }
     });
   };
@@ -169,7 +168,7 @@ function SignUpForm() {
 
 export default function SignUp() {
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
       <SignUpForm />
     </ScrollView>
   );
@@ -180,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   content: {
     width: "80%",

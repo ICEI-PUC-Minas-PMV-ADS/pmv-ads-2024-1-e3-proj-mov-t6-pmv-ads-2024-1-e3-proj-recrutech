@@ -1,9 +1,10 @@
 import axios, { isAxiosError } from "axios";
-import { Toast } from "toastify-react-native";
 
 import { User } from "@/types/User.interfaces";
 
-export const getUserData = async (userId: string): Promise<User | void> => {
+export const getUserData = async (
+  userId: string
+): Promise<User.Receive.Create | void> => {
   const API_URL =
     "https://recrutech-webapi.azurewebsites.net/api/Users/getUser";
 
@@ -12,7 +13,6 @@ export const getUserData = async (userId: string): Promise<User | void> => {
 
     return response.data;
   } catch (error) {
-    isAxiosError(error) &&
-      Toast.error(`Erro ao obter dados do usuário: ${error.message}`, "top");
+    isAxiosError(error);
   }
 };

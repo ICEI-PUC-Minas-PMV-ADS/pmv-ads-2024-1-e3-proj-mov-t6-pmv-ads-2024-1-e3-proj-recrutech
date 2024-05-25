@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { Toast } from "toastify-react-native";
 
 export interface Address {
   logradouro: string;
@@ -26,7 +25,6 @@ export const getAdressByCep = async (cep: string): Promise<Address | void> => {
     }
   } catch (error) {
     if (error instanceof AxiosError) {
-      Toast.error("CEP inválido", "top");
     }
   }
 };

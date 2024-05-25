@@ -4,7 +4,6 @@ import { signIn } from "@/utils/auth";
 import { useStorageState } from "@/hooks/useStorageState";
 
 import { Session } from "@/types/Session.interfaces";
-import ToastComponent from "@/components/ToastComponent";
 
 export interface AuthContextProps {
   signIn: Function;
@@ -49,7 +48,6 @@ export function SessionProvider(
       }}
     >
       {props.children}
-      <ToastComponent />
     </AuthContext.Provider>
   );
 }

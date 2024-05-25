@@ -1,12 +1,11 @@
 import { User } from "@/types/User.interfaces";
-import { Toast } from "toastify-react-native";
 import axios, { isAxiosError } from "axios";
 
 export interface Vacancy {
   cvs?: null;
   id: number;
   link?: null;
-  user?: User;
+  user?: User.Receive.Create;
   name: string;
   userId: number;
   benefits?: null;
@@ -29,7 +28,6 @@ export const getVacancies = async (
 
     return response.data;
   } catch (error) {
-    isAxiosError(error) &&
-      Toast.error(`Erro ao obter vagas: ${error.message}`, "top");
+    isAxiosError(error);
   }
 };

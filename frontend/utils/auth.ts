@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import axios, { isAxiosError } from "axios";
-import { Toast } from "toastify-react-native";
 
 import { AuthInterfaces } from "@/types/Auth.interfaces";
 
@@ -19,8 +18,7 @@ export const signIn = async ({
 
     return response.data;
   } catch (error) {
-    isAxiosError(error) &&
-      Toast.error(`Erro ao fazer login ${error.message}`, "top");
+    isAxiosError(error);
   }
 };
 

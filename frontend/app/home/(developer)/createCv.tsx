@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 import DropDownPicker from "react-native-dropdown-picker";
-import { Toast } from "toastify-react-native";
 import { router } from "expo-router";
 
 import DefaultButton from "@/components/DefaultButton";
@@ -39,7 +38,7 @@ export default function CreateCV(): JSX.Element {
       about && github && linkedin && technologiesState.value.length > 0;
 
     if (!formIsValid) {
-      return Toast.error("Preencha todos os campos", "TOP");
+      return console.error("Preencha todos os campos");
     }
 
     const payload: CurriculumInterfaces.Send.Create = {
@@ -57,7 +56,7 @@ export default function CreateCV(): JSX.Element {
         goBack();
       })
       .catch((_) => {
-        Toast.error("Erro ao criar currículo", "TOP");
+        console.error("Erro ao criar currículo");
       });
   }
 

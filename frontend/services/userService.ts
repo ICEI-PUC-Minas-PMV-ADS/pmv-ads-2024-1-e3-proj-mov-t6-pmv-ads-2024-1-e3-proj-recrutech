@@ -1,11 +1,9 @@
 import axios, { isAxiosError } from "axios";
-import { Toast } from "toastify-react-native";
 
 import { User } from "@/types/User.interfaces";
 
 const handleErrors = (error: unknown) => {
   if (isAxiosError(error)) {
-    Toast.error(`Erro ao obter usuários: ${error.message}`, "top");
   }
 };
 

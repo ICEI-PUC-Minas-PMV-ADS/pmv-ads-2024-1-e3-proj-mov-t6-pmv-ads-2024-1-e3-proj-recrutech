@@ -9,7 +9,6 @@ import DefaultButton from "@/components/DefaultButton";
 import { getUserById, updateUser } from "@/services/userService";
 import { User } from "@/types/User.interfaces";
 import { useSession } from "@/context/AuthContext";
-import { Toast } from "toastify-react-native";
 import { router } from "expo-router";
 
 function EditProfileForm() {
@@ -85,11 +84,9 @@ function EditProfileForm() {
 
     updateUser(curriculumId, userData).then((response) => {
       if (!response) {
-        Toast.error("Erro ao atualizar perfil", "top");
         return;
       }
 
-      Toast.success("Atualizado com sucesso!", "top");
       router.push("/home/");
     });
   }

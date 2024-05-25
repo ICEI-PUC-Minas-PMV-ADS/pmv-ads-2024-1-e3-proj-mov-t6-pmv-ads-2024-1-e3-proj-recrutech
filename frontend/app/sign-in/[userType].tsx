@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, Platform } from "react-native";
 
-import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -75,11 +74,11 @@ export default function Login() {
       if (authResponse && authResponse.jwtToken) {
         await handleSuccessfulAuthentication(authResponse, setSession);
 
-        Toast.success("Login efetuado com sucesso!", "top");
+        console.log("Login efetuado com sucesso!");
         router.push("/home/");
       }
     } catch (error) {
-      Toast.error("Erro durante a autenticação", "top");
+      console.error("Erro durante a autenticação");
     }
   };
 
