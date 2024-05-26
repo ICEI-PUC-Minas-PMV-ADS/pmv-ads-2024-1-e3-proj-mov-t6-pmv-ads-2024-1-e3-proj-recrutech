@@ -45,6 +45,42 @@ const VacancyForm = (): React.JSX.Element => {
     { label: "Node", value: "node" },
     { label: "React", value: "react" },
     { label: "Python", value: "python" },
+    { label: "Angular", value: "angular" },
+    { label: "Vue", value: "vue" },
+    { label: "C#", value: "c#" },
+    { label: "C++", value: "c++" },
+    { label: "PHP", value: "php" },
+    { label: "Ruby", value: "ruby" },
+    { label: "Swift", value: "swift" },
+    { label: "Kotlin", value: "kotlin" },
+    { label: "Flutter", value: "flutter" },
+    { label: "Dart", value: "dart" },
+    { label: "SQL", value: "sql" },
+    { label: "NoSQL", value: "nosql" },
+    { label: "MongoDB", value: "mongodb" },
+    { label: "Firebase", value: "firebase" },
+    { label: "AWS", value: "aws" },
+    { label: "Azure", value: "azure" },
+    { label: "Google Cloud", value: "google cloud" },
+    { label: "Docker", value: "docker" },
+    { label: "Kubernetes", value: "kubernetes" },
+    { label: "Jenkins", value: "jenkins" },
+    { label: "Git", value: "git" },
+    { label: "SVN", value: "svn" },
+    { label: "Agile", value: "agile" },
+    { label: "Scrum", value: "scrum" },
+    { label: "Kanban", value: "kanban" },
+    { label: "XP", value: "xp" },
+    { label: "TDD", value: "tdd" },
+    { label: "BDD", value: "bdd" },
+    { label: "DDD", value: "ddd" },
+    { label: "Clean Code", value: "clean code" },
+    { label: "SOLID", value: "solid" },
+    { label: "Design Patterns", value: "design patterns" },
+    { label: "Microservices", value: "microservices" },
+    { label: "Serverless", value: "serverless" },
+    { label: "REST", value: "rest" },
+    { label: "GraphQL", value: "graphql" },
   ]);
 
   const seniorityStates = usePickerState([
@@ -82,9 +118,13 @@ const VacancyForm = (): React.JSX.Element => {
       requirements: requirementStates.value,
     };
 
-    console.log(data);
-
-    const response = await createVacancy(data);
+    createVacancy(data)
+      .then(() => {
+        router.replace("/home/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
