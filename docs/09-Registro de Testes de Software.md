@@ -34,9 +34,6 @@ Os resultados obtidos nos testes de software realizados são descritos abaixo j�
 
 ### CT 001 - Cadastro de Usuário Candidato
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/79f8e4a9-7fd3-45e8-8b29-9f6863825cff)
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/e6682ce6-13d5-456f-be1f-25beab998f31)
-
-
 
 
 ### CT-002 Login de Usuário Candidato
@@ -81,6 +78,8 @@ Funcionalidade em desenvolvimento.
 
 
 ### CT-010 Edição de Perfil de Usuário Recrutador
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/d4e97b88-803a-48f3-859c-8245f150fb70)
+
 
 ### CT-011 Cadastro de Vagas
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/98d46909-6d44-4b97-aad7-dc353f9e64da)
