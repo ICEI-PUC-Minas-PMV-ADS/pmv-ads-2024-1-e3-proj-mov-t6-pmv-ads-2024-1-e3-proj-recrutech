@@ -91,76 +91,74 @@ function SignUpForm() {
   const buttonVariant = getFieldVariantByUser(userType);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <AppTitleComponent />
+    <View style={styles.scrollContent}>
+      <AppTitleComponent />
 
-        <View style={styles.contentHeader}>
-          <Text style={{ color: Colors.black }}>
-            Sou {userType === "dev" ? "candidato" : "recrutador"}
-          </Text>
-          <Switch
-            value={userType === "recruiter"}
-            onValueChange={handleSwitch}
-            trackColor={{ true: Colors.gray, false: Colors.gray }}
-            thumbColor={userType === "recruiter" ? Colors.black : Colors.green}
-          />
-        </View>
-        <View style={styles.contentBody}>
-          <TextFieldComponent
-            onChangeText={setUsername}
-            label="Nome"
-            placeholder="Como quer ser chamado(a)?"
-            variant={fieldVariant}
-          />
-          <TextFieldComponent
-            textContentType="emailAddress"
-            onChangeText={setEmail}
-            label="Email"
-            placeholder="Digite seu melhor email"
-            variant={fieldVariant}
-          />
-          <TextFieldComponent
-            onChangeText={setPassword}
-            label="Senha"
-            placeholder="Digite sua senha"
-            variant={fieldVariant}
-            secureTextEntry={true}
-            textContentType="password"
-          />
+      <View style={styles.contentHeader}>
+        <Text style={{ color: Colors.black }}>
+          Sou {userType === "dev" ? "candidato" : "recrutador"}
+        </Text>
+        <Switch
+          value={userType === "recruiter"}
+          onValueChange={handleSwitch}
+          trackColor={{ true: Colors.gray, false: Colors.gray }}
+          thumbColor={userType === "recruiter" ? Colors.black : Colors.green}
+        />
+      </View>
+      <View style={styles.contentBody}>
+        <TextFieldComponent
+          onChangeText={setUsername}
+          label="Nome"
+          placeholder="Como quer ser chamado(a)?"
+          variant={fieldVariant}
+        />
+        <TextFieldComponent
+          textContentType="emailAddress"
+          onChangeText={setEmail}
+          label="Email"
+          placeholder="Digite seu melhor email"
+          variant={fieldVariant}
+        />
+        <TextFieldComponent
+          onChangeText={setPassword}
+          label="Senha"
+          placeholder="Digite sua senha"
+          variant={fieldVariant}
+          secureTextEntry={true}
+          textContentType="password"
+        />
 
-          <TextFieldComponent
-            label="CEP"
-            keyboardType="numeric"
-            placeholder="Informe seu CEP"
-            variant={fieldVariant}
-            onChangeText={onChangeCep}
-          />
+        <TextFieldComponent
+          label="CEP"
+          keyboardType="numeric"
+          placeholder="Informe seu CEP"
+          variant={fieldVariant}
+          onChangeText={onChangeCep}
+        />
 
-          <View style={styles.addressContent}>
-            <View style={styles.addressSection}>
-              {getAddressField("Logradouro", address?.logradouro)}
-              {getAddressField("Bairro", address?.bairro)}
-              {getAddressField("Complemento", address?.complemento)}
-            </View>
-            <View style={styles.addressSection}>
-              {getAddressField("Localidade", address?.localidade)}
-              {getAddressField("Uf", address?.uf)}
-            </View>
+        <View style={styles.addressContent}>
+          <View style={styles.addressSection}>
+            {getAddressField("Logradouro", address?.logradouro)}
+            {getAddressField("Bairro", address?.bairro)}
+            {getAddressField("Complemento", address?.complemento)}
+          </View>
+          <View style={styles.addressSection}>
+            {getAddressField("Localidade", address?.localidade)}
+            {getAddressField("Uf", address?.uf)}
           </View>
         </View>
+      </View>
 
-        <View style={styles.contentFooter}>
-          <Link href={`/sign-in/${userType}`}>
-            <Text style={{ color: Colors.black }}>Já tenho uma conta</Text>
-          </Link>
+      <View style={styles.contentFooter}>
+        <Link href={`/sign-in/${userType}`}>
+          <Text style={{ color: Colors.black }}>Já tenho uma conta</Text>
+        </Link>
 
-          <DefaultButton
-            title="Cadastrar"
-            variant={buttonVariant}
-            onPress={handleSubmit}
-          />
-        </View>
+        <DefaultButton
+          title="Cadastrar"
+          variant={buttonVariant}
+          onPress={handleSubmit}
+        />
       </View>
     </View>
   );
@@ -176,13 +174,16 @@ export default function SignUp() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+    padding: Spacing.medium,
+    // backgroundColor: Colors.lightGray,
   },
-  content: {
-    width: "80%",
+  scrollContent: {
+    marginTop: 30,
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.small,
