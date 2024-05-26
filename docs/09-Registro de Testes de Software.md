@@ -25,7 +25,7 @@ Figura 2 - Falha de login devido à inserção de credenciais inválidas.
 ### Observação: Atualizado dia 25/05/2024.
 
 Durante a execução dos testes, foram registrados os seguintes problemas:
-- A ferramenta de pesquisa de cusuários não estava retornando os dados corretamente;
+- A ferramenta de pesquisa de usuários não estava retornando os dados corretamente;
 - A biblioteca utilizada não estava exibindo adequadamente as mensagens de erro;
 - Algumas telas não estavam estilizadas conforme o padrão estabelecido de identidade visual.
 
