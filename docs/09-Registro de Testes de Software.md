@@ -27,7 +27,7 @@ Figura 2 - Falha de login devido à inserção de credenciais inválidas.
 Durante a execução dos testes, foram registrados os seguintes problemas:
 - A ferramenta de pesquisa de usuários não estava retornando os dados corretamente;
 - A biblioteca utilizada não estava exibindo adequadamente as mensagens de erro;
-- Algumas telas não estavam estilizadas conforme o padrão estabelecido de identidade visual.
+- Algumas telas não estavam estilizadas conforme o padrão estabelecido de identidade visual;
 - As funcionalidades relacionadas à visualização de candidaturas, notificações para usuário candidato, criação de vagas, edição de vagas cadastradas e seleção de candidatos estão em fase de desenvolvimento.
 
 Os resultados obtidos nos testes de software realizados são descritos abaixo já devidamente corrigidos.
