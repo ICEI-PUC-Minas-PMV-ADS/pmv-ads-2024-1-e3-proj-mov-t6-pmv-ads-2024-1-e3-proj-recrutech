@@ -18,6 +18,8 @@ const handleErrors = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
 
+    console.log(axiosError.message);
+
     if (axiosError.response) {
     } else if (axiosError.request) {
     } else {
@@ -28,7 +30,7 @@ const handleErrors = (error: unknown) => {
 
 export const createCurruculum = async (
   data: CurriculumInterfaces.Send.Create
-): Promise<void> => {
+): Promise<CurriculumInterfaces.Send.Create | void> => {
   const API_URL = "https://recrutech-webapi.azurewebsites.net/api/Cv/CreateCv";
 
   try {

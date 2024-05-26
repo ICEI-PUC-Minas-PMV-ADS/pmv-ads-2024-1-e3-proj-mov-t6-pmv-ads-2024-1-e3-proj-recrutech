@@ -12,11 +12,11 @@ import { CurriculumInterfaces, createCurruculum } from "@/services/cvService";
 import { usePickerState } from "../(recruiter)/(vacancy)/create";
 
 function generateRandomId(): string {
-  return Date.now() + Math.random().toString(10).substring(2, 15);
+  return Math.random().toString(10).substring(2, 10);
 }
 
 function goBack(): void {
-  router.back();
+  router.replace("/home/");
 }
 
 export default function CreateCV(): JSX.Element {
@@ -52,8 +52,10 @@ export default function CreateCV(): JSX.Element {
     };
 
     createCurruculum(payload)
-      .then(() => {
-        goBack();
+      .then((response) => {
+        if (response) {
+          goBack();
+        }
       })
       .catch((_) => {
         console.error("Erro ao criar currículo");

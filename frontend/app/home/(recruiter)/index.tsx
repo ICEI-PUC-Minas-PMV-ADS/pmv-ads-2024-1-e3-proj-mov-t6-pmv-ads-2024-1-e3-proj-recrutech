@@ -65,7 +65,9 @@ const renderListItem = (
             id,
             enterprise,
             title: name,
-            onPress: () => {},
+            onPress: () => {
+              router.push(`/recruiterVacancies/${id}`);
+            },
             seniority: officeMap[cargo],
             workingModel: workingModelMap[contract],
           }}
