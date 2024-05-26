@@ -32,6 +32,8 @@ Durante a execução dos testes, foram registrados os seguintes problemas:
 Os resultados obtidos nos testes de software realizados são descritos abaixo já devidamente corrigidos.
 
 ### CT 001 - Cadastro de Usuário Candidato
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/20ede661-6f75-4c4c-be63-9f2b449fcd1d)
+
 
 ### CT-002 Login de Usuário Candidato
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/793eaf54-df06-43d6-92a2-124ea1110233)
@@ -40,6 +42,8 @@ Os resultados obtidos nos testes de software realizados são descritos abaixo j�
 
 
 ### CT-003 Edição de Perfil do Usuário Candidato
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/f014c45a-a029-461a-a7c3-16710c0ce188)
+
 
 
 ### CT-004 Filtro de Busca para Usuário Candidato
@@ -50,6 +54,8 @@ Os resultados obtidos nos testes de software realizados são descritos abaixo j�
 
 
 ### CT-005 Candidatura
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/eae1fbd1-7c3a-4d80-a032-f461e7cf3fbc)
+
 
 ### CT-006 Visualização de Candidaturas
 Não implementado.
