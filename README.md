@@ -29,6 +29,14 @@ No terminal, ao entrar na pasta do projeto (onde está o APP) digite npm start p
 - Selecionando android e utilizando um Emulador (Android Studio)
 - Utilizando o QRCode, para isso, você terá que ter o app EXPO baixado no seu celular (necessário habilitar modo desenvolvedor).
 
+Usuário desenvolvedor:
+- Login: matheus.rocha@mail.com
+- Senha: 123456
+
+Usuário Recrutador:
+- Login: sandro.maciel@mail.com
+- Senha: 123456
+
 # Documentação
 
 <ol>
