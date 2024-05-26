@@ -21,7 +21,7 @@ import { createVacancy } from "@/services/vacancyService";
 import { router } from "expo-router";
 
 export const usePickerState = (
-  initialItems: { label: string; value: any }[]
+  initialItems: { label: string; value: any; key?: number }[]
 ) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
@@ -35,9 +35,9 @@ const VacancyForm = (): React.JSX.Element => {
   const userId = session!.userData.id;
 
   const contractTypesState = usePickerState([
-    { label: "Remoto", value: Contract.Remoto },
-    { label: "Híbrido", value: Contract.Híbrido },
-    { label: "Presencial", value: Contract.Remoto },
+    { label: "Remoto", value: Contract.Remoto, key: 1 },
+    { label: "Híbrido", value: Contract.Híbrido, key: 1 },
+    { label: "Presencial", value: Contract.Remoto, key: 1 },
   ]);
 
   const requirementStates = usePickerState([
@@ -62,19 +62,8 @@ const VacancyForm = (): React.JSX.Element => {
     { label: "Convênio odontológico", value: "Convênio odontológico" },
   ]);
 
-  const defaultValues: VacancyInterfaces.Send.Create = {
-    name: "Desenvolvedor Fullstack",
-    enterprise: "Google",
-    cargo: Office.Júnior,
-    location: "Belo Horizonte - MG",
-    link: "https://google.com",
-    content: "Buscamos um desenvolvedor fullstack...",
-    benefits: benefitsStates.value,
-    requirements: requirementStates.value,
-    remuneration: "R$ 4000,00",
-    contract: Contract.Remoto,
-    userId: "1",
-  };
+  const defaultValues: VacancyInterfaces.Send.Create =
+    {} as VacancyInterfaces.Send.Create;
 
   const {
     control,
@@ -92,6 +81,8 @@ const VacancyForm = (): React.JSX.Element => {
       benefits: benefitsStates.value,
       requirements: requirementStates.value,
     };
+
+    console.log(data);
 
     const response = await createVacancy(data);
   };
@@ -185,6 +176,7 @@ const VacancyForm = (): React.JSX.Element => {
           setValue={contractTypesState.setValue}
           setItems={contractTypesState.setItems}
           badgeDotColors={[Colors.green]}
+          key={Math.random()}
         />
       </View>
       <Controller
