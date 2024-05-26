@@ -3,7 +3,9 @@ import axios, { isAxiosError } from "axios";
 import { VacancyInterfaces } from "@/types/Vacancy.interfaces";
 
 const handleErrors = (error: unknown) => {
-  isAxiosError(error);
+  if (isAxiosError(error)) {
+    console.log(error.message);
+  }
 };
 
 export const getVacancies = async (

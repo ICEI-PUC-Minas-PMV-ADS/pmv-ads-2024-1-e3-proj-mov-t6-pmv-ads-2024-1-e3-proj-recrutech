@@ -52,7 +52,7 @@ export default function Login() {
   const buttonVariant = getButtonVariantByUser(userType);
 
   const defaultValues: AuthInterfaces.Send = {
-    email: "chico@mail.com",
+    email: "Josealves@email.com",
     password: "123456",
   };
 
@@ -73,8 +73,6 @@ export default function Login() {
 
       if (authResponse && authResponse.jwtToken) {
         await handleSuccessfulAuthentication(authResponse, setSession);
-
-        console.log("Login efetuado com sucesso!");
         router.push("/home/");
       }
     } catch (error) {

@@ -103,21 +103,20 @@ export default function RecruiterHomePage() {
           onPress={redirectToCreateVacancy}
         ></DefaultButton>
       </View>
-      {vacancies && (
-        <View style={styles.jobsContainer}>
-          <Text style={styles.jobsContainerTitle}>Suas vagas</Text>
-          <View style={styles.divider} />
 
+      <View style={styles.listWrapper}>
+        {vacancies && (
           <FlatList
             data={vacancies}
-            style={{ width: "100%" }}
+            contentContainerStyle={styles.userItemContainer}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ index, item }) =>
               renderListItem(index === vacancies.length - 1, item)
             }
-            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           />
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 }
@@ -132,11 +131,21 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: Spacing.smallMedium,
   },
+  itemSeparator: {
+    height: Spacing.medium,
+  },
+  listWrapper: {
+    flex: 1,
+    marginTop: Spacing.medium,
+  },
   jobsContainerTitle: {
     fontFamily: "Roboto-Regular",
     marginTop: Spacing.small,
     marginBottom: Spacing.medium,
     fontSize: FontSize.mediunLarge,
+  },
+  userItemContainer: {
+    paddingBottom: Spacing.medium,
   },
   divider: {
     borderBottomColor: Colors.black,

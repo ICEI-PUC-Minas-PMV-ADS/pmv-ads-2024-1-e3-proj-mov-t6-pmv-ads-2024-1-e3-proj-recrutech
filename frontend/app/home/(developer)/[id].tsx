@@ -62,6 +62,44 @@ const RecommendationComponent = ({
   );
 };
 
+const getUserTechnologiesOrDefault = (userData: User.Receive.Create | void) => {
+  return (
+    (userData && userData.curriculum && userData.curriculum.tecnologies) || [
+      "O usuário não possui tecnologias cadastradas",
+    ]
+  );
+};
+
+const getUserRecomendationsOrDefault = (
+  userData: User.Receive.Create | void
+) => {
+  return (userData && userData.userRecommendations) || ["Sem recomendações"];
+};
+
+const getUserCoursesOrDefault = (userData: User.Receive.Create | void) => {
+  return (
+    (userData && userData.curriculum && userData.curriculum.course) || [
+      {
+        myCourse: "O usuário não possui cursos cadastrados",
+        institution: "",
+        id: 0,
+      },
+    ]
+  );
+};
+
+const getUserExperiencesOrDefault = (userData: User.Receive.Create | void) => {
+  return (
+    (userData && userData.curriculum && userData.curriculum.experience) || [
+      {
+        function: "O usuário não possui experiências cadastradas",
+        enterprise: "",
+        id: 0,
+      },
+    ]
+  );
+};
+
 const redirectToHome = () => {
   router.replace("/home/");
 };
@@ -108,32 +146,14 @@ const ProfileComponent = (): JSX.Element => {
       <View style={styles.container}>
         <Text style={styles.sectionTitle}>Cursos:</Text>
         <FlatList
-          data={
-            (userData?.curriculum?.course.length &&
-              userData?.curriculum?.course) || [
-              {
-                myCourse: "O usuário não possui cursos cadastrados",
-                institution: "",
-                id: 0,
-              },
-            ]
-          }
+          data={getUserCoursesOrDefault(userData)}
           renderItem={({ item }) => <CourseComponent course={item.myCourse} />}
         />
       </View>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}>Experiências:</Text>
         <FlatList
-          data={
-            (userData?.curriculum?.experience.length &&
-              userData?.curriculum?.experience) || [
-              {
-                function: "O usuário não possui experiências cadastradas",
-                enterprise: "",
-                id: 0,
-              },
-            ]
-          }
+          data={getUserExperiencesOrDefault(userData)}
           renderItem={({ item }) => (
             <ExperienceComponent expecience={item.function} />
           )}
@@ -147,22 +167,14 @@ const ProfileComponent = (): JSX.Element => {
             gap: Spacing.small,
             flexWrap: "wrap",
           }}
-          data={
-            (userData?.curriculum?.tecnologies.length &&
-              userData?.curriculum?.tecnologies) || [
-              "O usuário não possui tecnologias cadastradas",
-            ]
-          }
+          data={getUserTechnologiesOrDefault(userData)}
           renderItem={({ item }) => <TecnologyComponent technology={item} />}
         />
       </View>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}>Recomendações:</Text>
         <FlatList
-          data={
-            (userData?.userRecommendations?.length &&
-              userData?.userRecommendations) || ["Sem recomendações"]
-          }
+          data={getUserRecomendationsOrDefault(userData)}
           renderItem={({ item }) => (
             <RecommendationComponent reccomendation={item} />
           )}

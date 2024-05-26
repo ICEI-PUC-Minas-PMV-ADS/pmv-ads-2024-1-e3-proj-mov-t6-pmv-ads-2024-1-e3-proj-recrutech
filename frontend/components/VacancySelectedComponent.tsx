@@ -4,10 +4,10 @@ import { useRouter } from "expo-router";
 import {
   View,
   Text,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  Platform,
 } from "react-native";
 
 import { useSession } from "@/context/AuthContext";
@@ -62,8 +62,15 @@ const VacancyCard: React.FC<VacancyCardProps> = ({ vacancySelected }) => {
   };
 
   const applyCv = async (vacancyId: string, userId: string) => {
-    await applyCvToVacancy(vacancyId, userId);
-    router.push("/home/");
+    applyCvToVacancy(vacancyId, userId)
+      .then((response) => {
+        if (response) {
+          router.push("/home/");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   if (userId === null) {

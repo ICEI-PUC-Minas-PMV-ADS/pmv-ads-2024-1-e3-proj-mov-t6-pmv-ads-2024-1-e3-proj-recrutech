@@ -11,9 +11,11 @@ import {
 import { useEffect, useState } from "react";
 import UserCard from "@/components/UserCard";
 import { User } from "@/types/User.interfaces";
+import { router } from "expo-router";
+import { getUserById } from "@/services/userService";
+import { useSession } from "@/context/AuthContext";
 import { getVacancies } from "@/services/vacancyService";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { router } from "expo-router";
 
 export default function DeveloperHomePage() {
   const [vacancy, setVacancy] = useState<
@@ -21,6 +23,7 @@ export default function DeveloperHomePage() {
   >(null);
   const [searchType, setSearchType] = useState("vacancies");
   const [users, setUsers] = useState<User.Receive.Create[] | null>(null);
+  const { session } = useSession();
 
   useEffect(() => {
     if (searchType === "vacancies") {
@@ -36,7 +39,20 @@ export default function DeveloperHomePage() {
   };
 
   function handlePress(item: string): void {
-    router.replace(`/selectedVacancy/${item}`);
+    if (!session || !session.userData) return;
+
+    getUserById(session.userData.id).then((response) => {
+      if (!response) return;
+
+      const { curriculum } = response;
+
+      if (!curriculum || !curriculum.id) {
+        router.replace(`/home/createCv`);
+        return;
+      } else {
+        router.replace(`/selectedVacancy/${item}`);
+      }
+    });
   }
 
   return (
@@ -48,14 +64,12 @@ export default function DeveloperHomePage() {
       />
       {searchType === "vacancies" ? (
         <View style={styles.listWrapper}>
-          {/* <Text style={styles.recentViewedTitle}>Vagas recentes</Text> */}
           {vacancy && vacancy.length > 0 ? (
             <FlatList
               data={vacancy}
-              showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.vacancyItemContainer}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ index, item }) => (
+              renderItem={({ item }) => (
                 <RecentVacancyCard
                   id={item.id}
                   title={item.name}
@@ -80,10 +94,9 @@ export default function DeveloperHomePage() {
           {users && users.length > 0 ? (
             <FlatList
               data={users}
-              showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.userItemContainer}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ index, item }) => (
+              renderItem={({ item }) => (
                 <UserCard
                   id={item.id}
                   email={item.email}
