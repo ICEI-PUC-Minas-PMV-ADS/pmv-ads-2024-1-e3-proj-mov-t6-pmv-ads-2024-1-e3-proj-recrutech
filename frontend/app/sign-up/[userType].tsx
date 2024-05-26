@@ -82,7 +82,6 @@ function SignUpForm() {
     createUser(data).then((response) => {
       if (response) {
         router.replace("/sign-in/dev");
-        console.log("Usuário cadastrado com sucesso");
       }
     });
   };

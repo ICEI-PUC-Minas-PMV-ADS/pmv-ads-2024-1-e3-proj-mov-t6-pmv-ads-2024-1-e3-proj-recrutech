@@ -22,6 +22,8 @@ import {
   Office,
   VacancyInterfaces,
 } from "@/types/Vacancy.interfaces";
+import { User } from "@/types/User.interfaces";
+import { getUserById } from "@/services/userService";
 
 enum ContractModel {
   CLT = "CLT",
@@ -61,23 +63,26 @@ const PageContent = (): JSX.Element => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [vacancyData, setVacancyData] =
     useState<VacancyInterfaces.Receive.Create | void>();
-  const [candidates, setCandidates] = useState<
-    {
-      id: string;
-      name: string;
-      seniority: string;
-      workingModel: string;
-      enterprise: string;
-    }[]
-  >([]);
+  const [candidates, setCandidates] = useState<User.Receive.Create[]>([]);
 
   useEffect(() => {
     getVacancyById(id).then((response) => {
-      setVacancyData(response);
-    });
+      if (response) {
+        setVacancyData(response);
 
-    const numCandidates = Math.floor(Math.random() * 10) + 1;
-    setCandidates(generateRandomCandidates(numCandidates));
+        const getUserDataPromises = response.cvs.map((cv) =>
+          getUserById(+cv.userId)
+        );
+
+        Promise.all(getUserDataPromises).then((users) => {
+          if (users && users.length > 0) {
+            setCandidates(
+              users.filter((user) => !!user) as User.Receive.Create[]
+            );
+          }
+        });
+      }
+    });
   }, []);
 
   return (
@@ -126,31 +131,36 @@ const PageContent = (): JSX.Element => {
       </View>
 
       <Text style={styles.applications}> Candidaturas:</Text>
-      <FlatList
-        data={candidates}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        scrollEnabled={true}
-        contentContainerStyle={styles.vacancyItemContainer}
-        style={styles.flatList}
-        ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => redirectToUserProfile(id)}
-            activeOpacity={0.9}
-          >
-            <RecentVacancyCard
-              id={item.id}
-              key={item.id}
-              onPress={() => {}}
-              title={item.name}
-              seniority={item.seniority}
-              workingModel={item.workingModel}
-              enterprise={item.enterprise}
-            />
-          </TouchableOpacity>
-        )}
-      />
+      {candidates.length !== 0 ? (
+        <FlatList
+          data={candidates}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={true}
+          contentContainerStyle={styles.vacancyItemContainer}
+          style={styles.flatList}
+          ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => redirectToUserProfile(id)}
+              activeOpacity={0.9}
+            >
+              <RecentVacancyCard
+                id={item.id}
+                key={item.id}
+                onPress={() => {}}
+                title={item.userName}
+                seniority={""}
+                workingModel={item.address?.localidade || "Belo Horizonte"}
+                enterprise={item.email}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <Text style={styles.defaultText}>Nenhuma candidatura realizada</Text>
+      )}
+
       <View style={styles.bodyContainer}>
         <DefaultButton
           title="Finalizar Vaga"

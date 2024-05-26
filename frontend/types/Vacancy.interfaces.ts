@@ -1,3 +1,5 @@
+import { CurriculumInterfaces } from "@/services/cvService";
+
 export enum Contract {
   Presencial = 1,
   Remoto = 2,
@@ -42,6 +44,7 @@ export namespace VacancyInterfaces {
       enterprise: string;
       benefits: string[];
       requirements: string[];
+      cvs: CurriculumInterfaces.Receive.Create[];
     }
 
     export interface Create extends Common {}
