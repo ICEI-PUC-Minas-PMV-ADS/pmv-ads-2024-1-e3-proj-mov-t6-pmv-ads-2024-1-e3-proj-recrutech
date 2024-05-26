@@ -21,3 +21,42 @@ Figura 1 - Usuário autenticado
 Figura 2 - Falha de login devido à inserção de credenciais inválidas.
 
 </div>
+
+### Observação: Atualizado dia 25/05/2024.
+
+Durante a execução dos testes, foram registrados os seguintes problemas:
+- A ferramenta de pesquisa de cusuários não estava retornando os dados corretamente;
+- A biblioteca utilizada não estava exibindo adequadamente as mensagens de erro;
+- Algumas telas não estavam estilizadas conforme o padrão estabelecido de identidade visual.
+
+Os resultados obtidos nos testes de software realizados são descritos abaixo já devidamente corrigidos.
+
+### CT 001 - Cadastro de Usuário Candidato
+
+### CT-002 Login de Usuário Candidato
+
+### CT-003 Edição de Perfil do Usuário Candidato
+
+### CT-004 Filtro de Busca para Usuário Candidato
+
+### CT-005 Candidatura
+
+### CT-006 Visualização de Candidaturas
+
+### CT-007 Notificações para Usuário Candidato
+
+### CT-008 Cadastro de Usuário Recrutador
+
+### CT-009 Login de Usuário Recrutador
+
+### CT-010 Edição de Perfil de Usuário Recrutador
+
+### CT-011 Cadastro de Vagas
+
+### CT-012 Edição de Vagas Cadastradas
+
+### CT-013 Visualização de Vagas pelo Usuário Recrutador
+
+### CT-014 Seleção de Candidatos
+
+### CT-015 Finalização de Vaga
