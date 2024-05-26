@@ -4,7 +4,6 @@ import { VacancyInterfaces } from "@/types/Vacancy.interfaces";
 
 const handleErrors = (error: unknown) => {
   if (isAxiosError(error)) {
-    console.log(error.message);
   }
 };
 

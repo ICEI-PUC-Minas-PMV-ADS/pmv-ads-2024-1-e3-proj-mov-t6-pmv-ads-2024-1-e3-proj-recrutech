@@ -21,3 +21,61 @@ Figura 1 - Usuário autenticado
 Figura 2 - Falha de login devido à inserção de credenciais inválidas.
 
 </div>
+
+### Observação: Atualizado dia 25/05/2024.
+
+Durante a execução dos testes, foram registrados os seguintes problemas:
+- A ferramenta de pesquisa de usuários não estava retornando os dados corretamente;
+- A biblioteca utilizada não estava exibindo adequadamente as mensagens de erro;
+- Algumas telas não estavam estilizadas conforme o padrão estabelecido de identidade visual.
+
+Os resultados obtidos nos testes de software realizados são descritos abaixo já devidamente corrigidos.
+
+### CT 001 - Cadastro de Usuário Candidato
+
+### CT-002 Login de Usuário Candidato
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/793eaf54-df06-43d6-92a2-124ea1110233)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/27a262b1-8a53-4b43-91e0-b179bce790ec)
+
+
+
+### CT-003 Edição de Perfil do Usuário Candidato
+
+
+### CT-004 Filtro de Busca para Usuário Candidato
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/b955eb2f-af2f-4097-9df3-81900fe4ed0c)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/f6b9d53b-8ba2-40db-a19a-00996dcbc1d6)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/db86bff8-764d-43f0-92b7-8dd62ea94086)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/9aaeacc6-4c40-4e6a-9ba9-f12f49ac2159)
+
+
+### CT-005 Candidatura
+
+### CT-006 Visualização de Candidaturas
+Não implementado.
+
+### CT-007 Notificações para Usuário Candidato
+Não implementado.
+
+### CT-008 Cadastro de Usuário Recrutador
+
+### CT-009 Login de Usuário Recrutador
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/7d5efa8e-8cf7-47c6-9c95-87bebe95c807)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/c960a3ca-84bd-4e38-8bf1-fda3a9c7a9fa)
+
+
+
+### CT-010 Edição de Perfil de Usuário Recrutador
+
+### CT-011 Cadastro de Vagas
+
+### CT-012 Edição de Vagas Cadastradas
+
+### CT-013 Visualização de Vagas pelo Usuário Recrutador
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/f6f536ce-35a3-4c83-8ecb-d5d8cda5c674)
+
+
+### CT-014 Seleção de Candidatos
+
+### CT-015 Finalização de Vaga
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/fe85e9f7-63b3-46f6-a43e-ae36a9b4e0ee)

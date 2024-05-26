@@ -12,19 +12,23 @@ export namespace CurriculumInterfaces {
       IsActive: boolean;
     }
   }
+
+  export namespace Receive {
+    export interface Create {
+      Id: string;
+      userId: string;
+      About: string;
+      Github: string;
+      Linkedin: string;
+      Technologies: string[];
+      IsActive: boolean;
+    }
+  }
 }
 
 const handleErrors = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
-
-    console.log(axiosError.message);
-
-    if (axiosError.response) {
-    } else if (axiosError.request) {
-    } else {
-    }
-  } else {
   }
 };
 
