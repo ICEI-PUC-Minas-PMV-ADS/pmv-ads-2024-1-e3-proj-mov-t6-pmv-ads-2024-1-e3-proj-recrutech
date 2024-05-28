@@ -109,14 +109,6 @@ const PageContent = (): JSX.Element => {
         <Text style={styles.defaultText}>{candidates.length} Candidaturas</Text>
         <View style={styles.headerStyle}>
           <Text style={styles.seniorityText}> {vacancyData?.name} </Text>
-          <TouchableOpacity onPress={handleDeleteVacancy}>
-            <Ionicons
-              name="trash"
-              size={24}
-              style={styles.icon}
-              activeOpacity={0.9}
-            />
-          </TouchableOpacity>
         </View>
         <View style={styles.vanciesProperties}>
           <Text style={styles.vanciesPropertiesText}>
@@ -176,10 +168,8 @@ const PageContent = (): JSX.Element => {
         <DefaultButton
           title="Finalizar Vaga"
           variant="secondary"
-          link={{
-            pathname: "/sign-in/dev",
-          }}
           moreStyles={styles.button}
+          onPress={handleDeleteVacancy}
         />
       </View>
     </View>
