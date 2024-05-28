@@ -42,19 +42,8 @@ function getRandomContractModel(): string {
 function redirectToUserProfile(id: string) {
   if (!id) return;
 
-  router.push(`/home/(developer)${id}`);
+  router.push(`/home/(developer)/${id}`);
 }
-
-const generateRandomCandidates = (numCandidates: number) => {
-  const candidates = Array.from({ length: numCandidates }, (_, index) => ({
-    id: index.toString(),
-    name: `Candidato ${index + 1}`,
-    seniority: "Seniority " + (index + 1),
-    workingModel: "Working Model " + (index + 1),
-    enterprise: `Empresa ${index + 1}`,
-  }));
-  return candidates;
-};
 
 const goBack = () => {
   router.replace("/home/");
@@ -146,13 +135,13 @@ const PageContent = (): JSX.Element => {
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => redirectToUserProfile(id)}
+              // onPress={() => redirectToUserProfile(id)}
               activeOpacity={0.9}
             >
               <RecentVacancyCard
                 id={item.id}
                 key={item.id}
-                onPress={() => {}}
+                onPress={() => redirectToUserProfile(item.id)}
                 title={item.userName}
                 seniority={""}
                 workingModel={item.address?.localidade || "Belo Horizonte"}
