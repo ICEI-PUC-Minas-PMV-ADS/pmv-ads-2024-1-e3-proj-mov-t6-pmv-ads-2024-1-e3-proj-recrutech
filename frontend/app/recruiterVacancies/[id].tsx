@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
     gap: Spacing.extraLarge,
     justifyContent: "center",
     backgroundColor: Colors.white,
+    marginTop: 30,
   },
   headerContainer: {
     alignItems: "center",

@@ -1,4 +1,3 @@
-
 import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
@@ -6,20 +5,18 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { initializeFonts } from "@/utils/helpers";
 
-
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import VacancySelectedComponent from "@/components/VacancySelectedComponent";
 import { getVacancyById } from "@/services/vacancyService";
 import { VacancyInterfaces } from "@/types/Vacancy.interfaces";
 
-
-
 SplashScreen.preventAutoHideAsync();
 
 export default function Page() {
   const { vacancyId } = useLocalSearchParams();
-  const [vacancySelected, setVacancySelected] = useState<VacancyInterfaces.Receive.Create | null>(null);
+  const [vacancySelected, setVacancySelected] =
+    useState<VacancyInterfaces.Receive.Create | null>(null);
   const [loading, setLoading] = useState(true);
   const { fontsLoaded, fontError } = initializeFonts();
 
@@ -32,12 +29,12 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (typeof vacancyId === 'string') {
+        if (typeof vacancyId === "string") {
           const data = await getVacancyById(vacancyId);
           setVacancySelected(data || null);
         }
       } catch (error) {
-        console.error('Error fetching vacancy data:', error);
+        console.error("Error fetching vacancy data:", error);
       } finally {
         setLoading(false);
       }
@@ -68,6 +65,7 @@ const styles = StyleSheet.create({
     gap: Spacing.extraLarge,
     justifyContent: "center",
     backgroundColor: Colors.white,
+    marginTop: 30,
   },
   headerContainer: {
     alignItems: "center",
@@ -80,90 +78,78 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 2,
   },
-  Backicon:{
-    fontSize: FontSize.extraLarge, 
+  Backicon: {
+    fontSize: FontSize.extraLarge,
     color: Colors.green,
     marginRight: 300,
-    borderRadius:15,
-
-    
-  
+    borderRadius: 15,
   },
 
-  titleText:{
+  titleText: {
     color: Colors.black,
     fontFamily: "Roboto-Regular",
     fontSize: FontSize.medium,
-    marginTop:20,
-    marginBottom: -45
+    marginTop: 20,
+    marginBottom: -45,
   },
-  CityText:{
+  CityText: {
     fontFamily: "Roboto-Regular",
-    
   },
   defaultText: {
     color: Colors.black,
     fontFamily: "Roboto-Bold",
     fontSize: FontSize.medium,
-    
-    
   },
-  seniorityText:{
+  seniorityText: {
     color: Colors.black,
     fontFamily: "Roboto-Bold",
     fontSize: FontSize.extraLarge,
-
   },
-  applications:{
+  applications: {
     color: Colors.black,
     fontFamily: "Roboto-Bold",
     fontSize: FontSize.extraLarge,
-
   },
-  headerStyle:{
-    flexDirection: 'row', 
-    alignItems: 'center', 
+  headerStyle: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   icon: {
-    fontSize: FontSize.extraLarge, 
+    fontSize: FontSize.extraLarge,
     color: Colors.green,
-    marginRight: 1, 
+    marginRight: 1,
   },
-  vanciesProperties:{
-    flexDirection: 'row', 
+  vanciesProperties: {
+    flexDirection: "row",
     gap: 40,
-   
   },
   vanciesPropertiesText: {
-   
     fontFamily: "Roboto-Regular",
     fontSize: FontSize.medium,
-    backgroundColor:Colors.darkBlue,
-    color: 'white', 
-    padding: 3, 
-    borderRadius: 30, 
+    backgroundColor: Colors.darkBlue,
+    color: "white",
+    padding: 3,
+    borderRadius: 30,
     paddingVertical: 5,
     paddingHorizontal: 13,
-    
   },
 
   detailsVacancies: {
-    flexDirection: 'row', 
+    flexDirection: "row",
     marginRight: 10,
-    marginTop: -5
+    marginTop: -5,
   },
   companyName: {
     color: Colors.black,
     fontFamily: "Roboto-Bold",
     fontSize: FontSize.medium,
     marginRight: 130,
-    
   },
   salaryValue: {
     color: Colors.black,
     fontFamily: "Roboto-Regular",
     fontSize: FontSize.medium,
-    marginRight: 25
+    marginRight: 25,
   },
   recentViwedTitle: {
     fontSize: FontSize.large,
