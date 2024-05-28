@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Platform } from "react-native";
+import { StyleSheet, Text, View, Platform, ToastAndroid } from "react-native";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
@@ -74,9 +74,10 @@ export default function Login() {
       if (authResponse && authResponse.jwtToken) {
         await handleSuccessfulAuthentication(authResponse, setSession);
         router.push("/home/");
+        ToastAndroid.show("Usuário logado com sucesso!", 2000);
       }
     } catch (error) {
-      console.error("Erro durante a autenticação");
+      ToastAndroid.show("Erro durante a autenticação", 2000);
     }
   };
 

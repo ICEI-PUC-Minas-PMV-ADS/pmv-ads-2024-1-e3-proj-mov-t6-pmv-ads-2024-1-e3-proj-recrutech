@@ -1,9 +1,11 @@
 import axios, { isAxiosError } from "axios";
 
 import { User } from "@/types/User.interfaces";
+import { ToastAndroid } from "react-native";
 
 const handleErrors = (error: unknown) => {
   if (isAxiosError(error)) {
+    ToastAndroid.show(error.message, 2000);
   }
 };
 

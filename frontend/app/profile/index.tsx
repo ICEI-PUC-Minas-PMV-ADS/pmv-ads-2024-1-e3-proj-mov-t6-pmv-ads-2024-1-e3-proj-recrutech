@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
 
 import DefaultButton from "@/components/DefaultButton";
 
@@ -57,10 +57,10 @@ export default function Page() {
 
   const deleteAccount = async () => {
     if (session && session.userData) {
-      console.log("deleting user");
       const response = await deleteUser(session.userData.id);
 
       if (response) {
+        ToastAndroid.show("Usuário deletado com sucesso!", 2000);
         router.push("/sign-in/dev");
       }
     }

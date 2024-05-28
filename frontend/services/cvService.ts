@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { ToastAndroid } from "react-native";
 
 export namespace CurriculumInterfaces {
   export namespace Send {
@@ -28,7 +29,7 @@ export namespace CurriculumInterfaces {
 
 const handleErrors = (error: unknown) => {
   if (axios.isAxiosError(error)) {
-    const axiosError = error as AxiosError;
+    ToastAndroid.show(error.message, 2000);
   }
 };
 

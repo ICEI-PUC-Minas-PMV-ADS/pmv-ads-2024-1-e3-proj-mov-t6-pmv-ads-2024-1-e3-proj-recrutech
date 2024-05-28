@@ -5,6 +5,7 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
+  ToastAndroid,
 } from "react-native";
 
 import { Link, router, useLocalSearchParams } from "expo-router";
@@ -82,6 +83,7 @@ function SignUpForm() {
     createUser(data).then((response) => {
       if (response) {
         router.replace("/sign-in/dev");
+        ToastAndroid.show("Usuário cadastrado com sucesso!", 2000);
       }
     });
   };

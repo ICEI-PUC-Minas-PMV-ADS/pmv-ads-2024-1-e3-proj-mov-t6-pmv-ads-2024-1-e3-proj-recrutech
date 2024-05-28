@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import { useEffect, useState } from "react";
 
@@ -91,7 +92,7 @@ const PageContent = (): JSX.Element => {
     const response = await deleteVacancy(vacancyData.id);
 
     if (response) {
-      console.log("Deletado com sucesso");
+      ToastAndroid.show("Deletado com sucesso", 2000);
       router.push("/home/");
     }
   };

@@ -1,14 +1,10 @@
 import { VacancyInterfaces } from "@/types/Vacancy.interfaces";
 import axios, { AxiosError } from "axios";
+import { ToastAndroid } from "react-native";
 
 const handleErrors = (error: unknown) => {
   if (axios.isAxiosError(error)) {
-    const axiosError = error as AxiosError;
-    if (axiosError.response) {
-    } else if (axiosError.request) {
-    } else {
-    }
-  } else {
+    ToastAndroid.show(error.message, 2000);
   }
 };
 

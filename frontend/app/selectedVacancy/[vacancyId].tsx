@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -34,7 +34,7 @@ export default function Page() {
           setVacancySelected(data || null);
         }
       } catch (error) {
-        console.error("Error fetching vacancy data:", error);
+        ToastAndroid.show("Error fetching vacancy data:", 2000);
       } finally {
         setLoading(false);
       }

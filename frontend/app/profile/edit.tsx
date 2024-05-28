@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, ToastAndroid } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import TextFieldComponent from "@/components/TextFieldComponent";
@@ -40,8 +40,8 @@ function EditProfileForm() {
           setGithub(response.curriculum.github);
           setLinkedin(response.curriculum.linkedin);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          ToastAndroid.show("Erro", 2000);
         });
     }
   }, []);
@@ -86,7 +86,7 @@ function EditProfileForm() {
       if (!response) {
         return;
       }
-
+      ToastAndroid.show("Usuário atualizado!", 2000);
       router.push("/home/");
     });
   }

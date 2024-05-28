@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, ToastAndroid, View } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 import DropDownPicker from "react-native-dropdown-picker";
@@ -58,7 +58,7 @@ export default function CreateCV(): JSX.Element {
         }
       })
       .catch((_) => {
-        console.error("Erro ao criar currículo");
+        ToastAndroid.show("Erro ao criar currículo.", 2000);
       });
   }
 
