@@ -62,3 +62,15 @@ export const updateUser = async (id: number, userData: User.Send.Update[]) => {
     handleErrors(error);
   }
 };
+
+export const deleteUser = async (id: number): Promise<any> => {
+  const API_URL = `https://recrutech-webapi.azurewebsites.net/api/Users/deleteUser/${id}`;
+
+  try {
+    const response = await axios.delete(API_URL);
+
+    return response.data;
+  } catch (error) {
+    handleErrors(error);
+  }
+};

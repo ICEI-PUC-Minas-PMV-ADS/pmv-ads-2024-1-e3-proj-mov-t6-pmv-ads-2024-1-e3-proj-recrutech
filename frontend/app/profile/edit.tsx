@@ -152,6 +152,7 @@ function EditProfileForm() {
               value={github}
               onChangeText={setGithub}
             />
+
             <TextFieldComponent
               label="LinkedIn:"
               variant="secondary"

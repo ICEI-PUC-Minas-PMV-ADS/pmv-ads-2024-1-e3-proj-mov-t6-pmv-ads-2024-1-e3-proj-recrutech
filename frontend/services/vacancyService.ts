@@ -82,3 +82,13 @@ export const applyCvToVacancy = async (
     handleErrors(error);
   }
 };
+
+export const deleteVacancy = async (vacancyId: string) => {
+  const API_URL = `https://recrutech-webapi.azurewebsites.net/api/Vacancies/${vacancyId}`;
+
+  try {
+    return await axios.delete(API_URL);
+  } catch (error) {
+    handleErrors(error);
+  }
+};

@@ -7,7 +7,8 @@ import { useSession } from "@/context/AuthContext";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import TextFieldComponent from "@/components/TextFieldComponent";
 import { useEffect, useState } from "react";
-import { getUserById } from "@/services/userService";
+import { deleteUser, getUserById } from "@/services/userService";
+import { router } from "expo-router";
 
 function getRedirectButton(isRecruiter: boolean, hasCurriculum: boolean) {
   if (isRecruiter) {
@@ -54,6 +55,17 @@ export default function Page() {
   const { userName, isRecruiter, id } = session!.userData;
   const [hasCurriculum, setHasCurriculum] = useState<boolean>(true);
 
+  const deleteAccount = async () => {
+    if (session && session.userData) {
+      console.log("deleting user");
+      const response = await deleteUser(session.userData.id);
+
+      if (response) {
+        router.push("/sign-in/dev");
+      }
+    }
+  };
+
   useEffect(() => {
     getUserById(id).then((response) => {
       if (!response || !response.curriculum) return setHasCurriculum(false);
@@ -87,6 +99,7 @@ export default function Page() {
                 backgroundColor: "white",
                 borderColor: Colors.green,
               }}
+              onPress={deleteAccount}
               fontSize={FontSize.small}
             />
           </View>
@@ -99,6 +112,9 @@ export default function Page() {
                 backgroundColor: "white",
               }}
               fontSize={FontSize.small}
+              link={{
+                pathname: "/sign-in/(dev)",
+              }}
             />
             <DefaultButton
               title="Salvar"

@@ -16,7 +16,7 @@ import { FontSize, Spacing } from "@/constants/Sizes";
 import DefaultButton from "@/components/DefaultButton";
 import RecentVacancyCard from "@/components/RecentVacancyCard";
 
-import { getVacancyById } from "@/services/vacancyService";
+import { deleteVacancy, getVacancyById } from "@/services/vacancyService";
 import {
   Contract,
   Office,
@@ -85,6 +85,17 @@ const PageContent = (): JSX.Element => {
     });
   }, []);
 
+  const handleDeleteVacancy = async () => {
+    if (!vacancyData || !vacancyData.id) return;
+
+    const response = await deleteVacancy(vacancyData.id);
+
+    if (response) {
+      console.log("Deletado com sucesso");
+      router.push("/home/");
+    }
+  };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.headerContainer}>
@@ -98,9 +109,9 @@ const PageContent = (): JSX.Element => {
         <Text style={styles.defaultText}>{candidates.length} Candidaturas</Text>
         <View style={styles.headerStyle}>
           <Text style={styles.seniorityText}> {vacancyData?.name} </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleDeleteVacancy}>
             <Ionicons
-              name="create-outline"
+              name="trash"
               size={24}
               style={styles.icon}
               activeOpacity={0.9}
