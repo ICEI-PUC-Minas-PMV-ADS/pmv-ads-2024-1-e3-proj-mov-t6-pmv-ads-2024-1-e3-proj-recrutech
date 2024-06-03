@@ -28,6 +28,11 @@ export namespace VacancyInterfaces {
       benefits: string[];
       requirements: string[];
     }
+    export interface Update {
+      op: string;
+      path: string;
+      value: string | number;
+    }
   }
 
   export namespace Receive {

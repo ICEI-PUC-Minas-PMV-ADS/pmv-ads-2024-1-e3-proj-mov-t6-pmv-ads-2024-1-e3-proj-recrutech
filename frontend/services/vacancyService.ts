@@ -85,6 +85,28 @@ export const applyCvToVacancy = async (
   }
 };
 
+export const updateVacancy = async (
+  vacancyId: string,
+  updatedData: VacancyInterfaces.Send.Update[]
+): Promise<VacancyInterfaces.Receive.Create | void> => {
+  const API_URL = `https://recrutech-webapi.azurewebsites.net/api/Vacancies/updateVacancy/${vacancyId}`;
+
+  try {
+    // const response = await axios.patch(API_URL, updatedData);
+    const response = await fetch(API_URL, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json-patch+json" },
+      body: JSON.stringify(updatedData),
+    });
+    const parsedResponse = await response.json();
+    console.log(parsedResponse);
+
+    return parsedResponse.data;
+  } catch (error) {
+    handleErrors(error);
+  }
+};
+
 export const deleteVacancy = async (vacancyId: string) => {
   const API_URL = `https://recrutech-webapi.azurewebsites.net/api/Vacancies/${vacancyId}`;
 

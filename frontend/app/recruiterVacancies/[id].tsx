@@ -98,7 +98,15 @@ const PageContent = (): JSX.Element => {
         />
         <Text style={styles.defaultText}>{candidates.length} Candidaturas</Text>
         <View style={styles.headerStyle}>
-          <Text style={styles.seniorityText}> {vacancyData?.name} </Text>
+          <Text style={styles.seniorityText}>{vacancyData?.name}</Text>
+          <Ionicons
+            name="create-outline"
+            size={24}
+            style={styles.Editicon}
+            onPress={() => {
+              router.push(`/home/(recruiter)/(vacancy)/(edit)/${id}`);
+            }}
+          />
         </View>
         <View style={styles.vanciesProperties}>
           <Text style={styles.vanciesPropertiesText}>
@@ -200,7 +208,11 @@ const styles = StyleSheet.create({
     marginRight: 300,
     borderRadius: 15,
   },
-
+  Editicon: {
+    fontSize: FontSize.extraLarge,
+    color: Colors.green,
+    marginLeft: 10,
+  },
   titleText: {
     color: Colors.black,
     fontFamily: "Roboto-Regular",
