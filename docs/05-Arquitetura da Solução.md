@@ -10,13 +10,13 @@ No front-end, temos um **Aplicativo Nativo** desenvolvido para dispositivos móv
 
 ## Back-end
 
-No back-end, o servidor é implementado utilizando a linguagem de programação **C#**. Este servidor é responsável por processar as requisições recebidas do aplicativo nativo, executar a lógica de negócios, acessar o banco de dados ElephantSQL para armazenar ou recuperar informações e enviar respostas adequadas de volta para o aplicativo nativo. A comunicação entre o front-end e o back-end é realizada através de requisições URL, geralmente seguindo padrões RESTful ou outra arquitetura de serviços web.
+No back-end, o servidor é implementado utilizando a linguagem de programação C#. Este servidor é responsável por processar as requisições recebidas do aplicativo nativo, executar a lógica de negócios, acessar o banco de dados ElephantSQL para armazenar ou recuperar informações e enviar respostas adequadas de volta para o aplicativo nativo. A comunicação entre o front-end e o back-end é realizada através de requisições HTTP, geralmente seguindo padrões RESTful ou outra arquitetura de serviços web.
 
 ### Comunicação
 
 A comunicação entre o aplicativo nativo e o servidor é bidirecional:
 
-- O aplicativo nativo envia requisições URL para o servidor, solicitando operações ou dados específicos.
+- O aplicativo nativo envia requisições HTTP para o servidor, solicitando operações ou dados específicos.
 - O servidor processa essas requisições e responde com os resultados apropriados, também em C#, que são então utilizados pelo aplicativo nativo.
 
 ### Banco de Dados
