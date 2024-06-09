@@ -83,6 +83,8 @@ function EditProfileForm() {
     if (!curriculumId) return;
 
     updateUser(curriculumId, userData).then((response) => {
+      console.log(response);
+
       if (!response) {
         return;
       }
@@ -92,107 +94,105 @@ function EditProfileForm() {
   }
 
   return (
-    <View>
-      <View>
+    <View style={styles.formContainer}>
+      <View style={styles.header}>
         <Text style={styles.labelTitle}>
           Recru<Text style={{ color: Colors.green }}>Tech</Text>
         </Text>
       </View>
 
-      <View>
-        <View style={styles.container}>
-          <View style={styles.gapField}>
-            <TextFieldComponent
-              label="Sobre:"
-              variant="secondary"
-              multiline
-              value={about}
-              onChangeText={setAbout}
+      <View style={styles.container}>
+        <View style={styles.gapField}>
+          <TextFieldComponent
+            label="Sobre:"
+            variant="secondary"
+            multiline
+            value={about}
+            onChangeText={setAbout}
+          />
+          <View>
+            <Text style={styles.labelPicker}>Cursos:</Text>
+            <DropDownPicker
+              mode="BADGE"
+              theme="LIGHT"
+              multiple={true}
+              addCustomItem={true}
+              searchable={true}
+              style={styles.picker}
+              items={courseState.items}
+              open={courseState.open}
+              value={courseState.value}
+              setOpen={courseState.setOpen}
+              setValue={courseState.setValue}
+              setItems={courseState.setItems}
+              badgeDotColors={[Colors.green]}
             />
-            <View style={styles.dropdownPicker}>
-              <Text style={styles.labelPicker}>Cursos:</Text>
-              <DropDownPicker
-                mode="BADGE"
-                theme="LIGHT"
-                multiple={true}
-                addCustomItem={true}
-                searchable={true}
-                style={styles.picker}
-                items={courseState.items}
-                open={courseState.open}
-                value={courseState.value}
-                setOpen={courseState.setOpen}
-                setValue={courseState.setValue}
-                setItems={courseState.setItems}
-                badgeDotColors={[Colors.green]}
-              />
-            </View>
-            <View style={styles.dropdownPicker}>
-              <Text style={styles.labelPicker}>Experiências:</Text>
-              <DropDownPicker
-                mode="BADGE"
-                theme="LIGHT"
-                multiple={true}
-                addCustomItem={true}
-                searchable={true}
-                style={styles.picker}
-                items={experiencesState.items}
-                open={experiencesState.open}
-                value={experiencesState.value}
-                setOpen={experiencesState.setOpen}
-                setValue={experiencesState.setValue}
-                setItems={experiencesState.setItems}
-                badgeDotColors={[Colors.green]}
-              />
-            </View>
-
-            <TextFieldComponent
-              label="GitHub"
-              variant="secondary"
-              value={github}
-              onChangeText={setGithub}
+          </View>
+          <View>
+            <Text style={styles.labelPicker}>Experiências:</Text>
+            <DropDownPicker
+              mode="BADGE"
+              theme="LIGHT"
+              multiple={true}
+              addCustomItem={true}
+              searchable={true}
+              style={styles.picker}
+              items={experiencesState.items}
+              open={experiencesState.open}
+              value={experiencesState.value}
+              setOpen={experiencesState.setOpen}
+              setValue={experiencesState.setValue}
+              setItems={experiencesState.setItems}
+              badgeDotColors={[Colors.green]}
             />
+          </View>
 
-            <TextFieldComponent
-              label="LinkedIn:"
-              variant="secondary"
-              value={linkedin}
-              onChangeText={setLinkedin}
+          <TextFieldComponent
+            label="GitHub"
+            variant="secondary"
+            value={github}
+            onChangeText={setGithub}
+          />
+
+          <TextFieldComponent
+            label="LinkedIn:"
+            variant="secondary"
+            value={linkedin}
+            onChangeText={setLinkedin}
+          />
+
+          <View>
+            <Text style={styles.labelPicker}>Tecnologias:</Text>
+            <DropDownPicker
+              mode="BADGE"
+              theme="LIGHT"
+              multiple={true}
+              style={styles.picker}
+              items={requirementStates.items}
+              open={requirementStates.open}
+              value={requirementStates.value}
+              setOpen={requirementStates.setOpen}
+              setValue={requirementStates.setValue}
+              setItems={requirementStates.setItems}
+              badgeDotColors={[Colors.green]}
             />
+          </View>
 
-            <View>
-              <Text style={styles.labelPicker}>Tecnologias:</Text>
-              <DropDownPicker
-                mode="BADGE"
-                theme="LIGHT"
-                multiple={true}
-                style={styles.picker}
-                items={requirementStates.items}
-                open={requirementStates.open}
-                value={requirementStates.value}
-                setOpen={requirementStates.setOpen}
-                setValue={requirementStates.setValue}
-                setItems={requirementStates.setItems}
-                badgeDotColors={[Colors.green]}
-              />
-            </View>
-
-            <View style={styles.buttonContainer}>
-              <DefaultButton
-                title="Apagar meu perfil"
-                variant="secondary"
-                moreStyles={{
-                  alignSelf: "center",
-                  backgroundColor: "white",
-                }}
-                fontSize={FontSize.small}
-              />
-              <DefaultButton
-                title="Salvar"
-                variant="secondary"
-                onPress={onSubmit}
-              />
-            </View>
+          <View style={styles.buttonContainer}>
+            <DefaultButton
+              title="Apagar meu perfil"
+              variant="secondary"
+              moreStyles={{
+                alignSelf: "center",
+                backgroundColor: "white",
+              }}
+              fontSize={FontSize.small}
+            />
+            <DefaultButton
+              title="Salvar"
+              variant="secondary"
+              onPress={onSubmit}
+            />
           </View>
         </View>
       </View>
@@ -206,18 +206,27 @@ export default function EditProfile(): React.JSX.Element {
       showsVerticalScrollIndicator={false}
       data={[{ key: "content" }]}
       style={styles.list}
+      contentContainerStyle={{
+        paddingBottom: 50,
+      }}
       renderItem={() => <EditProfileForm />}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  formContainer: {
     flex: 1,
+    paddingHorizontal: Spacing.medium,
+    paddingBottom: Spacing.large,
     justifyContent: "center",
   },
-  dropdownPicker: {
+  header: {
+    alignItems: "center",
     marginBottom: Spacing.large,
+  },
+  container: {
+    flex: 1,
   },
   labelTitle: {
     fontSize: FontSize.extraLarge,
@@ -230,31 +239,32 @@ const styles = StyleSheet.create({
   },
   list: {
     width: "95%",
-    maxWidth: 300,
+    maxWidth: "100%",
     elevation: 30,
+    height: "auto",
     shadowOpacity: 0.5,
     padding: Spacing.medium,
     marginTop: Spacing.large,
     marginBottom: Spacing.large,
-    marginLeft: Spacing.large,
-    marginRight: Spacing.large,
     alignSelf: "center",
     backgroundColor: Colors.white,
     borderRadius: Spacing.smallMedium,
   },
   picker: {
-    height: 25,
+    zIndex: 2,
+    minHeight: 40,
     borderRadius: 10,
+    borderColor: Colors.green,
   },
   labelPicker: {
     fontFamily: "Roboto-Light",
+    fontSize: FontSize.small,
   },
   buttonContainer: {
     flexDirection: "row",
-    gap: 20,
-    marginTop: 30,
-    marginBottom: 30,
-    alignSelf: "center",
+    justifyContent: "space-around",
+    marginTop: Spacing.medium,
+    marginBottom: Spacing.medium,
     fontFamily: "Roboto-Bold",
   },
 });

@@ -16,6 +16,7 @@ export const renderTextField = ({
 }: RenderTextFieldProps): React.JSX.Element => (
   <>
     <TextFieldComponent
+      key={label}
       {...{ label, value, variant, placeholder, secureTextEntry }}
       onChangeText={onChange}
     />

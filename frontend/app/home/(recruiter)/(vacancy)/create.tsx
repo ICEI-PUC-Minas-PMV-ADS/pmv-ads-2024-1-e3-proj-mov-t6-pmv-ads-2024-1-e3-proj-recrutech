@@ -36,66 +36,68 @@ const VacancyForm = (): React.JSX.Element => {
 
   const contractTypesState = usePickerState([
     { label: "Remoto", value: Contract.Remoto, key: 1 },
-    { label: "Híbrido", value: Contract.Híbrido, key: 1 },
-    { label: "Presencial", value: Contract.Remoto, key: 1 },
+    { label: "Híbrido", value: Contract.Híbrido, key: 2 },
+    { label: "Presencial", value: Contract.Remoto, key: 3 },
   ]);
 
-  const requirementStates = usePickerState([
-    { label: "Java", value: "java" },
-    { label: "Node", value: "node" },
-    { label: "React", value: "react" },
-    { label: "Python", value: "python" },
-    { label: "Angular", value: "angular" },
-    { label: "Vue", value: "vue" },
-    { label: "C#", value: "c#" },
-    { label: "C++", value: "c++" },
-    { label: "PHP", value: "php" },
-    { label: "Ruby", value: "ruby" },
-    { label: "Swift", value: "swift" },
-    { label: "Kotlin", value: "kotlin" },
-    { label: "Flutter", value: "flutter" },
-    { label: "Dart", value: "dart" },
-    { label: "SQL", value: "sql" },
-    { label: "NoSQL", value: "nosql" },
-    { label: "MongoDB", value: "mongodb" },
-    { label: "Firebase", value: "firebase" },
-    { label: "AWS", value: "aws" },
-    { label: "Azure", value: "azure" },
-    { label: "Google Cloud", value: "google cloud" },
-    { label: "Docker", value: "docker" },
-    { label: "Kubernetes", value: "kubernetes" },
-    { label: "Jenkins", value: "jenkins" },
-    { label: "Git", value: "git" },
-    { label: "SVN", value: "svn" },
-    { label: "Agile", value: "agile" },
-    { label: "Scrum", value: "scrum" },
-    { label: "Kanban", value: "kanban" },
-    { label: "XP", value: "xp" },
-    { label: "TDD", value: "tdd" },
-    { label: "BDD", value: "bdd" },
-    { label: "DDD", value: "ddd" },
-    { label: "Clean Code", value: "clean code" },
-    { label: "SOLID", value: "solid" },
-    { label: "Design Patterns", value: "design patterns" },
-    { label: "Microservices", value: "microservices" },
-    { label: "Serverless", value: "serverless" },
-    { label: "REST", value: "rest" },
-    { label: "GraphQL", value: "graphql" },
-  ]);
+  const requirementStates = usePickerState(
+    [
+      { label: "Java", value: "java" },
+      { label: "Node", value: "node" },
+      { label: "React", value: "react" },
+      { label: "Python", value: "python" },
+      { label: "Angular", value: "angular" },
+      { label: "Vue", value: "vue" },
+      { label: "C#", value: "c#" },
+      { label: "C++", value: "c++" },
+      { label: "PHP", value: "php" },
+      { label: "Ruby", value: "ruby" },
+      { label: "Swift", value: "swift" },
+      { label: "Kotlin", value: "kotlin" },
+      { label: "Flutter", value: "flutter" },
+      { label: "Dart", value: "dart" },
+      { label: "SQL", value: "sql" },
+      { label: "NoSQL", value: "nosql" },
+      { label: "MongoDB", value: "mongodb" },
+      { label: "Firebase", value: "firebase" },
+      { label: "AWS", value: "aws" },
+      { label: "Azure", value: "azure" },
+      { label: "Google Cloud", value: "google cloud" },
+      { label: "Docker", value: "docker" },
+      { label: "Kubernetes", value: "kubernetes" },
+      { label: "Jenkins", value: "jenkins" },
+      { label: "Git", value: "git" },
+      { label: "SVN", value: "svn" },
+      { label: "Agile", value: "agile" },
+      { label: "Scrum", value: "scrum" },
+      { label: "Kanban", value: "kanban" },
+      { label: "XP", value: "xp" },
+      { label: "TDD", value: "tdd" },
+      { label: "BDD", value: "bdd" },
+      { label: "DDD", value: "ddd" },
+      { label: "Clean Code", value: "clean code" },
+      { label: "SOLID", value: "solid" },
+      { label: "Design Patterns", value: "design patterns" },
+      { label: "Microservices", value: "microservices" },
+      { label: "Serverless", value: "serverless" },
+      { label: "REST", value: "rest" },
+      { label: "GraphQL", value: "graphql" },
+    ].map((item, index) => ({ ...item, key: index.toString() } as any))
+  );
 
   const seniorityStates = usePickerState([
-    { label: "Estagiário", value: Office.Estágio },
-    { label: "Júnior", value: Office.Júnior },
-    { label: "Pleno", value: Office.Pleno },
-    { label: "Sênior", value: Office.Sênior },
+    { label: "Estagiário", value: Office.Estágio, key: 1 },
+    { label: "Júnior", value: Office.Júnior, key: 2 },
+    { label: "Pleno", value: Office.Pleno, key: 3 },
+    { label: "Sênior", value: Office.Sênior, key: 4 },
   ]);
 
   const benefitsStates = usePickerState([
-    { label: "Vale Alimentação", value: "Vale alimentação" },
-    { label: "Vale Refeição", value: "Vale Refeição" },
-    { label: "Vale transporte", value: "Vale transporte" },
-    { label: "Convênio médico", value: "Convênio médico" },
-    { label: "Convênio odontológico", value: "Convênio odontológico" },
+    { label: "Vale Alimentação", value: "Vale alimentação", key: 1 },
+    { label: "Vale Refeição", value: "Vale Refeição", key: 2 },
+    { label: "Vale transporte", value: "Vale transporte", key: 3 },
+    { label: "Convênio médico", value: "Convênio médico", key: 4 },
+    { label: "Convênio odontológico", value: "Convênio odontológico", key: 5 },
   ]);
 
   const defaultValues: VacancyInterfaces.Send.Create =
@@ -209,6 +211,7 @@ const VacancyForm = (): React.JSX.Element => {
           theme="LIGHT"
           multiple={false}
           style={styles.picker}
+          itemKey="key"
           items={contractTypesState.items}
           open={contractTypesState.open}
           value={contractTypesState.value}
@@ -239,6 +242,7 @@ const VacancyForm = (): React.JSX.Element => {
           theme="LIGHT"
           multiple={true}
           searchable={true}
+          itemKey="key"
           addCustomItem={true}
           style={styles.picker}
           open={benefitsStates.open}
@@ -271,6 +275,7 @@ const VacancyForm = (): React.JSX.Element => {
           theme="LIGHT"
           multiple={true}
           searchable={true}
+          itemKey="key"
           addCustomItem={true}
           style={styles.picker}
           open={requirementStates.open}

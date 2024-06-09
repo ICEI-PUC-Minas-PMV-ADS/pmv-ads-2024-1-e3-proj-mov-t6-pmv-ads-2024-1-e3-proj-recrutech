@@ -168,15 +168,17 @@ const ProfileComponent = (): JSX.Element => {
             flexWrap: "wrap",
           }}
           data={getUserTechnologiesOrDefault(userData)}
-          renderItem={({ item }) => <TecnologyComponent technology={item} />}
+          renderItem={({ item, index }) => (
+            <TecnologyComponent key={index} technology={item} />
+          )}
         />
       </View>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}>Recomendações:</Text>
         <FlatList
           data={getUserRecomendationsOrDefault(userData)}
-          renderItem={({ item }) => (
-            <RecommendationComponent reccomendation={item} />
+          renderItem={({ item, index }) => (
+            <RecommendationComponent key={index} reccomendation={item} />
           )}
         />
       </View>
