@@ -59,7 +59,7 @@ export const updateUser = async (id: number, userData: User.Send.Update[]) => {
       body: JSON.stringify(userData),
     });
 
-    return await response.json();
+    return response.json();
   } catch (error) {
     handleErrors(error);
   }

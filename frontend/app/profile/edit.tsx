@@ -82,15 +82,14 @@ function EditProfileForm() {
 
     if (!curriculumId) return;
 
-    updateUser(curriculumId, userData).then((response) => {
-      console.log(response);
-
-      if (!response) {
-        return;
-      }
-      ToastAndroid.show("Usuário atualizado!", 2000);
-      router.push("/home/");
-    });
+    updateUser(curriculumId, userData)
+      .then(() => {
+        ToastAndroid.show("Usuário atualizado!", 2000);
+        router.push("/home/");
+      })
+      .catch(() => {
+        ToastAndroid.show("Erro", 2000);
+      });
   }
 
   return (
