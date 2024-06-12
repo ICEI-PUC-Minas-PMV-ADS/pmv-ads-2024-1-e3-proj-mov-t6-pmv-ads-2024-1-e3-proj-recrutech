@@ -20,7 +20,9 @@ import { useSession } from "@/context/AuthContext";
 import { createVacancy } from "@/services/vacancyService";
 import { router } from "expo-router";
 
-const usePickerState = (initialItems: { label: string; value: any }[]) => {
+export const usePickerState = (
+  initialItems: { label: string; value: any; key?: number }[]
+) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
   const [items, setItems] = useState(initialItems);
@@ -33,46 +35,73 @@ const VacancyForm = (): React.JSX.Element => {
   const userId = session!.userData.id;
 
   const contractTypesState = usePickerState([
-    { label: "Remoto", value: Contract.REMOTE },
-    { label: "Híbrido", value: Contract.HIBRID },
-    { label: "Presencial", value: Contract.INOFFICE },
+    { label: "Remoto", value: Contract.Remoto, key: 1 },
+    { label: "Híbrido", value: Contract.Híbrido, key: 2 },
+    { label: "Presencial", value: Contract.Remoto, key: 3 },
   ]);
 
-  const requirementStates = usePickerState([
-    { label: "Java", value: "java" },
-    { label: "Node", value: "node" },
-    { label: "React", value: "react" },
-    { label: "Python", value: "python" },
-  ]);
+  const requirementStates = usePickerState(
+    [
+      { label: "Java", value: "java" },
+      { label: "Node", value: "node" },
+      { label: "React", value: "react" },
+      { label: "Python", value: "python" },
+      { label: "Angular", value: "angular" },
+      { label: "Vue", value: "vue" },
+      { label: "C#", value: "c#" },
+      { label: "C++", value: "c++" },
+      { label: "PHP", value: "php" },
+      { label: "Ruby", value: "ruby" },
+      { label: "Swift", value: "swift" },
+      { label: "Kotlin", value: "kotlin" },
+      { label: "Flutter", value: "flutter" },
+      { label: "Dart", value: "dart" },
+      { label: "SQL", value: "sql" },
+      { label: "NoSQL", value: "nosql" },
+      { label: "MongoDB", value: "mongodb" },
+      { label: "Firebase", value: "firebase" },
+      { label: "AWS", value: "aws" },
+      { label: "Azure", value: "azure" },
+      { label: "Google Cloud", value: "google cloud" },
+      { label: "Docker", value: "docker" },
+      { label: "Kubernetes", value: "kubernetes" },
+      { label: "Jenkins", value: "jenkins" },
+      { label: "Git", value: "git" },
+      { label: "SVN", value: "svn" },
+      { label: "Agile", value: "agile" },
+      { label: "Scrum", value: "scrum" },
+      { label: "Kanban", value: "kanban" },
+      { label: "XP", value: "xp" },
+      { label: "TDD", value: "tdd" },
+      { label: "BDD", value: "bdd" },
+      { label: "DDD", value: "ddd" },
+      { label: "Clean Code", value: "clean code" },
+      { label: "SOLID", value: "solid" },
+      { label: "Design Patterns", value: "design patterns" },
+      { label: "Microservices", value: "microservices" },
+      { label: "Serverless", value: "serverless" },
+      { label: "REST", value: "rest" },
+      { label: "GraphQL", value: "graphql" },
+    ].map((item, index) => ({ ...item, key: index.toString() } as any))
+  );
 
   const seniorityStates = usePickerState([
-    { label: "Estagiário", value: Office.TRAINEE },
-    { label: "Júnior", value: Office.JUNIOR },
-    { label: "Pleno", value: Office.MID },
-    { label: "Sênior", value: Office.SENIOR },
+    { label: "Estagiário", value: Office.Estágio, key: 1 },
+    { label: "Júnior", value: Office.Júnior, key: 2 },
+    { label: "Pleno", value: Office.Pleno, key: 3 },
+    { label: "Sênior", value: Office.Sênior, key: 4 },
   ]);
 
   const benefitsStates = usePickerState([
-    { label: "Vale Alimentação", value: "Vale alimentação" },
-    { label: "Vale Refeição", value: "Vale Refeição" },
-    { label: "Vale transporte", value: "Vale transporte" },
-    { label: "Convênio médico", value: "Convênio médico" },
-    { label: "Convênio odontológico", value: "Convênio odontológico" },
+    { label: "Vale Alimentação", value: "Vale alimentação", key: 1 },
+    { label: "Vale Refeição", value: "Vale Refeição", key: 2 },
+    { label: "Vale transporte", value: "Vale transporte", key: 3 },
+    { label: "Convênio médico", value: "Convênio médico", key: 4 },
+    { label: "Convênio odontológico", value: "Convênio odontológico", key: 5 },
   ]);
 
-  const defaultValues: VacancyInterfaces.Send.Create = {
-    name: "Desenvolvedor Fullstack",
-    enterprise: "Google",
-    cargo: Office.JUNIOR,
-    location: "Belo Horizonte - MG",
-    link: "https://google.com",
-    content: "Buscamos um desenvolvedor fullstack...",
-    benefits: benefitsStates.value,
-    requirements: requirementStates.value,
-    remuneration: "R$ 4000,00",
-    contract: Contract.REMOTE,
-    userId: "1",
-  };
+  const defaultValues: VacancyInterfaces.Send.Create =
+    {} as VacancyInterfaces.Send.Create;
 
   const {
     control,
@@ -91,7 +120,13 @@ const VacancyForm = (): React.JSX.Element => {
       requirements: requirementStates.value,
     };
 
-    const response = await createVacancy(data);
+    createVacancy(data)
+      .then(() => {
+        router.replace("/home/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -176,6 +211,7 @@ const VacancyForm = (): React.JSX.Element => {
           theme="LIGHT"
           multiple={false}
           style={styles.picker}
+          itemKey="key"
           items={contractTypesState.items}
           open={contractTypesState.open}
           value={contractTypesState.value}
@@ -183,6 +219,7 @@ const VacancyForm = (): React.JSX.Element => {
           setValue={contractTypesState.setValue}
           setItems={contractTypesState.setItems}
           badgeDotColors={[Colors.green]}
+          key={Math.random()}
         />
       </View>
       <Controller
@@ -205,6 +242,7 @@ const VacancyForm = (): React.JSX.Element => {
           theme="LIGHT"
           multiple={true}
           searchable={true}
+          itemKey="key"
           addCustomItem={true}
           style={styles.picker}
           open={benefitsStates.open}
@@ -237,6 +275,7 @@ const VacancyForm = (): React.JSX.Element => {
           theme="LIGHT"
           multiple={true}
           searchable={true}
+          itemKey="key"
           addCustomItem={true}
           style={styles.picker}
           open={requirementStates.open}

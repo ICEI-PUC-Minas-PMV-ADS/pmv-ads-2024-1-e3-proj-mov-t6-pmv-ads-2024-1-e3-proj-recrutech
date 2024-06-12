@@ -1,14 +1,16 @@
+import { CurriculumInterfaces } from "@/services/cvService";
+
 export enum Contract {
-  INOFFICE = 1,
-  REMOTE = 2,
-  HIBRID = 3,
+  Presencial = 1,
+  Remoto = 2,
+  Híbrido = 3,
 }
 
 export enum Office {
-  TRAINEE = 1,
-  JUNIOR = 2,
-  MID = 3,
-  SENIOR = 4,
+  Estágio = 1,
+  Júnior = 2,
+  Pleno = 3,
+  Sênior = 4,
 }
 
 export namespace VacancyInterfaces {
@@ -26,6 +28,11 @@ export namespace VacancyInterfaces {
       benefits: string[];
       requirements: string[];
     }
+    export interface Update {
+      op: string;
+      path: string;
+      value: string | number;
+    }
   }
 
   export namespace Receive {
@@ -42,21 +49,10 @@ export namespace VacancyInterfaces {
       enterprise: string;
       benefits: string[];
       requirements: string[];
+      cvs: CurriculumInterfaces.Receive.Create[];
     }
 
-    export interface Create extends Common {
-      link: string;
-      name: string;
-      cargo: number;
-      content: string;
-      location: string;
-      contract: number;
-      enterprise: string;
-      benefits: string[];
-      cvs: string[] | null;
-      remuneration: number;
-      requirements: string[];
-    }
+    export interface Create extends Common {}
     export interface List extends Common {}
   }
 }

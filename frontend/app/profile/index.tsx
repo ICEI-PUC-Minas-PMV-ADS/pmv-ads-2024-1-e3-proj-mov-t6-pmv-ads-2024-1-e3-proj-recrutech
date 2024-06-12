@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
 
 import DefaultButton from "@/components/DefaultButton";
 
@@ -6,10 +6,71 @@ import { Colors } from "@/constants/Colors";
 import { useSession } from "@/context/AuthContext";
 import { FontSize, Spacing } from "@/constants/Sizes";
 import TextFieldComponent from "@/components/TextFieldComponent";
+import { useEffect, useState } from "react";
+import { deleteUser, getUserById } from "@/services/userService";
+import { router } from "expo-router";
+
+function getRedirectButton(isRecruiter: boolean, hasCurriculum: boolean) {
+  if (isRecruiter) {
+    return <></>;
+  }
+
+  if (!hasCurriculum) {
+    return (
+      <DefaultButton
+        title="Criar currículo"
+        variant="secondary"
+        moreStyles={{
+          width: "100%",
+          maxWidth: 200,
+          alignSelf: "center",
+        }}
+        fontSize={FontSize.small}
+        link={{
+          pathname: "/home/(developer)/createCv",
+        }}
+      />
+    );
+  }
+
+  return (
+    <DefaultButton
+      title="Editar currículo"
+      variant="secondary"
+      moreStyles={{
+        width: "100%",
+        maxWidth: 200,
+        alignSelf: "center",
+      }}
+      fontSize={FontSize.small}
+      link={{
+        pathname: "/profile/edit",
+      }}
+    />
+  );
+}
 
 export default function Page() {
   const { session } = useSession();
-  const { userName } = session!.userData;
+  const { userName, isRecruiter, id } = session!.userData;
+  const [hasCurriculum, setHasCurriculum] = useState<boolean>(true);
+
+  const deleteAccount = async () => {
+    if (session && session.userData) {
+      const response = await deleteUser(session.userData.id);
+
+      if (response) {
+        ToastAndroid.show("Usuário deletado com sucesso!", 2000);
+        router.push("/sign-in/dev");
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUserById(id).then((response) => {
+      if (!response || !response.curriculum) return setHasCurriculum(false);
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -25,16 +86,8 @@ export default function Page() {
           <TextFieldComponent label="Endereço:" variant="secondary" />
 
           <View style={styles.buttonGroup}>
-            <DefaultButton
-              title="Editar Perfil"
-              variant="secondary"
-              moreStyles={{
-                width: "100%",
-                maxWidth: 200,
-                alignSelf: "center",
-              }}
-              fontSize={FontSize.small}
-            />
+            {getRedirectButton(isRecruiter, hasCurriculum)}
+
             <DefaultButton
               title="Apagar minha conta"
               variant="secondary"
@@ -46,6 +99,7 @@ export default function Page() {
                 backgroundColor: "white",
                 borderColor: Colors.green,
               }}
+              onPress={deleteAccount}
               fontSize={FontSize.small}
             />
           </View>
@@ -58,6 +112,9 @@ export default function Page() {
                 backgroundColor: "white",
               }}
               fontSize={FontSize.small}
+              link={{
+                pathname: "/sign-in/(dev)",
+              }}
             />
             <DefaultButton
               title="Salvar"
@@ -74,6 +131,7 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },

@@ -10,7 +10,6 @@ Diante da crescente demanda por profissionais de tecnologia da informação (TI)
 
 ## Integrantes
 
-* LUAN DE ALCANTARA ALVES
 * LORRAYNE CRISTINE LOPES PEREIRA
 * LUCAS FARIA VERRI
 * MATHEUS ALMEIDA DA ROCHA 
@@ -26,7 +25,17 @@ https://trello.com/b/SNiL6gK1/recruitech
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+No terminal, ao entrar na pasta do projeto (onde está o APP) digite npm start para rodar a aplicação. Estarão disponíveis as opções para você escolher como abrir o APP:
+- Selecionando android e utilizando um Emulador (Android Studio)
+- Utilizando o QRCode, para isso, você terá que ter o app EXPO baixado no seu celular (necessário habilitar modo desenvolvedor).
+
+Usuário desenvolvedor:
+- Login: matheus.rocha@mail.com
+- Senha: 123456
+
+Usuário Recrutador:
+- Login: sandro.maciel@mail.com
+- Senha: 123456
 
 # Documentação
 

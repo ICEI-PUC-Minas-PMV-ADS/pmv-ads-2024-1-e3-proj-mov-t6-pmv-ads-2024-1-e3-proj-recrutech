@@ -1,6 +1,13 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View, FlatList, StyleSheet, Platform } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
@@ -18,22 +25,28 @@ import { User } from "@/types/User.interfaces";
 import { useSession } from "@/context/AuthContext";
 import { getVacanciesByUserId } from "@/services/vacancyService";
 
+const redirectToRecruiterVacancies = (id?: string) => {
+  if (!id) return;
+
+  router.push(`/recruiterVacancies/${id}`);
+};
+
 const renderListItem = (
   isLastItem: boolean,
-  { name, enterprise, cargo, contract }: VacancyInterfaces.Receive.List
+  { name, enterprise, cargo, contract, id }: VacancyInterfaces.Receive.List
 ) => {
   const marginBottom = isLastItem ? 100 : 0;
   const officeMap: Record<Office, string> = {
-    [Office.MID]: "Pleno",
-    [Office.JUNIOR]: "Júnior",
-    [Office.SENIOR]: "Sênior",
-    [Office.TRAINEE]: "Estágio",
+    [Office.Pleno]: "Pleno",
+    [Office.Júnior]: "Júnior",
+    [Office.Sênior]: "Sênior",
+    [Office.Estágio]: "Estágio",
   };
 
   const workingModelMap: Record<Contract, string> = {
-    [Contract.REMOTE]: "Remoto",
-    [Contract.HIBRID]: "Híbrido",
-    [Contract.INOFFICE]: "Presencial",
+    [Contract.Remoto]: "Remoto",
+    [Contract.Híbrido]: "Híbrido",
+    [Contract.Presencial]: "Presencial",
   };
 
   return (
@@ -43,14 +56,23 @@ const renderListItem = (
         padding: Spacing.small,
       }}
     >
-      <RecentVacancyCard
-        {...{
-          title: name,
-          enterprise,
-          seniority: officeMap[cargo],
-          workingModel: workingModelMap[contract],
-        }}
-      ></RecentVacancyCard>
+      <TouchableOpacity
+        onPress={() => redirectToRecruiterVacancies(id)}
+        activeOpacity={0.9}
+      >
+        <RecentVacancyCard
+          {...{
+            id,
+            enterprise,
+            title: name,
+            onPress: () => {
+              router.push(`/recruiterVacancies/${id}`);
+            },
+            seniority: officeMap[cargo],
+            workingModel: workingModelMap[contract],
+          }}
+        ></RecentVacancyCard>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -66,7 +88,7 @@ export default function RecruiterHomePage() {
   const { session } = useSession();
 
   useEffect(() => {
-    const { id } = session?.userData as User;
+    const { id } = session?.userData as User.Receive.Create;
 
     getVacanciesByUserId(id).then((response) => {
       if (response && Array.isArray(response)) {
@@ -83,21 +105,20 @@ export default function RecruiterHomePage() {
           onPress={redirectToCreateVacancy}
         ></DefaultButton>
       </View>
-      {vacancies && (
-        <View style={styles.jobsContainer}>
-          <Text style={styles.jobsContainerTitle}>Suas vagas</Text>
-          <View style={styles.divider} />
 
+      <View style={styles.listWrapper}>
+        {vacancies && (
           <FlatList
             data={vacancies}
-            style={{ width: "100%" }}
+            contentContainerStyle={styles.userItemContainer}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ index, item }) =>
               renderListItem(index === vacancies.length - 1, item)
             }
-            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           />
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 }
@@ -112,11 +133,21 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: Spacing.smallMedium,
   },
+  itemSeparator: {
+    height: Spacing.medium,
+  },
+  listWrapper: {
+    flex: 1,
+    marginTop: Spacing.medium,
+  },
   jobsContainerTitle: {
     fontFamily: "Roboto-Regular",
     marginTop: Spacing.small,
     marginBottom: Spacing.medium,
     fontSize: FontSize.mediunLarge,
+  },
+  userItemContainer: {
+    paddingBottom: Spacing.medium,
   },
   divider: {
     borderBottomColor: Colors.black,

@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, Platform } from "react-native";
+import { StyleSheet, Text, View, Platform, ToastAndroid } from "react-native";
 
-import { Toast } from "toastify-react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -53,9 +52,9 @@ export default function Login() {
   const buttonVariant = getButtonVariantByUser(userType);
 
   const defaultValues: AuthInterfaces.Send = {
-    email: "lorrayne@mail.com",
-    password: "aviaoazul",
-  };
+    email: "matheus.rocha@mail.com",
+    password: "123456",
+  } as AuthInterfaces.Send;
 
   const {
     control,
@@ -74,12 +73,11 @@ export default function Login() {
 
       if (authResponse && authResponse.jwtToken) {
         await handleSuccessfulAuthentication(authResponse, setSession);
-
-        Toast.success("Login efetuado com sucesso!", "top");
         router.push("/home/");
+        ToastAndroid.show("Usuário logado com sucesso!", 2000);
       }
     } catch (error) {
-      Toast.error("Erro durante a autenticação", "top");
+      ToastAndroid.show("Erro durante a autenticação", 2000);
     }
   };
 
