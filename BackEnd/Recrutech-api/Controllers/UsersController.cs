@@ -155,6 +155,15 @@ namespace Recrutech_api.Controllers
 
         }
 
+        [HttpDelete("deleteAddress/{addressId}")]
+        public async Task<IActionResult> DeleteAddress(long addressId)
+        {
+            Address address = await _context.GetAddress.Where(x => x.Id == addressId).FirstOrDefaultAsync();
+            if (address == null) return NotFound();
+            address.IsActive = false;
+            await _context.SaveChangesAsync();
+            return Ok("Endereço deletado com sucesso!");
+        }
         public class ReturnUser
         {
             public string? jwtToken { get; set; }

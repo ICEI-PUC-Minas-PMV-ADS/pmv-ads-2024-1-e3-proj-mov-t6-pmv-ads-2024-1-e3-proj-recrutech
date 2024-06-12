@@ -36,5 +36,8 @@ namespace Recrutech_api.Model
                 .Include(x => x.Experience.Where(y => y.IsActive))
                 .Include(x => x.Vacancies.Where(y => y.IsActive))
                 .Include(x => x.User);
+
+        public IQueryable<Address> GetAddress => Addresses.Where(x => x.IsActive);
+
     }
 }
