@@ -13,7 +13,7 @@ namespace Recrutech_api.Model
         public string? Email { get; set; }
         public bool? IsRecruiter { get; set; }
         public Curriculum? Curriculum { get; set; }
-        public Address? Address { get; set; }
+        public List<Address>? Address { get; set; }
         public List<Vacancy>? VacanciesOwner { get; set; }
         public List<UserRecommendation>? UserRecommendations { get; set; }
 
