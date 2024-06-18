@@ -150,12 +150,20 @@ Os resultados obtidos nos testes de software realizados são descritos abaixo j�
 
 
 ### CT-003 Edição de Perfil do Usuário Candidato
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/91ead39c-83a6-4cdc-a848-ecfc38b4556b" alt="Figura 9 - Dados carregados do banco antes da edição"/>
+</p>
+<p align="center"><i>Figura 9 - Dados carregados do banco antes da edição</i></p>
 
 <p align="center">
-  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/bbe1e53d-ecec-4fa3-ae8d-2021d6713b5a" alt="Figura 9 - Campos obrigatórios na edição de currículo não preenchidos"/>
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/3da2336b-8fd7-493d-9a14-1b5911e91350" alt="Figura 10 - Edição do currículo"/>
 </p>
-<p align="center"><i>Figura 9 - Campos obrigatórios na edição de currículo não preenchidos</i></p>
+<p align="center"><i>Figura 10 - Edição do currículo</i></p>
 
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/6e634e14-e847-4dcf-9182-f789a7fb3abd" alt="Figura 11 - Currículo atualizado"/>
+</p>
+<p align="center"><i>Figura 11 - Currículo atualizado</i></p>
 
 
 ### CT-004 Filtro de Busca para Usuário Candidato
