@@ -41,6 +41,11 @@ export interface UserAddress {
   localidade: string;
 }
 
+export interface Recommendation {
+  description: string;
+  providerId: number;
+  id: number;
+}
 export namespace User {
   export namespace Receive {
     export interface Create {
@@ -53,7 +58,12 @@ export namespace User {
       isRecruiter: boolean;
       curriculum: Curriculum;
       vacanciesOwner?: string[];
-      userRecommendations?: string[];
+      userRecommendations?: {
+        id: number;
+        userId: number;
+        recommendationId: number;
+        recommendation: Recommendation;
+      }[];
     }
   }
 

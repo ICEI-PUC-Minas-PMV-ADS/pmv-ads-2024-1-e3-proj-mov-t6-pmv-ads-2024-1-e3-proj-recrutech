@@ -6,7 +6,10 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
+
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 import { router, useLocalSearchParams } from "expo-router";
 
@@ -17,6 +20,12 @@ import { FontSize, Spacing } from "@/constants/Sizes";
 
 import { User } from "@/types/User.interfaces";
 import { getUserById } from "@/services/userService";
+import ReccomendationModalComponent from "@/components/ReccomendationModal";
+import {
+  FormattedRecommendation,
+  deleteRecommendation,
+} from "@/services/reccomendationService";
+import { isAxiosError } from "axios";
 
 const CourseComponent = ({ course }: { course: string }): JSX.Element => {
   return (
@@ -50,14 +59,51 @@ const TecnologyComponent = ({
   );
 };
 
+const deleteRec = (recommendationId: number) => {
+  deleteRecommendation(recommendationId)
+    .then(() => {
+      ToastAndroid.show("Recomendação deletada", 4000);
+    })
+    .catch((error) => {
+      if (isAxiosError(error)) {
+        console.log(error.message);
+      }
+
+      ToastAndroid.show("Erro ao deletar recomendação", 4000);
+    });
+};
+
 const RecommendationComponent = ({
   reccomendation,
+  loggedUserId,
 }: {
-  reccomendation: string;
+  reccomendation: FormattedRecommendation;
+  loggedUserId: number;
 }): JSX.Element => {
+  const isLoggedUserOwner =
+    reccomendation.recommendation.providerId === loggedUserId;
+
   return (
-    <View>
-      <Text>{reccomendation}</Text>
+    <View style={styles.recommendationBox}>
+      {isLoggedUserOwner ? (
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            right: 5,
+            top: 12,
+          }}
+          activeOpacity={0.9}
+          onPress={() => deleteRec(reccomendation.recommendation.id)}
+        >
+          <AntDesign name="delete" size={22} color="black" />
+        </TouchableOpacity>
+      ) : null}
+      <Text>{reccomendation.recommendation.description}</Text>
+      <View>
+        <Text style={{ textAlign: "right" }}>
+          Por: {reccomendation.providerName}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -71,9 +117,25 @@ const getUserTechnologiesOrDefault = (userData: User.Receive.Create | void) => {
 };
 
 const getUserRecomendationsOrDefault = (
-  userData: User.Receive.Create | void
-) => {
-  return (userData && userData.userRecommendations) || ["Sem recomendações"];
+  recommendations: FormattedRecommendation[] | undefined
+): FormattedRecommendation[] => {
+  const defaultReccomendation: FormattedRecommendation = {
+    id: 0,
+    userId: 0,
+    providerName: "",
+    recommendationId: 0,
+    recommendation: {
+      id: 0,
+      providerId: 0,
+      description: "O usuário não possui recomendações",
+    },
+  };
+
+  if (!recommendations || !recommendations.length) {
+    return [defaultReccomendation];
+  }
+
+  return recommendations;
 };
 
 const getUserCoursesOrDefault = (userData: User.Receive.Create | void) => {
@@ -109,13 +171,57 @@ const ProfileComponent = (): JSX.Element => {
   const { session } = useSession();
   const { id } = useLocalSearchParams<{ id: string }>();
 
+  const [openModal, setOpenModal] = useState(false);
+  const [recommendations, setRecommendations] = useState<
+    FormattedRecommendation[]
+  >([]);
+
   if (!id) {
     router.replace("/home/");
   }
 
+  const getRecommendationsByUser = async (
+    userData: User.Receive.Create
+  ): Promise<FormattedRecommendation[] | undefined> => {
+    const owners = await Promise.all(
+      userData.userRecommendations!.map((reccomendation) =>
+        getUserById(reccomendation.recommendation.providerId)
+      )
+    );
+
+    if (!owners || !owners.length) return;
+
+    const formattedReccomendations = userData.userRecommendations!.map(
+      (reccomendation, index) => ({
+        ...reccomendation,
+        providerName: owners[index]!.userName,
+      })
+    );
+
+    return formattedReccomendations;
+  };
+
+  const formatReccomendations = async (
+    userData: User.Receive.Create | void
+  ) => {
+    if (
+      !userData ||
+      !userData.userRecommendations ||
+      !userData.userRecommendations.length
+    ) {
+      return;
+    }
+
+    const recommendations = await getRecommendationsByUser(userData);
+    if (!recommendations) return;
+
+    setRecommendations(recommendations);
+  };
+
   useEffect(() => {
     getUserById(+id).then((response) => {
       setUserdata(response);
+      formatReccomendations(response);
     });
   }, []);
 
@@ -173,12 +279,26 @@ const ProfileComponent = (): JSX.Element => {
           )}
         />
       </View>
-      <View style={styles.container}>
-        <Text style={styles.sectionTitle}>Recomendações:</Text>
+      <View style={[styles.container]}>
+        <View style={styles.reccomendations}>
+          <Text style={styles.sectionTitle}>Recomendações:</Text>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={{ width: 30, height: 30 }}
+            onPress={() => setOpenModal(true)}
+          >
+            <AntDesign name="plus" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+
         <FlatList
-          data={getUserRecomendationsOrDefault(userData)}
+          data={getUserRecomendationsOrDefault(recommendations)}
           renderItem={({ item, index }) => (
-            <RecommendationComponent key={index} reccomendation={item} />
+            <RecommendationComponent
+              key={index}
+              reccomendation={item}
+              loggedUserId={session?.userData.id}
+            />
           )}
         />
       </View>
@@ -203,6 +323,12 @@ const ProfileComponent = (): JSX.Element => {
       >
         <Text style={styles.backButtonText}>Voltar</Text>
       </TouchableOpacity>
+      <ReccomendationModalComponent
+        userId={+id}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        receiverName={userData?.userName || "Sandro"}
+      />
     </View>
   );
 };
@@ -282,6 +408,18 @@ const styles = StyleSheet.create({
   icon: {
     width: 30,
     height: 30,
+  },
+  reccomendations: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  recommendationBox: {
+    width: "100%",
+    padding: Spacing.medium,
+    borderWidth: 1,
+    borderColor: Colors.green,
+    backgroundColor: Colors.green,
+    borderRadius: Spacing.smallMedium,
   },
   backButton: {
     width: "100%",
