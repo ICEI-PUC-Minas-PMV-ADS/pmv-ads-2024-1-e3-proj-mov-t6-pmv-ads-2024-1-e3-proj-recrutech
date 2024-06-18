@@ -74,7 +74,7 @@ function SignUpForm() {
       return;
     }
 
-    const cepIsValid = cep && cep.length === 8 && address;
+    const cepIsValid = cep && cep.length === 8;
     if (!cepIsValid) {
       ToastAndroid.show("CEP inválido", 2000);
       return;
