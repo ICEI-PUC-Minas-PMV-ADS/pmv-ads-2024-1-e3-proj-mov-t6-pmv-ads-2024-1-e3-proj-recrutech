@@ -80,10 +80,10 @@ export default function Page() {
       <View style={styles.card}>
         <View style={styles.contentBody}>
           <Text style={styles.helloUser}>Olá, {userName}!</Text>
-          <Text style={styles.edit}>Edite suas informações abaixo:</Text>
+          {/* <Text style={styles.edit}>Edite suas informações abaixo:</Text>
           <TextFieldComponent label="Redefinir Senha:" variant="secondary" />
           <TextFieldComponent label="E-mail:" variant="secondary" />
-          <TextFieldComponent label="Endereço:" variant="secondary" />
+          <TextFieldComponent label="Endereço:" variant="secondary" /> */}
 
           <View style={styles.buttonGroup}>
             {getRedirectButton(isRecruiter, hasCurriculum)}
