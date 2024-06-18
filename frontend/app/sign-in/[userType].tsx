@@ -51,18 +51,12 @@ export default function Login() {
   const fieldVariant = getFieldVariantByUser(userType);
   const buttonVariant = getButtonVariantByUser(userType);
 
-  const defaultValues: AuthInterfaces.Send = {
-    email: "matheus.rocha@mail.com",
-    password: "123456",
-  } as AuthInterfaces.Send;
-
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<AuthInterfaces.Send>({
     resolver: yupResolver(loginSchema),
-    defaultValues,
   });
 
   const onSubmit: SubmitHandler<AuthInterfaces.Send> = async (
