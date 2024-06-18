@@ -4,6 +4,8 @@ import { User } from "@/types/User.interfaces";
 import { ToastAndroid } from "react-native";
 
 const handleErrors = (error: unknown) => {
+  console.log(error);
+
   if (isAxiosError(error)) {
     ToastAndroid.show(error.message, 2000);
   }
@@ -56,7 +58,11 @@ export const updateUser = async (id: number, userData: User.Send.Update[]) => {
 
   try {
     const response = await fetch(API_URL, {
+      method: "PATCH",
       body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json-patch+json",
+      },
     });
 
     return response.json();

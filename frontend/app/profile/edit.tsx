@@ -83,11 +83,12 @@ function EditProfileForm() {
     if (!curriculumId) return;
 
     updateUser(curriculumId, userData)
-      .then(() => {
+      .then((response) => {
         ToastAndroid.show("Usuário atualizado!", 2000);
         router.push("/home/");
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         ToastAndroid.show("Erro", 2000);
       });
   }
