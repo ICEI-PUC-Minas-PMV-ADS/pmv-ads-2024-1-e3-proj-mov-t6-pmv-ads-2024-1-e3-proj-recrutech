@@ -30,7 +30,6 @@ Durante a execução dos testes, foram registrados os seguintes problemas:
 - Algumas telas não estavam estilizadas conforme o padrão estabelecido de identidade visual;
 - As funcionalidades relacionadas à visualização de candidaturas, notificações para usuário candidato, criação de vagas, edição de vagas cadastradas e seleção de candidatos estão em fase de desenvolvimento.
 
-Os resultados obtidos nos testes de software realizados são descritos abaixo já devidamente corrigidos.
 
 ### CT 001 - Cadastro de Usuário Candidato
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/79f8e4a9-7fd3-45e8-8b29-9f6863825cff)
@@ -99,3 +98,65 @@ Funcionalidade em desenvolvimento.
 
 ### CT-015 Finalização de Vaga
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/fe85e9f7-63b3-46f6-a43e-ae36a9b4e0ee)
+
+### Observação: Atualizado dia 18/06/2024.
+Os resultados obtidos nos testes de software realizados são descritos abaixo já devidamente corrigidos.
+
+### CT 001 - Cadastro de Usuário Candidato
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/9a774026-2e35-4d9d-bdcf-c6cd7d9f20d6" alt="Figura 1 - Cadastro de usuário com credenciais válidas"/>
+</p>
+<p align="center"><i>Figura 1 - Cadastro de usuário com credenciais válidas</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/4a2923af-dd3f-4da0-b5c3-73f6a0574dbc" alt="Figura 2 - Cadastro de usuário com credenciais válidas"/>
+</p>
+<p align="center"><i>Figura 2 - Cadastro de usuário com credenciais válidas</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/a4e44bcc-e283-48c1-9235-abfd1ad4c321" alt="Figura 3 - Cadastro realizado com sucesso"/>
+</p>
+<p align="center"><i>Figura 3 - Cadastro realizado com sucesso</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/38b90664-4045-4173-9b08-ec13609751a9" alt="Figura 4 - Mensagem de erro ao utilizar e-mail inválido"/>
+</p>
+<p align="center"><i>Figura 4 - Mensagem de erro ao utilizar e-mail inválido</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/8630fa48-38c1-413e-a4a5-77a6710b9c04" alt="Figura 5 - Mensagem de erro ao utilizar CEP inválido"/>
+</p>
+<p align="center"><i>Figura 5 - Mensagem de erro ao utilizar CEP inválido</i></p>
+
+
+### CT-002 Login de Usuário Candidato
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/d3be184c-e5f4-4122-8966-ebb439256aec" alt="Figura 6 - Login de usuário candidato"/>
+</p>
+<p align="center"><i>Figura 6 - Login de usuário candidato</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/53d73585-04c7-41a0-a9fe-f5a7c48d8950" alt="Figura 7 - Erro ao não preencher campos obrigatórios"/>
+</p>
+<p align="center"><i>Figura 7 - Erro ao não preencher campos obrigatórios</i></p>
+
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/b73b56f3-ad96-49eb-9782-a1a7b1e2f72d" alt="Figura 8 - Erro ao utilizar credenciais inválidas"/>
+</p>
+<p align="center"><i>Figura 8 - Erro ao utilizar credenciais inválidas</i></p>
+
+
+### CT-003 Edição de Perfil do Usuário Candidato
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/bbe1e53d-ecec-4fa3-ae8d-2021d6713b5a" alt="Figura 9 - Campos obrigatórios na edição de currículo não preenchidos"/>
+</p>
+<p align="center"><i>Figura 9 - Campos obrigatórios na edição de currículo não preenchidos</i></p>
+
+
+
+### CT-004 Filtro de Busca para Usuário Candidato
+
