@@ -121,12 +121,13 @@ namespace Recrutech_api.Controllers
         }
 
         [HttpPost("ApplyCvToVacancy")]
-        public async Task<ActionResult<Vacancy>> ApplyCvToVacancy([FromQuery] int vacancyId, int cvId)
+        public async Task<ActionResult<Vacancy>> ApplyCvToVacancy([FromQuery] int vacancyId, int userId)
         {
 
             Vacancy vacancy = await _context.GetAllVacancies.FirstOrDefaultAsync(x => x.Id == vacancyId);
-            Curriculum curriculum = await _context.GetAllCvs.FirstOrDefaultAsync(x => x.Id == cvId);
+            Curriculum curriculum =  _context.GetAllUsers.FirstOrDefaultAsync(x => x.Id == userId).Result.Curriculum;
             if (vacancy == null || curriculum == null) return BadRequest("Vaga ou curriculo não encontrado na base de dados");
+            if (vacancy.Cvs.Any(x => x.Id == curriculum.Id)) return Ok("Curriculo ja foi aplicado para vaga selecionada");
             vacancy.Cvs.Add(curriculum);
 
             _context.Entry(vacancy).State = EntityState.Modified;

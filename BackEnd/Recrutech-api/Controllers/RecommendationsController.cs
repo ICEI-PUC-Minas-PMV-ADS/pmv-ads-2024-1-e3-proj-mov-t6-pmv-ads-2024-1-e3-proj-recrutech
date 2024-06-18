@@ -35,7 +35,7 @@ namespace Recrutech_api.Controllers
             }
 
             List<Recommendation> providerRecommendations = await _context.Recomendations
-                .Where(recommendation => recommendation.ProviderId == userProvider.Id)
+                .Where(recommendation => recommendation.ProviderId == userProvider.Id && recommendation.IsActive)
                 .ToListAsync();
 
             return Ok(providerRecommendations);
@@ -51,7 +51,7 @@ namespace Recrutech_api.Controllers
             }
 
             List<Recommendation> receiverRecommendations = await _context.Recomendations
-                .Where(recommendation => recommendation.UserRecommendations.Any(ur => ur.UserId == userReceiver.Id) && recommendation.ProviderId != ReceiverId)
+                .Where(recommendation => recommendation.UserRecommendations.Any(ur => ur.UserId == userReceiver.Id) && recommendation.ProviderId != ReceiverId && recommendation.IsActive)
                 .ToListAsync();
 
             return Ok(receiverRecommendations);
@@ -133,15 +133,11 @@ namespace Recrutech_api.Controllers
                 return NotFound();
             }
 
-            _context.Recomendations.Remove(recommendation);
+            //_context.Recomendations.Remove(recommendation);
+            recommendation.IsActive = false;
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool RecommendationExists(int id)
-        {
-            return (_context.Recomendations?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
