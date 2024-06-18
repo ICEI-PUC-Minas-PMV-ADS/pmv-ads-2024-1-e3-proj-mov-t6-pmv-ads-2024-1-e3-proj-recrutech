@@ -75,6 +75,8 @@ export default function Login() {
         await handleSuccessfulAuthentication(authResponse, setSession);
         router.push("/home/");
         ToastAndroid.show("Usuário logado com sucesso!", 2000);
+      } else {
+        ToastAndroid.show("Usuário ou senha incorretos", 2000);
       }
     } catch (error) {
       ToastAndroid.show("Erro durante a autenticação", 2000);
