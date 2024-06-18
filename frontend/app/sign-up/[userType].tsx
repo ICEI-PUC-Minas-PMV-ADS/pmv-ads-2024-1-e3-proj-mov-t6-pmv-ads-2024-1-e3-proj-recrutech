@@ -62,7 +62,24 @@ function SignUpForm() {
     router.replace(`/sign-up/${newType}`);
   };
 
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = () => {
+    const isValidEmail = validateEmail(email || "");
+    if (!isValidEmail) {
+      ToastAndroid.show("Email inválido", 2000);
+      return;
+    }
+
+    const cepIsValid = cep && cep.length === 8 && address;
+    if (!cepIsValid) {
+      ToastAndroid.show("CEP inválido", 2000);
+      return;
+    }
+
     const data: User.Send.Create = {
       user: {
         userName: username || "",
