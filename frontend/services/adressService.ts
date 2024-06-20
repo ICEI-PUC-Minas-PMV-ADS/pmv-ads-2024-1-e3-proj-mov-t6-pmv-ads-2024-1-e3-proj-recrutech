@@ -26,7 +26,7 @@ export const getAdressByCep = async (cep: string): Promise<Address | void> => {
     }
   } catch (error) {
     if (error instanceof AxiosError) {
-      ToastAndroid.show(error.message, 2000);
+      ToastAndroid.show("Erro ao buscar endereço", 2000);
     }
   }
 };
