@@ -50,7 +50,7 @@ function SignUpForm() {
   const [address, setAdress] = useState<ViaCepAddress | void>();
 
   const onChangeCep = (value: string) => {
-    if (value.length != 8) return;
+    setCep(value);
 
     getAdressByCep(value).then((data) => {
       setAdress(data as ViaCepAddress);
@@ -75,6 +75,7 @@ function SignUpForm() {
     }
 
     const cepIsValid = cep && cep.length === 8;
+
     if (!cepIsValid) {
       ToastAndroid.show("CEP inválido", 2000);
       return;
