@@ -167,4 +167,17 @@ Os resultados obtidos nos testes de software realizados são descritos abaixo j�
 
 
 ### CT-004 Filtro de Busca para Usuário Candidato
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/f0fcde6e-6eee-4ce4-970d-c612344c01c7" alt="Figura 12 - Filtros da aplicação"/>
+</p>
+<p align="center"><i>Figura 12 - Filtros da aplicação</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/b1ca7c62-72e9-4061-ba7c-c642907df58c" alt="Figura 13 - Retorno de vagas filtradas"/>
+</p>
+<p align="center"><i>Figura 13 - Retorno de vagas filtradas</i></p>
+
+
+
+
 
