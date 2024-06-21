@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ToastAndroid,
+  Linking,
 } from "react-native";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -166,6 +167,20 @@ const redirectToHome = () => {
   router.replace("/home/");
 };
 
+const openBrowser = (link: string | undefined) => {
+  if (!link) {
+    return;
+  }
+
+  Linking.canOpenURL(link).then((supported) => {
+    if (supported) {
+      Linking.openURL(link);
+    } else {
+      ToastAndroid.show("Don't know how to open URI: " + link, 2000);
+    }
+  });
+};
+
 const ProfileComponent = (): JSX.Element => {
   const [userData, setUserdata] = useState<User.Receive.Create | void>();
   const { session } = useSession();
@@ -306,13 +321,23 @@ const ProfileComponent = (): JSX.Element => {
         />
       </View>
       <View style={styles.iconsContainer}>
-        <TouchableOpacity activeOpacity={0.9}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => {
+            openBrowser(userData?.curriculum.github);
+          }}
+        >
           <Image
             source={require("@/assets/images/github.png")}
             style={styles.icon}
           ></Image>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.9}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => {
+            openBrowser(userData?.curriculum.linkedin);
+          }}
+        >
           <Image
             source={require("@/assets/images/linkedin.png")}
             style={styles.icon}
