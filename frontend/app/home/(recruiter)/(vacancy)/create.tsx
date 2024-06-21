@@ -79,6 +79,8 @@ const VacancyForm = (): React.JSX.Element => {
     { key: 38, label: "Serverless", value: "serverless" },
     { key: 39, label: "REST", value: "rest" },
     { key: 40, label: "GraphQL", value: "graphql" },
+    { key: 41, label: "HTML", value: "html" },
+    { key: 42, label: "CSS", value: "css" },
   ]);
 
   const seniorityStates = usePickerState([
