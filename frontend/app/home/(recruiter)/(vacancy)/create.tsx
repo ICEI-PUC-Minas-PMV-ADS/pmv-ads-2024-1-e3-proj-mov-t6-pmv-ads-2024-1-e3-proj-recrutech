@@ -37,53 +37,51 @@ const VacancyForm = (): React.JSX.Element => {
   const contractTypesState = usePickerState([
     { label: "Remoto", value: Contract.Remoto, key: 1 },
     { label: "Híbrido", value: Contract.Híbrido, key: 2 },
-    { label: "Presencial", value: Contract.Remoto, key: 3 },
+    { label: "Presencial", value: Contract.Presencial, key: 3 },
   ]);
 
-  const requirementStates = usePickerState(
-    [
-      { label: "Java", value: "java" },
-      { label: "Node", value: "node" },
-      { label: "React", value: "react" },
-      { label: "Python", value: "python" },
-      { label: "Angular", value: "angular" },
-      { label: "Vue", value: "vue" },
-      { label: "C#", value: "c#" },
-      { label: "C++", value: "c++" },
-      { label: "PHP", value: "php" },
-      { label: "Ruby", value: "ruby" },
-      { label: "Swift", value: "swift" },
-      { label: "Kotlin", value: "kotlin" },
-      { label: "Flutter", value: "flutter" },
-      { label: "Dart", value: "dart" },
-      { label: "SQL", value: "sql" },
-      { label: "NoSQL", value: "nosql" },
-      { label: "MongoDB", value: "mongodb" },
-      { label: "Firebase", value: "firebase" },
-      { label: "AWS", value: "aws" },
-      { label: "Azure", value: "azure" },
-      { label: "Google Cloud", value: "google cloud" },
-      { label: "Docker", value: "docker" },
-      { label: "Kubernetes", value: "kubernetes" },
-      { label: "Jenkins", value: "jenkins" },
-      { label: "Git", value: "git" },
-      { label: "SVN", value: "svn" },
-      { label: "Agile", value: "agile" },
-      { label: "Scrum", value: "scrum" },
-      { label: "Kanban", value: "kanban" },
-      { label: "XP", value: "xp" },
-      { label: "TDD", value: "tdd" },
-      { label: "BDD", value: "bdd" },
-      { label: "DDD", value: "ddd" },
-      { label: "Clean Code", value: "clean code" },
-      { label: "SOLID", value: "solid" },
-      { label: "Design Patterns", value: "design patterns" },
-      { label: "Microservices", value: "microservices" },
-      { label: "Serverless", value: "serverless" },
-      { label: "REST", value: "rest" },
-      { label: "GraphQL", value: "graphql" },
-    ].map((item, index) => ({ ...item, key: index.toString() } as any))
-  );
+  const requirementStates = usePickerState([
+    { key: 1, label: "Java", value: "java" },
+    { key: 2, label: "Node", value: "node" },
+    { key: 3, label: "React", value: "react" },
+    { key: 4, label: "Python", value: "python" },
+    { key: 5, label: "Angular", value: "angular" },
+    { key: 6, label: "Vue", value: "vue" },
+    { key: 7, label: "C#", value: "c#" },
+    { key: 8, label: "C++", value: "c++" },
+    { key: 9, label: "PHP", value: "php" },
+    { key: 10, label: "Ruby", value: "ruby" },
+    { key: 11, label: "Swift", value: "swift" },
+    { key: 12, label: "Kotlin", value: "kotlin" },
+    { key: 13, label: "Flutter", value: "flutter" },
+    { key: 14, label: "Dart", value: "dart" },
+    { key: 15, label: "SQL", value: "sql" },
+    { key: 16, label: "NoSQL", value: "nosql" },
+    { key: 17, label: "MongoDB", value: "mongodb" },
+    { key: 18, label: "Firebase", value: "firebase" },
+    { key: 19, label: "AWS", value: "aws" },
+    { key: 20, label: "Azure", value: "azure" },
+    { key: 21, label: "Google Cloud", value: "google cloud" },
+    { key: 22, label: "Docker", value: "docker" },
+    { key: 23, label: "Kubernetes", value: "kubernetes" },
+    { key: 24, label: "Jenkins", value: "jenkins" },
+    { key: 25, label: "Git", value: "git" },
+    { key: 26, label: "SVN", value: "svn" },
+    { key: 27, label: "Agile", value: "agile" },
+    { key: 28, label: "Scrum", value: "scrum" },
+    { key: 29, label: "Kanban", value: "kanban" },
+    { key: 30, label: "XP", value: "xp" },
+    { key: 31, label: "TDD", value: "tdd" },
+    { key: 32, label: "BDD", value: "bdd" },
+    { key: 33, label: "DDD", value: "ddd" },
+    { key: 34, label: "Clean Code", value: "clean code" },
+    { key: 35, label: "SOLID", value: "solid" },
+    { key: 36, label: "Design Patterns", value: "design patterns" },
+    { key: 37, label: "Microservices", value: "microservices" },
+    { key: 38, label: "Serverless", value: "serverless" },
+    { key: 39, label: "REST", value: "rest" },
+    { key: 40, label: "GraphQL", value: "graphql" },
+  ]);
 
   const seniorityStates = usePickerState([
     { label: "Estagiário", value: Office.Estágio, key: 1 },
@@ -117,15 +115,19 @@ const VacancyForm = (): React.JSX.Element => {
       userId,
       benefits: benefitsStates.value,
       requirements: requirementStates.value,
+      cargo: seniorityStates.value as unknown as Office,
+      contract: contractTypesState.value as unknown as Contract,
     };
 
-    createVacancy(data)
-      .then(() => {
-        router.replace("/home/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(data);
+
+    // createVacancy(data)
+    //   .then(() => {
+    //     router.replace("/home/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -277,6 +279,7 @@ const VacancyForm = (): React.JSX.Element => {
           itemKey="key"
           addCustomItem={true}
           style={styles.picker}
+          listMode="SCROLLVIEW"
           open={requirementStates.open}
           items={requirementStates.items}
           value={requirementStates.value}

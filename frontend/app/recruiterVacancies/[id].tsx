@@ -58,6 +58,7 @@ const PageContent = (): JSX.Element => {
   useEffect(() => {
     getVacancyById(id).then((response) => {
       if (response) {
+        console.log(response);
         setVacancyData(response);
 
         const getUserDataPromises = response.cvs.map((cv) =>

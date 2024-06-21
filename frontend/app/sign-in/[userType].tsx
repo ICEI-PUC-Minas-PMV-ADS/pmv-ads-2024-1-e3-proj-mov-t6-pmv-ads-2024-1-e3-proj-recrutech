@@ -120,7 +120,6 @@ export default function Login() {
             variant={buttonVariant}
             onPress={handleSubmit(onSubmit)}
           />
-          {/* <Text style={styles.text}>Esqueci minha senha</Text> */}
         </View>
 
         <View style={styles.register}>
