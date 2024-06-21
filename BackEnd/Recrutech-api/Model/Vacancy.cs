@@ -28,15 +28,15 @@ namespace Recrutech_api.Model
     public enum EContract
     {
         InOffice = 1,
-        Remote ,
-        Hibryd 
+        Remote = 2,
+        Hibryd = 3
     }
 
     public enum ECargo
     {
         Estagio = 1,
-        Junior ,
-        Pleno ,
-        Senior 
+        Junior = 2,
+        Pleno = 3,
+        Senior = 4
     }
 }
