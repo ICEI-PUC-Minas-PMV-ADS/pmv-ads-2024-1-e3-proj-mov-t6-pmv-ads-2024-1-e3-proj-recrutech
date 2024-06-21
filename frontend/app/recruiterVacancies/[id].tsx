@@ -116,9 +116,9 @@ const PageContent = (): JSX.Element => {
           <Text style={styles.vanciesPropertiesText}>
             {Contract[vacancyData?.contract || 1]}
           </Text>
-          <Text style={styles.vanciesPropertiesText}>
+          {/* <Text style={styles.vanciesPropertiesText}>
             {getRandomContractModel()}
-          </Text>
+          </Text> */}
         </View>
 
         <View style={styles.detailsVacancies}>

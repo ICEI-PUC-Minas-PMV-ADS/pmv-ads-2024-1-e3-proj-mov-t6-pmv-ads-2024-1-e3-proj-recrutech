@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 
 import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import DropDownPicker from "react-native-dropdown-picker";
 
 import { Colors } from "@/constants/Colors";
 import { FontSize, Spacing } from "@/constants/Sizes";
 
 import DefaultButton from "@/components/DefaultButton";
-import createVacancySchema from "@/schemas/vacancySchema";
 import { renderTextField } from "@/utils/renderTextField";
 import {
   Office,
@@ -243,6 +241,7 @@ const VacancyForm = (): React.JSX.Element => {
           searchable={true}
           itemKey="key"
           addCustomItem={true}
+          listMode="SCROLLVIEW"
           style={styles.picker}
           open={benefitsStates.open}
           items={benefitsStates.items}
@@ -342,6 +341,7 @@ const styles = StyleSheet.create({
   picker: {
     marginVertical: Spacing.small,
     borderRadius: Spacing.medium,
+    zIndex: 2,
   },
   labelPicker: {
     fontFamily: "Roboto-Light",

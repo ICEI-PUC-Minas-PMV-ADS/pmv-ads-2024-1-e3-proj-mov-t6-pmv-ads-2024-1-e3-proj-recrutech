@@ -58,7 +58,7 @@ export default function Login() {
   } = useForm<AuthInterfaces.Send>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
-      email: "matheus.rocha@mail.com",
+      email: "sandro.maciel@mail.com",
       password: "123456",
     },
   });
