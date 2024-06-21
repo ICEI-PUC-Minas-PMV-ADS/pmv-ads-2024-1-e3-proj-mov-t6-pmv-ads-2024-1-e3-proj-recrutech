@@ -206,6 +206,58 @@ Funcionalidade não aplicada.
 </p>
 <p align="center"><i>Figura 17 - Usuário recrutador cadastrado com sucesso</i></p>
 
+### CT-009 Login de Usuário Recrutador
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/650eea53-7a8c-4b39-bcc7-8f29c34818e4" alt="Figura 18 - Credenciais inválidas para login"/>
+</p>
+<p align="center"><i>Figura 18 - Credenciais inválidas para login</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/7c89fd21-c0c0-4d8b-a6ec-e8cc76d6ee96" alt="Figura 19 - Usuário recrutador logado com sucesso"/>
+</p>
+<p align="center"><i>Figura 19 - Usuário recrutador logado com sucesso</i></p>
+
+### CT-010 Edição de Perfil de Usuário Recrutador
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/a7384eb0-60bf-403b-9468-d2a0e2f2ffc0" alt="Figura 20 - Edição de perfil de usuário recrutador"/>
+</p>
+<p align="center"><i>Figura 20 - Edição de perfil de usuário recrutador</i></p>
+
+### CT-011 Cadastro de Vagas
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/ed5f03d9-17ee-4cf5-90bc-1460d378892e" alt="Figura 21 - Cadastro de vagas"/>
+</p>
+<p align="center"><i>Figura 21 - Cadastro de vagas</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/75bd59a5-a6d7-443f-82b5-1d9c83165a5d" alt="Figura 22 - Cadastro de vagas"/>
+</p>
+<p align="center"><i>Figura 22 - Cadastro de vagas</i></p>
+
+
+### CT-012 Edição de Vagas Cadastradas
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/0b6dc5d9-be1d-452b-87c8-efa9da429693" alt="Figura 23 - Edição de vaga"/>
+</p>
+<p align="center"><i>Figura 23 - Edição de vaga</i></p>
+
+### CT-013 Visualização de Vagas pelo Usuário Recrutador
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/2a952d63-50bf-47b9-a3eb-3f96c81be411" alt="Figura 24 - Visualização de vaga pelo usuário recrutador"/>
+</p>
+<p align="center"><i>Figura 24 - Visualização de vaga pelo usuário recrutador</i></p>
+
+### CT-014 Seleção de Candidatos
+Funcionalidade não implementada.
+
+
+### CT-015 Finalização de Vaga
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/cb1dc276-1443-4e70-9770-77bf3043cb87" alt="Figura 25 - Finalização de vaga"/>
+</p>
+<p align="center"><i>Figura 25 - Finalização de vaga</i></p>
+
+
 
 
 
