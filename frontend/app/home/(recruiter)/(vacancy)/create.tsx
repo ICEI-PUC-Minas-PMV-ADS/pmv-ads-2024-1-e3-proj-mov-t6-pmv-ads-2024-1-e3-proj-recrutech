@@ -108,7 +108,6 @@ const VacancyForm = (): React.JSX.Element => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(createVacancySchema),
     defaultValues,
   });
 
