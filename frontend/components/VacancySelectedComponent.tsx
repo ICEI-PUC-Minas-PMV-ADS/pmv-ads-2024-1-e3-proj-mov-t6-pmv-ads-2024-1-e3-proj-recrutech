@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 
 import { useSession } from "@/context/AuthContext";
@@ -83,72 +84,71 @@ const VacancyCard: React.FC<VacancyCardProps> = ({ vacancySelected }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerHeader}>
-        <View>
-          <Text style={styles.headerTitle}>{vacancySelected.name}</Text>
-          <View style={styles.vacancyRequirements}>
-            <Text style={styles.requirementText}>
-              {Office[vacancySelected.cargo]}
-            </Text>
-            <Text style={styles.requirementText}>
-              {Contract[vacancySelected.contract]}
-            </Text>
-            <Text style={styles.requirementText}>
-              {getRandomContractModel()}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.companyInfo}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.containerHeader}>
           <View>
-            <Text style={styles.companyTitle}>
-              {vacancySelected.enterprise}
-            </Text>
-            <Text style={styles.companyLocation}>
-              {vacancySelected.location}
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.boldText}>Salário</Text>
-            <Text style={styles.vacancyRemuneration}>
-              {convertToCurrency(vacancySelected.remuneration)}
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.containerContent}>
-        <View style={styles.habilitiesContainer}>
-          {vacancySelected.requirements.map((hability, i) => (
-            <Text
-              key={i}
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.hability}
-            >
-              {hability}
-            </Text>
-          ))}
-        </View>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Sobre</Text>
-          <View style={styles.aboutContent}>
-            <View>
-              <Text style={styles.boldText}>
-                Quer fazer parte do nosso time?
+            <Text style={styles.headerTitle}>{vacancySelected.name}</Text>
+            <View style={styles.vacancyRequirements}>
+              <Text style={styles.requirementText}>
+                {Office[vacancySelected.cargo]}
               </Text>
-              <Text style={styles.boldText}>Confira o que é preciso </Text>
+              <Text style={styles.requirementText}>
+                {Contract[vacancySelected.contract]}
+              </Text>
             </View>
-            <Text> • {vacancySelected.content}</Text>
+          </View>
+          <View style={styles.companyInfo}>
+            <View>
+              <Text style={styles.companyTitle}>
+                {vacancySelected.enterprise}
+              </Text>
+              <Text style={styles.companyLocation}>
+                {vacancySelected.location}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.boldText}>Salário</Text>
+              <Text style={styles.vacancyRemuneration}>
+                {convertToCurrency(vacancySelected.remuneration)}
+              </Text>
+            </View>
           </View>
         </View>
-        <View style={[styles.card, styles.benefitsCard]}>
-          <Text style={styles.cardTitle}>Benefícios</Text>
-          <View style={styles.benefitsContent}>
-            {vacancySelected.benefits.map((benefit, index) => (
-              <Text key={index}>• {benefit}</Text>
+        <View style={styles.containerContent}>
+          <View style={styles.habilitiesContainer}>
+            {vacancySelected.requirements.map((hability, i) => (
+              <Text
+                key={i}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.hability}
+              >
+                {hability}
+              </Text>
             ))}
           </View>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Sobre</Text>
+            <View style={styles.aboutContent}>
+              <View>
+                <Text style={styles.boldText}>
+                  Quer fazer parte do nosso time?
+                </Text>
+                <Text style={styles.boldText}>Confira o que é preciso </Text>
+              </View>
+              <Text> • {vacancySelected.content}</Text>
+            </View>
+          </View>
+          <View style={[styles.card, styles.benefitsCard]}>
+            <Text style={styles.cardTitle}>Benefícios</Text>
+            <View style={styles.benefitsContent}>
+              {vacancySelected.benefits.map((benefit, index) => (
+                <Text key={index}>• {benefit}</Text>
+              ))}
+            </View>
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View style={styles.containerFooter}>
         <TouchableOpacity
           style={styles.button}
@@ -175,6 +175,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingTop: Spacing.medium,
     backgroundColor: Colors.white,
+  },
+  scrollContainer: {
+    // Novo estilo para ScrollView
+    paddingBottom: Spacing.large, // Adiciona espaço inferior para melhor scroll
   },
   containerHeader: {
     width: "100%",
