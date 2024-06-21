@@ -178,6 +178,36 @@ Os resultados obtidos nos testes de software realizados são descritos abaixo j�
 <p align="center"><i>Figura 13 - Retorno de vagas filtradas</i></p>
 
 
+### CT-005 Candidatura
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/0812a49e-0307-4b3e-84e4-bca8f1210b2f" alt="Figura 14 - Visualização de vaga para usuário candidato"/>
+</p>
+<p align="center"><i>Figura 14 - Visualização de vaga para usuário candidato</i></p>
+
+### CT-006 Visualização de Candidaturas
+Funcionalidade não aplicada.
+
+### CT-007 Notificações para Usuário Candidato
+Funcionalidade não aplicada.
+
+### CT-008 Cadastro de Usuário Recrutador
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/5152dbe4-bc82-4dc4-9b06-18b9cba124a2" alt="Figura 15 - Credenciais inválidas para cadastro"/>
+</p>
+<p align="center"><i>Figura 15 - Credenciais inválidas para cadastro</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/cd95e9ea-5f25-47ba-a669-63a50f0a6851" alt="Figura 16 - Usuário recrutador cadastrado com sucesso"/>
+</p>
+<p align="center"><i>Figura 16 - Usuário recrutador cadastrado com sucesso</i></p>
+
+<p align="center">
+  <img src="https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2024-1-e3-proj-mov-t6-pmv-ads-2024-1-e3-proj-recrutech/assets/128100886/4baa06db-0e65-4cec-b264-08c03cfc1154" alt="Figura 16 - Usuário recrutador cadastrado com sucesso"/>
+</p>
+<p align="center"><i>Figura 17 - Usuário recrutador cadastrado com sucesso</i></p>
+
+
+
 
 
 
