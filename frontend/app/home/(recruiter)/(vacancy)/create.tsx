@@ -119,15 +119,13 @@ const VacancyForm = (): React.JSX.Element => {
       contract: contractTypesState.value as unknown as Contract,
     };
 
-    console.log(data);
-
-    // createVacancy(data)
-    //   .then(() => {
-    //     router.replace("/home/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    createVacancy(data)
+      .then(() => {
+        router.replace("/home/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

@@ -57,6 +57,10 @@ export default function Login() {
     formState: { errors },
   } = useForm<AuthInterfaces.Send>({
     resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: "matheus.rocha@mail.com",
+      password: "123456",
+    },
   });
 
   const onSubmit: SubmitHandler<AuthInterfaces.Send> = async (
