@@ -293,6 +293,9 @@ const ProfileComponent = (): JSX.Element => {
 
         <FlatList
           data={getUserRecomendationsOrDefault(recommendations)}
+          style={{
+            gap: 12,
+          }}
           renderItem={({ item, index }) => (
             <RecommendationComponent
               key={index}
